@@ -33,7 +33,7 @@ To test:
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Write your code **and unit tests**
-4. Ensure all tests still pass (`bundle exec rspec`)
+4. Ensure all tests still pass (`phpunit --exclude-group suite --bootstrap bootstrap.php test/`)
 5. Commit your changes (`git commit -am 'Add some feature'`)
 6. Push to the branch (`git push origin my-new-feature`)
 7. Create new pull request
