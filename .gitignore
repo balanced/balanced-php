@@ -1,0 +1,9 @@
+# composer
+.buildpath
+composer.lock
+composer.phar
+vendor
+
+# eclipse-pdt
+.settings
+.project

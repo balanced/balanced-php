@@ -1,0 +1,23 @@
+{
+    "name": "balanced/balanced",
+    "description": "Client for Balanced API",
+    "homepage": "http://github.com/balanced/balanced-php",
+    "license": "MIT",
+    "keywords": ["payments", "api"],
+    "version": "0.1",
+    "authors": [
+        {
+            "name": "Balanced",
+            "email": "dev@balancedpayments.com",
+            "homepage": "http://www.balancedpayments.com"
+        }
+    ],
+    "require": {
+        "nategood/httpful": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Balanced": "src/"
+        }
+    }
+}
