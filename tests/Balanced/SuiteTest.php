@@ -349,5 +349,22 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             return;
         }
         $this->fail('Expected exception HTTPError not raised.');
-    }    
+    }
+   
+    function testInternationalCard()
+    {
+        $payload = array(
+            'card_number' => '4111111111111111',
+            'city' => '\xe9\x83\xbd\xe7\x95\x99\xe5\xb8\x82',
+            'country_code' => 'JPN',
+            'expiration_month' => 12,
+            'expiration_year' => 2014,
+            'name' => 'Johnny Fresh',
+            'postal_code' => '4020054',
+            'region' => '\xe5\xb1\xb1\xe6\xa2\xa8\xe7\x9c\x8c',
+            'street_address' => '\xe7\x94\xb0\xe5\x8e\x9f\xef\xbc\x93\xe3\x83\xbc\xef\xbc\x98\xe3\x83\xbc\xef\xbc\x91'
+            );
+        $card = self::$marketplace->cards->create($payload);
+        $this->assertEquals($card->street_address, $payload['street_address']);
+    }
 }
