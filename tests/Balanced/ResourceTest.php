@@ -3,6 +3,7 @@
 namespace Balanced\Test;
 
 use Balanced\Core\Resource;
+use Balanced\Core\Collection;
 use Balanced\Settings;
 use Balanced\APIKey;
 use Balanced\Marketplace;
@@ -13,6 +14,7 @@ use Balanced\Account;
 use Balanced\Merchant;
 use Balanced\BankAccount;
 use Balanced\Card;
+use Balanced\Hold;
 
 class SettingsTest extends \PHPUnit_Framework_TestCase
 {
@@ -68,14 +70,82 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
     
     function testCreateCard()
     {
+        $collection = $this->getMock(
+            '\Balanced\Core\Collection',
+            array('create'),
+            array('\Balanced\Card', 'some/uri', null)
+            );
+
+        $collection->expects($this->once())
+                   ->method('create')
+                   ->with(array(
+                       'street_address' => '123 Fake Street',
+                       'city' => 'Jollywood',
+                       'region' => 'CA',
+                       'postal_code' => '90210',
+                       'name' => 'khalkhalash',
+                       'card_number' => '4112344112344113',
+                       'expiration_month' => 12,
+                       'expiration_year' => 2013,
+                       ));
+        
+        $marketplace = new Marketplace(array('cards' => $collection));
+        $marketplace->createCard(
+            '123 Fake Street',
+            'Jollywood',
+            'CA',
+            '90210',
+            'khalkhalash',
+            '4112344112344113',
+            12,
+            2013);
     }
     
     function testCreateBankAccount()
     {
+        $collection = $this->getMock(
+            '\Balanced\Core\Collection',
+            array('create'),
+            array('\Balanced\BankAccount', 'some/uri', null)
+            );
+        
+        $collection->expects($this->once())
+                   ->method('create')
+                   ->with(array(
+                       'name' => 'Homer Jay',
+                       'account_number' => '112233a',
+                       'bank_code' => '121042882'
+                       ));
+        
+        $marketplace = new Marketplace(array('bank_accounts' => $collection));
+        $marketplace->createBankAccount(
+            'Homer Jay',
+            '112233a',
+            '121042882');
     }
     
     function testCreateBuyer()
     {
+        $collection = $this->getMock(
+            '\Balanced\Core\Collection',
+            array('create'),
+            array('\Balanced\Account', 'some/uri', null)
+            );
+        
+        $collection->expects($this->once())
+                   ->method('create')
+                   ->with(array(
+                       'email_address' => 'buyer@example.com',
+                       'card_uri' => '/some/card/uri',
+                       'meta' => array('test#' => 'test_d')
+                       ));
+        
+        $marketplace = new Marketplace(array('accounts' => $collection));
+        $marketplace->createBuyer(
+            'buyer@example.com',
+            '/some/card/uri',
+            array('test#' => 'test_d')
+            );
     }
 }
 
@@ -100,22 +170,104 @@ class AccountTest extends \PHPUnit_Framework_TestCase
 
     function testCredit()
     {
+        $collection = $this->getMock(
+            '\Balanced\Core\Collection',
+            array('create'),
+            array('\Balanced\Credit', 'some/uri', null)
+        );
+        
+        $collection
+            ->expects($this->once())
+            ->method('create')
+            ->with(array(
+               'amount' => 101,
+               'description' => 'something sweet',
+               'meta' => null,
+               ));
+        
+        $account = new Account(array('credits' => $collection));
+        $account->credit(101, 'something sweet');
     }
     
     function testDebit()
     {
+        $collection = $this->getMock(
+            '\Balanced\Core\Collection',
+            array('create'),
+            array('\Balanced\Debit', 'some/uri', null)
+            );
+        
+        $collection
+            ->expects($this->once())
+            ->method('create')
+            ->with(array(
+                'amount' => 9911,
+                'description' => 'something tangy',
+                'meta' => null,
+                'appears_on_statement_as' => 'BAL*TANG',                       
+                ));
+        
+        $account = new Account(array('debits' => $collection));
+        $account->debit(9911, 'BAL*TANG', 'something tangy');
     }
     
     function testHold()
     {
+        $collection = $this->getMock(
+            '\Balanced\Core\Collection',
+            array('create'),
+            array('\Balanced\Hold', 'some/uri', null)
+            );
+        
+        $collection
+            ->expects($this->once())
+            ->method('create')
+            ->with(array(
+                'amount' => 1243,
+                'description' => 'something crispy',
+                'source_uri' => '/some/card/uri',
+                'meta' => array('test#' => 'test_d')
+                ));
+
+        $account = new Account(array('holds' => $collection));
+        $account->hold(
+            1243,
+            'something crispy',
+            '/some/card/uri',
+            array('test#' => 'test_d')
+            );
     }
     
     function testAddCard()
     {
+        $account = $this->getMock(
+            '\Balanced\Account',
+            array('save')
+            );
+        
+        $account
+            ->expects($this->once())
+            ->method('save')
+            ->with();
+        
+        $account->addCard('/my/new/card/121212');
+        $this->assertEquals($account->card_uri, '/my/new/card/121212');
     }
     
     function testAddBankAccount()
     {
+        $account = $this->getMock(
+            '\Balanced\Account',
+            array('save')
+            );
+        
+        $account
+            ->expects($this->once())
+            ->method('save')
+            ->with();
+        
+        $account->addBankAccount('/my/new/bank_account/121212');
+        $this->assertEquals($account->bank_account_uri, '/my/new/bank_account/121212');
     }
 }
 
@@ -140,10 +292,41 @@ class HoldTest extends \PHPUnit_Framework_TestCase
     
     function testVoid()
     {
+        $hold = $this->getMock(
+            '\Balanced\Hold',
+            array('save')
+            );
+        
+        $hold
+            ->expects($this->once())
+            ->method('save')
+            ->with();
+        
+        $hold->void();
+        $this->assertTrue($hold->is_void);
     }
     
     function testCapture()
     {
+        $collection = $this->getMock(
+            '\Balanced\Core\Collection',
+            array('create'),
+            array('\Balanced\Debit', 'some/uri', null)
+            );
+        
+        $collection
+            ->expects($this->once())
+            ->method('create')
+            ->with(array(
+                'hold_uri' => 'some/hold/uri',
+                'amount' => 2211,
+                ));
+
+        $account = new Account(array('debits' => $collection));
+        
+        $hold = new Hold(array('uri' => 'some/hold/uri', 'account' => $account));
+        
+        $hold->capture(2211);
     }
 }
 
@@ -188,7 +371,24 @@ class DebitTest extends \PHPUnit_Framework_TestCase
     
     function testRefund()
     {
-         
+        $collection = $this->getMock(
+            '\Balanced\Core\Collection',
+            array('create'),
+            array('\Balanced\Refund', 'some/uri', null)
+        );
+        
+        $collection
+            ->expects($this->once())
+            ->method('create')
+            ->with(array(
+                'amount' => 5645,
+                'description' => null,
+                'meta' => array('test#' => 'test_d')
+                ));
+        
+        $debit = new Debit(array('refunds' => $collection));
+        
+        $debit->refund(5645, null, array('test#' => 'test_d'));
     }
 }
 

@@ -38,7 +38,8 @@ use Balanced\Settings;
  * \Balanced\Settings::$api_key = $new_secret;
  *
  * \Balanced\APIKey::query()
- *     ->sort().first(\Balanced\APIKey::f->created_at.desc())
+ *     ->sort(\Balanced\APIKey::f->created_at->desc())
+ *     ->first()
  *     ->delete();
  * </code> 
  */

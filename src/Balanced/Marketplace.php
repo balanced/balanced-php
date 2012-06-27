@@ -29,7 +29,6 @@ use Balanced\Core\URISpec;
  * \Balanced\Settings::$api_key = $secret;
  * $marketplace = \Balanced\Marketplace::mine();  // this is the marketplace associated with $secret  
  * </code>
- * 
  */
 class Marketplace extends Resource
 {

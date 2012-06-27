@@ -16,7 +16,7 @@ use Balanced\Core\URISpec;
  * $account = $marketplace
  *     ->accounts
  *     ->query()
- *     ->filter(Account::f->email_address.eq('buyer@example.com'))
+ *     ->filter(Account::f->email_address->eq('buyer@example.com'))
  *     ->one();
  *     
  * $debit = $account->debit(

@@ -184,7 +184,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     {
         $buyer = self::_createBuyer();
         $hold = $buyer->hold(1000);
-        $debit = $hold->capture(9090);
+        $debit = $hold->capture(909);
         $this->assertEquals($debit->account->id, $buyer->id);
         $this->assertEquals($debit->hold->id, $hold->id);
         $this->assertEquals($hold->debit->id, $debit->id);

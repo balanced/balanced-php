@@ -16,7 +16,7 @@ use Balanced\Core\URISpec;
  * $account = $marketplace
  *     ->accounts
  *     ->query()
- *     ->filter(Account::f->email_address.eq('merchant@example.com'))
+ *     ->filter(Account::f->email_address->eq('merchant@example.com'))
  *     ->one();
  * 
  * $credit = $account->credit(

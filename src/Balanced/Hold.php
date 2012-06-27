@@ -22,7 +22,7 @@ use Balanced\Core\URISpec;
  * $account = $marketplace
  *     ->accounts
  *     ->query()
- *     ->filter(Account::f->email_address.eq('buyer@example.com'))
+ *     ->filter(Account::f->email_address->eq('buyer@example.com'))
  *     ->one();
  *     
  * $hold = $account->hold(
@@ -71,7 +71,7 @@ class Hold extends Resource
     {
         $this->debit = $this->account->debits->create(array(
             'hold_uri' => $this->uri,
-            'amount' => null,
+            'amount' => $amount,
             ));
         return $this->debit;
     }
