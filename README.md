@@ -23,17 +23,26 @@ Or download the repository and `require` it:
 See https://www.balancedpayments.com/docs/php for tutorials and documentation.
 
 ## Testing
-
-To test:
     
+    $ phpunit --bootstrap bootstrap.php tests/
+    
+Or if you'd like to skip network calls:
+
     $ phpunit --exclude-group suite --bootstrap bootstrap.php tests/
 
 ## Contributing
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Write your code **and unit tests**
-4. Ensure all tests still pass (`phpunit --exclude-group suite --bootstrap bootstrap.php tests/`)
+3. Write your code **and tests**
+4. Ensure all tests still pass (`phpunit --bootstrap bootstrap.php tests/`)
 5. Commit your changes (`git commit -am 'Add some feature'`)
 6. Push to the branch (`git push origin my-new-feature`)
 7. Create new pull request
+
+## Publishing
+
+1. Increment minor `VERSION` in `src/Balanced/Settings` (`git commit -am 'vVERSION release'`).
+2. Tag it (`git tag -a vVERSION -m 'vVERSION release'`).
+3. Push the tag (`git push --tag`).
+4. [Packagist](http://packagist.org/packages/balanced/balanced) will see the new tag and take it from there.

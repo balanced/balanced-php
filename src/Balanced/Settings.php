@@ -25,7 +25,7 @@ class Settings
     const VERSION = '0.1';
     
     public static $url_root = 'https://api.balancedpayments.com',
-                   $api_key= null;
+                  $api_key = null;
     
     /**
      * Configure all settings.

@@ -16,15 +16,6 @@ use Balanced\BankAccount;
 use Balanced\Card;
 use Balanced\Hold;
 
-class SettingsTest extends \PHPUnit_Framework_TestCase
-{
-    function testConfigure()
-    {
-        Settings::configure('https://api.example.com', 'my-api-key');
-        $this->assertEquals(Settings::$url_root, 'https://api.example.com');
-        $this->assertEquals(Settings::$api_key, 'my-api-key');
-    }
-}
 
 class APIKeyTest extends \PHPUnit_Framework_TestCase
 {
@@ -448,6 +439,27 @@ class CardTest extends \PHPUnit_Framework_TestCase
             'class' => 'Balanced\Card',
             'ids' => array('id' => '136asd6713'),
             );
+        $this->assertEquals($expected, $result);
+    }
+}
+
+
+class MerchantTest extends \PHPUnit_Framework_TestCase
+{
+    function testRegistry()
+    {
+        $result = Resource::getRegistry()->match('/v1/merchants');
+        $expected = array(
+            'collection' => true,
+            'class' => 'Balanced\Merchant',
+        );
+        $this->assertEquals($expected, $result);
+        $result = Resource::getRegistry()->match('/v1/merchants/136asd6713');
+        $expected = array(
+            'collection' => false,
+            'class' => 'Balanced\Merchant',
+            'ids' => array('id' => '136asd6713'),
+        );
         $this->assertEquals($expected, $result);
     }
 }

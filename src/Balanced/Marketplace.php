@@ -43,7 +43,8 @@ class Marketplace extends Resource
     /**
      * Get the marketplace associated with the currently configured
      * \Balanced\Settings::$api_key. 
-     * 
+     *
+     * @throws \Balanced\Exceptions\NoResult
      * @return \Balanced\Marketplace
      */
     public static function mine()
@@ -133,9 +134,9 @@ class Marketplace extends Resource
      * Create a merchant account.
      * 
      * Unlike buyers the identity of a merchant must be established before
-     * accounts for them can be created on a marketplace. A merchant can be
-     * either a person or a business. Either way that information is
-     * represented as an assocaitive array and passed as the merchant parameter
+     * the account can function as a merchant (i.e. be credited). A merchant
+     * can be either a person or a business. Either way that information is
+     * represented as an associative array and passed as the merchant parameter
      * when creating the merchant account.
      * 
      * For a person the array looks like this:
@@ -200,7 +201,7 @@ class Marketplace extends Resource
      *     );
      *     
      *  try {
-     *      $merchant = self::$marketplace->createMerchant(
+     *      $merchant = \Balanced\Marketplace::mine()->createMerchant(
      *          'merchant@example.com',
      *          $identity,
      *          );

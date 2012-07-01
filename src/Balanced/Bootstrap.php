@@ -47,5 +47,6 @@ class Bootstrap
         \Balanced\Card::init();
         \Balanced\BankAccount::init();
         \Balanced\Hold::init();
+        \Balanced\Merchant::init();
     }
 }

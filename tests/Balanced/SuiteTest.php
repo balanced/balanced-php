@@ -13,14 +13,22 @@ use Balanced\Merchant;
 use Balanced\BankAccount;
 use Balanced\Card;
 use Balanced\Exceptions\HTTPError;
+use Balanced\Exceptions\NoResultFound;
 
 /**
+ * Suite test cases. These talk to an API server and so make network calls.
+ * 
+ * Enviroment variables can be used to control client settings:
+ * 
+ * <ul>
+ *     <li>$BALANCED_URL_ROOT If set applies to \Balanced\Settings::$url_root.
+ *     <li>$BALANCED_API_KEY If set applies to \Balanced\Settings::$api_key.
+ * </ul>
+ * 
  * @group suite
  */
 class SuiteTest extends \PHPUnit_Framework_TestCase
-{
-    const URL_ROOT = 'http://127.0.0.1:5000';
-    
+{   
     static $key,
            $marketplace,
            $email_counter = 0;
@@ -116,12 +124,32 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     
     public static function setUpBeforeClass()
     {
-        Settings::configure(self::URL_ROOT, null);
-        self::$key = new APIKey();
-        self::$key->save();
-        Settings::configure(self::URL_ROOT, self::$key->secret);
-        self::$marketplace = new Marketplace();
-        self::$marketplace->save();
+        // url root
+        $url_root = getenv('BALANCED_URL_ROOT');
+        if ($url_root != '')
+            Settings::$url_root = $url_root;
+        else
+            Settings::$url_root = 'https://api.balancedpayments.com';
+            
+        // api key
+        $api_key = getenv('BALANCED_API_KEY');
+        if ($api_key != '') {
+            Settings::$api_key = $api_key;
+        }
+        else {
+            self::$key = new APIKey();
+            self::$key->save();
+            Settings::$api_key = self::$key->secret;
+        }
+        
+        // marketplace
+        try {
+            self::$marketplace = Marketplace::mine();
+        }
+        catch(NoResultFound $e) {
+            self::$marketplace = new Marketplace();
+            self::$marketplace->save();
+        }
     }
          
     function testMarketplaceMine()
@@ -157,6 +185,14 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     function testCreateBuyer()
     {
         self::_createBuyer();
+    }
+    
+    
+    function testMe()
+    {
+        $marketplace = Marketplace::mine();
+        $merchant = Merchant::me();
+        $this->assertEquals($marketplace->id, $merchant->marketplace->id);
     }
     
     function testDebitAndRefundBuyer()
@@ -284,6 +320,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $debits = (
             self::$marketplace->debits->query()
             ->filter(Debit::$f->meta->tag->eq('1'))
+            ->sort(Debit::$f->created_at->asc())
             ->all());
         $debit_ids = array_map($getId, $debits);
         $this->assertEquals($debit_ids, array($debit1->id, $debit2->id));
@@ -298,6 +335,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $debits = (
             self::$marketplace->debits->query()
             ->filter(Debit::$f->meta->contains('tag'))
+            ->sort(Debit::$f->created_at->asc())
             ->all());
         $debit_ids = array_map($getId, $debits);
         $this->assertEquals($debit_ids, array($debit1->id, $debit2->id, $debit3->id));

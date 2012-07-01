@@ -67,7 +67,7 @@ class Account extends Resource
      * 
      * @param int amount Amount to debit the account in USD pennies.   
      * @param string appears_on_statement_as What this debit should appear as on the account's billing statement.
-     * @param string description Description of the debit.
+     * @param string description Optional description of the debit.
      * @param array[string]string meta Optional metadata to associate with the debit.
      * 
      * @return \Balanced\Debit
@@ -75,7 +75,7 @@ class Account extends Resource
     public function debit(
         $amount,
         $appears_on_statement_as,
-        $description,
+        $description = null,
         $meta = null)
     {
         return $this->debits->create(array(
@@ -119,6 +119,8 @@ class Account extends Resource
      * account will be updated to the card. 
      * 
      * @param string card_uri URI referencing a card to add.
+     * 
+     * @return Balanced\Account
      */
     public function addCard($card_uri)
     {
@@ -132,6 +134,8 @@ class Account extends Resource
      * destination for this account will be updated to the bank account.
      * 
      * @param string bank_account_uri URI referencing a bank account to add.
+     
+     * @return Balanced\Account
      */
     public function addBankAccount($bank_account_uri)
     {
