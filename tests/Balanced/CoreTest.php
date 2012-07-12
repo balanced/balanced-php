@@ -2,13 +2,15 @@
 
 namespace Balanced\Test;
 
+\Balanced\Bootstrap::init();
+\Httpful\Bootstrap::init();
+
 use Balanced\Core\URISpec;
 use Balanced\Core\Client;
 use Balanced\Core\Resource;
 use Balanced\Core\Query;
 use Balanced\Core\Page;
 use Balanced\Marketplace;
-
 
 class URISpecTest extends \PHPUnit_Framework_TestCase
 {

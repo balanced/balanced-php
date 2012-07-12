@@ -2,6 +2,9 @@
 
 namespace Balanced\Test;
 
+\Balanced\Bootstrap::init();
+\Httpful\Bootstrap::init();
+
 use Balanced\Settings;
 use Balanced\APIKey;
 use Balanced\Marketplace;

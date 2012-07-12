@@ -2,6 +2,9 @@
 
 namespace Balanced\Test;
 
+\Balanced\Bootstrap::init();
+\Httpful\Bootstrap::init();
+
 use Balanced\Core\Resource;
 use Balanced\Core\Collection;
 use Balanced\Settings;

@@ -9,12 +9,14 @@ class Bootstrap
 {
     const DIR_SEPARATOR = DIRECTORY_SEPARATOR;
     const NAMESPACE_SEPARATOR = '\\';
+
+    public static $initialized = false;
     
     
     public static function init()
     {
         spl_autoload_register(array('\Balanced\Bootstrap', 'autoload'));
-        self::_initResources();
+        self::initializeResources();
     }
     
     public static function autoload($classname)
@@ -30,13 +32,16 @@ class Bootstrap
     }
 
     /**
-     * Initializes resources (i.e. registers then with Resource::_registry). Note
-     * that if you add a Resource the you must initialized it here.
+     * Initializes resources (i.e. registers them with Resource::_registry). Note
+     * that if you add a Resource then you must initialize it here.
      * 
      * @internal
      */
-    private static function _initResources()
+    private static function initializeResources()
     {
+    	if (self::$initialized)
+    		return;
+    	 
         \Balanced\Core\Resource::init();
         \Balanced\APIKey::init();
         \Balanced\Marketplace::init();
@@ -48,5 +53,7 @@ class Bootstrap
         \Balanced\BankAccount::init();
         \Balanced\Hold::init();
         \Balanced\Merchant::init();
+        
+        self::$initialized = true;
     }
 }
