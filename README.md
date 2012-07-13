@@ -45,7 +45,7 @@ Or if you'd like to skip network calls:
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Write your code **and tests**
-4. Ensure all tests still pass (`phpunit --bootstrap bootstrap.php tests/`)
+4. Ensure all tests still pass (`phpunit --bootstrap vendor/autoload.php tests/`)
 5. Commit your changes (`git commit -am 'Add some feature'`)
 6. Push to the branch (`git push origin my-new-feature`)
 7. Create new pull request
