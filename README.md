@@ -38,7 +38,7 @@ Or if you'd like to skip network calls:
 
     $ cd examples
     $ composer.phar install
-    $ php -S localhost:8080 example.php
+    $ php -S localhost:8080 buyer-example.php
 
 ## Contributing
 
