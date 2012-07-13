@@ -18,9 +18,11 @@ if ($page == '/') {
 		$email_address = $_POST['email_address'];
 		$card_uri = $_POST['uri'];
 		try {
-			return create_buyer($email_address, $card_uri)->uri;	
+            echo create_buyer($email_address, $card_uri)->uri;  
+			return;
 		} catch (Balanced\Exceptions\HTTPError $e) {
-			return $e->getMessage();
+            echo $e->getMessage();
+			return;
 		}
 	}
 }
