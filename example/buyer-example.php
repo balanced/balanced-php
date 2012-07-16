@@ -11,46 +11,46 @@ Balanced\Settings::$api_key = $API_KEY_SECRET;
 $marketplace = Balanced\Marketplace::mine();
 
 if ($page == '/') {
-	// do nothing
+    // do nothing
 } elseif ($page == '/buyer') {
-	if (isset($_POST['uri']) and isset($_POST['email_address'])) {
-		// create in balanced
-		$email_address = $_POST['email_address'];
-		$card_uri = $_POST['uri'];
-		try {
+    if (isset($_POST['uri']) and isset($_POST['email_address'])) {
+        // create in balanced
+        $email_address = $_POST['email_address'];
+        $card_uri = $_POST['uri'];
+        try {
             echo create_buyer($email_address, $card_uri)->uri;  
-			return;
-		} catch (Balanced\Exceptions\HTTPError $e) {
+            return;
+        } catch (Balanced\Exceptions\HTTPError $e) {
             echo $e->getMessage();
-			return;
-		}
-	}
+            return;
+        }
+    }
 }
   
 function create_buyer($email_address, $card_uri) {
     $marketplace = Balanced\Marketplace::mine();
-	try {
-	    # new buyer
-	    $buyer = $marketplace->createBuyer(
-	        $email_address,
-	        $card_uri);
-	}
-	catch (Balanced\Exceptions\HTTPError $e) {
-	    if ($e->category_code == 'duplicate-email-address') {
-	        # oops, account for $email_address already exists so just add the card
-	        $buyer = $marketplace
-	            ->accounts
-	            ->query()
-	            ->filter(Balanced\Account::$f->email_address->eq($email_address))
-	            ->one();
-	        $buyer->addCard($card_uri);	
-	    }
-	    else {
-	    	throw $e;
-	    }
-	        
-	}
-	return $buyer;
+    try {
+        # new buyer
+        $buyer = $marketplace->createBuyer(
+            $email_address,
+            $card_uri);
+    }
+    catch (Balanced\Exceptions\HTTPError $e) {
+        if ($e->category_code == 'duplicate-email-address') {
+            # oops, account for $email_address already exists so just add the card
+            $buyer = $marketplace
+                ->accounts
+                ->query()
+                ->filter(Balanced\Account::$f->email_address->eq($email_address))
+                ->one();
+            $buyer->addCard($card_uri);    
+        }
+        else {
+            throw $e;
+        }
+            
+    }
+    return $buyer;
 }
 
 ?>
@@ -76,10 +76,10 @@ function create_buyer($email_address, $card_uri) {
 <div class="row">
     <div class="span6">
         <form id="payment">
-        	<div>
+            <div>
                 <label>Email Address</label>
                 <input name="email_address" value="bob@example.com">
-        	</div>
+            </div>
             <div>
                 <label>Card Number</label>
                 <input name="card_number" value="4111111111111111" autocomplete="off">
@@ -113,7 +113,7 @@ function create_buyer($email_address, $card_uri) {
     }
 
     function accountCreated(response) {
-    	debug('code', 'account create result: ' + response);
+        debug('code', 'account create result: ' + response);
     }
 
     function balancedCallback(response) {
@@ -123,8 +123,8 @@ function create_buyer($email_address, $card_uri) {
             case 201:
                 // response.data.uri == uri of the card resource, submit to your server
                 $.post('/buyer', {
-                	uri: response.data.uri,
-                	email_address: $('[name="email_address"]').val()
+                    uri: response.data.uri,
+                    email_address: $('[name="email_address"]').val()
                 }, accountCreated);
             case 400:
             case 403:

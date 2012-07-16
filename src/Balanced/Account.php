@@ -66,7 +66,7 @@ class Account extends Resource
      * Debit the account.
      * 
      * @param int amount Amount to debit the account in USD pennies.   
-     * @param string appears_on_statement_as What this debit should appear as on the account's billing statement.
+     * @param string appears_on_statement_as Optional description of this debit as it should appear on the account's billing statement.
      * @param string description Optional description of the debit.
      * @param array[string]string meta Optional metadata to associate with the debit.
      * 
@@ -74,7 +74,7 @@ class Account extends Resource
      */
     public function debit(
         $amount,
-        $appears_on_statement_as,
+        $appears_on_statement_as = null,
         $description = null,
         $meta = null)
     {
@@ -140,6 +140,21 @@ class Account extends Resource
     public function addBankAccount($bank_account_uri)
     {
         $this->bank_account_uri = $bank_account_uri;
+        return $this->save();
+    }
+    
+    /**
+     * Promotes a role-less or buyer account to a merchant a bank account with
+     * the account. See Balanced\Marketplace::createMerchant for details about
+     * merchant creation. 
+     *
+     * @param mixed merchant Either an associative array describing the merchants identity or a string containing the a uri for a merchant.
+     *       
+     * @return Balanced\Account
+     */
+    public function promoteToMerchant($merchant)
+    {
+        $this->merchant = $merchant;
         return $this->save();
     }
 }

@@ -23,7 +23,7 @@ class Page
         $this->total = $data->total;
         $this->items = array_map(
             function($x) { return new $this->resource($x); },
-        	$data->items);
+            $data->items);
         $this->_first_uri = $data->first_uri;
         $this->_previous_uri = $data->previous_uri;
         $this->_next_uri = $data->next_uri;

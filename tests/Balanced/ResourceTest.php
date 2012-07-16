@@ -79,6 +79,7 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
                        'postal_code' => '90210',
                        'name' => 'khalkhalash',
                        'card_number' => '4112344112344113',
+                       'security_code' => '123',
                        'expiration_month' => 12,
                        'expiration_year' => 2013,
                        ));
@@ -91,10 +92,11 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
             '90210',
             'khalkhalash',
             '4112344112344113',
+            '123',
             12,
             2013);
     }
-    
+
     function testCreateBankAccount()
     {
         $collection = $this->getMock(
@@ -116,6 +118,28 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
             'Homer Jay',
             '112233a',
             '121042882');
+    }
+    
+    function testCreateAccount()
+    {
+        $collection = $this->getMock(
+            '\Balanced\Core\Collection',
+            array('create'),
+            array('\Balanced\Account', 'some/uri', null)
+            );
+    
+        $collection->expects($this->once())
+        ->method('create')
+        ->with(array(
+            'email_address' => 'role-less@example.com',
+            'meta' => array('test#' => 'test_d')
+             ));
+    
+        $marketplace = new Marketplace(array('accounts' => $collection));
+        $marketplace->createAccount(
+            'role-less@example.com',
+            array('test#' => 'test_d')
+            );
     }
     
     function testCreateBuyer()
@@ -262,6 +286,33 @@ class AccountTest extends \PHPUnit_Framework_TestCase
         
         $account->addBankAccount('/my/new/bank_account/121212');
         $this->assertEquals($account->bank_account_uri, '/my/new/bank_account/121212');
+    }
+    
+    function testPromotToMerchant()
+    {
+        $account = $this->getMock(
+            '\Balanced\Account',
+            array('save')
+            );
+    
+        $account
+            ->expects($this->once())
+            ->method('save')
+            ->with();
+    
+        $merchant = array(
+            'type' => 'person',
+            'name' => 'William James',
+            'tax_id' => '393-48-3992',
+            'street_address' => '167 West 74th Street',
+            'postal_code' => '10023',
+            'dob' => '1842-01-01',
+            'phone_number' => '+16505551234',
+            'country_code' => 'USA'
+            );
+
+        $account->promoteToMerchant($merchant);
+        $this->assertEquals($account->merchant, $merchant);
     }
 }
 

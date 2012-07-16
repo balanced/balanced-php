@@ -39,9 +39,9 @@ class Bootstrap
      */
     private static function initializeResources()
     {
-    	if (self::$initialized)
-    		return;
-    	 
+        if (self::$initialized)
+            return;
+         
         \Balanced\Core\Resource::init();
         \Balanced\APIKey::init();
         \Balanced\Marketplace::init();

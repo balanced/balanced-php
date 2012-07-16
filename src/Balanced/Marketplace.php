@@ -56,12 +56,13 @@ class Marketplace extends Resource
      * Create a card. These can later be associated with an account using
      * \Balanced\Account->addCard or \Balanced\Marketplace->createBuyer. 
      * 
-     * @param string street_address Street address.
-     * @param string city City.
-     * @param string region Region (e.g. state for US cards, province for Canadian cards, etc).
-     * @param string postal_code Postal code.
+     * @param string street_address Street address. Use null if there is no address for the card.
+     * @param string city City. Use null if there is no address for the card.
+     * @param string region Region (e.g. state for US cards, province for Canadian cards, etc). Use null if there is no address for the card.
+     * @param string postal_code Postal code. Use null if there is no address for the card.
      * @param string name Name as it appears on the card.
      * @param string card_number Card number.
+     * @param string security_code Card security code. Use null if it is no available.
      * @param int expiration_month Expiration month.
      * @param int expiration_year Expiration year.
      * 
@@ -74,6 +75,7 @@ class Marketplace extends Resource
         $postal_code,
         $name,
         $card_number,
+        $security_code,
         $expiration_month,
         $expiration_year)
     {
@@ -84,6 +86,7 @@ class Marketplace extends Resource
             'postal_code' => $postal_code,
             'name' => $name,
             'card_number' => $card_number,
+            'security_code' => $security_code,
             'expiration_month' => $expiration_month,
             'expiration_year' => $expiration_year
             ));
@@ -109,6 +112,24 @@ class Marketplace extends Resource
             'name' => $name,
             'account_number' => $account_number,
             'bank_code' => $bank_code,
+            ));
+    }
+    
+    /**
+     * Create a role-less account. You can later turn this into a buyer by
+     * adding a funding source (e.g a card) or a merchant using
+     * \Balanced\Account->promoteToMerchant.
+     *
+     * @param string email_address Email address. There can only be one account with this email address.
+     * @param array[string]string meta Optional metadata to associate with the account.
+     *
+     * @return \Balanced\Account
+     */
+    public function createAccount($email_address, $meta = null)
+    {
+        return $this->accounts->create(array(
+            'email_address' => $email_address,
+            'meta' => $meta,
             ));
     }
     

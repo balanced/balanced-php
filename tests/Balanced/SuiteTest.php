@@ -58,6 +58,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             '90210',
             'khalkhalash',
             '4112344112344113',
+            null,
             12,
             2013);
     }
@@ -242,7 +243,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException Balanced\Exceptions\HTTPError
      */
-    function testCreditReqeuiresNonZeroAmount()
+    function testCreditRequiresNonZeroAmount()
     {
         $buyer = self::_createBuyer();
         $buyer->debit(
@@ -292,6 +293,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             '90210',
             'khalkhalash',
             '4112344112344113',
+            '123',
             12,
             2013);
         $this->assertEquals($card->last_four, '4113');

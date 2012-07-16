@@ -40,16 +40,18 @@ class Debit extends Resource
     }
     
     /**
-     * Create a refund for this debit.
+     * Create a refund for this debit. You can create multiple refunds for a
+     * debit but the total amount of the refunds must be less than the debit
+     * amount.  
      * 
-     * @param int amount Amount of the refund in USD pennies.   
+     * @param int amount Optional amount of the refund in USD pennies. If unspecified then the full debit amount is used.    
      * @param string description Optional description of the refund.
      * @param array[string]string meta Optional metadata to associate with the refund.
      * 
      * @return \Balanced\Refund
      */
     public function refund(
-        $amount,
+        $amount = null,
         $description = null,
         $meta = null)
     {
