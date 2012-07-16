@@ -28,7 +28,9 @@ class Bootstrap
     {
         $parts = explode(self::NAMESPACE_SEPARATOR, $classname);
         $path = $base . self::DIR_SEPARATOR. implode(self::DIR_SEPARATOR, $parts) . '.php';
-        require_once($path);
+        if (file_exists($path)) {
+            require_once($path);
+        }
     }
 
     /**
