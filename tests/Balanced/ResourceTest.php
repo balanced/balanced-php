@@ -75,7 +75,7 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
                    ->with(array(
                        'street_address' => '123 Fake Street',
                        'city' => 'Jollywood',
-                       'region' => 'CA',
+                       'region' => '',
                        'postal_code' => '90210',
                        'name' => 'khalkhalash',
                        'card_number' => '4112344112344113',
@@ -88,7 +88,7 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
         $marketplace->createCard(
             '123 Fake Street',
             'Jollywood',
-            'CA',
+            '',
             '90210',
             'khalkhalash',
             '4112344112344113',
