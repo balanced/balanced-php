@@ -58,7 +58,6 @@ class Marketplace extends Resource
      * 
      * @param string street_address Street address. Use null if there is no address for the card.
      * @param string city City. Use null if there is no address for the card.
-     * @param string region Region (e.g. state for US cards, province for Canadian cards, etc). Use null if there is no address for the card.
      * @param string postal_code Postal code. Use null if there is no address for the card.
      * @param string name Name as it appears on the card.
      * @param string card_number Card number.
@@ -79,6 +78,10 @@ class Marketplace extends Resource
         $expiration_month,
         $expiration_year)
     {
+        if ($region != null && strlen($region) > 0) {
+            trigger_error("The region parameter will be deprecated in the next minor version of balanced-php", E_USER_NOTICE);
+        }
+
         return $this->cards->create(array(
             'street_address' => $street_address,
             'city' => $city,

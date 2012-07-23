@@ -404,7 +404,6 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             'expiration_year' => 2014,
             'name' => 'Johnny Fresh',
             'postal_code' => '4020054',
-            'region' => '\xe5\xb1\xb1\xe6\xa2\xa8\xe7\x9c\x8c',
             'street_address' => '\xe7\x94\xb0\xe5\x8e\x9f\xef\xbc\x93\xe3\x83\xbc\xef\xbc\x98\xe3\x83\xbc\xef\xbc\x91'
             );
         $card = self::$marketplace->cards->create($payload);
