@@ -8,7 +8,7 @@ use Balanced\Core\URISpec;
 /**
  * Represents an account debit transaction.
  * 
- * You create these using Balanced\Account->debit.
+ * You create these using Balanced\Account::debit.
  * 
  * <code>
  * $marketplace = \Balanced\Marketplace::mine();

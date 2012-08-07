@@ -11,10 +11,9 @@ use Balanced\Core\URISpec;
  * debit, or void it, which releases the held funds.
  * 
  * Note that a hold can expire so you shold always check
- * \Balanced\Hold->expires_at.
+ * Balanced\Hold::expires_at.
  * 
- * You create these using \Balanced\Account->hold.
- *
+ * You create these using \Balanced\Account::hold.
  * 
  * <code>
  * $marketplace = \Balanced\Marketplace::mine();

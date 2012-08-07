@@ -2,6 +2,13 @@
 
 namespace Balanced\Exceptions;
 
+/**
+ * Indicates an HTTP level error has occured. The underlying HTTP response is
+ * stored as response member. The response payload fields if any are stored as
+ * members of the same name. 
+ * 
+ * @see \Httpful\Response
+ */
 class HTTPError extends \Exception
 {
     public $response;

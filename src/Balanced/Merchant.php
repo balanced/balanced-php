@@ -9,15 +9,15 @@ use Balanced\Core\URISpec;
  * Represents a merchant identity.
  * 
  * These are optionally created and associated with an account via
- * \Balanced\Markerplace->createMerchant which establishes a merchant account
+ * \Balanced\Marketplace::createMerchant which establishes a merchant account
  * on a marketplace.
  * 
  * In some cases a merchant may need to be redirected to create a identity (e.g. the
  * information provided cannot be verified, more information is needed, etc). That
  * redirected signup results in a mechant_uri which is then asociated with an
- * account on the marketplace via \Balanced\Markerplace->createMerchant.
+ * account on the marketplace via \Balanced\Marketplace::createMerchant.
  * 
- * @see \Balanced\Markerplace
+ * @see \Balanced\Marketplace
  */
 class Merchant extends Resource
 {

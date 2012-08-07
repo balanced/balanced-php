@@ -52,7 +52,7 @@ Or if you'd like to skip network calls:
 
 ## Publishing
 
-1. Increment minor `VERSION` in `src/Balanced/Settings` and `composer.json` (`git commit -am 'vVERSION release'`)
-2. Tag it (`git tag -a vVERSION -m 'vVERSION release'`)
+1. Increment minor `VERSION` in `src/Balanced/Settings` and `composer.json` (`git commit -am 'v{VERSION} release'`)
+2. Tag it (`git tag -a v{VERSION} -m 'v{VERSION} release'`)
 3. Push the tag (`git push --tag`)
 4. [Packagist](http://packagist.org/packages/balanced/balanced) will see the new tag and take it from there

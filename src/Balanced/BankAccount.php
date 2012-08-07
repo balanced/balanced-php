@@ -8,10 +8,11 @@ use Balanced\Core\URISpec;
 /**
  * Represents an account bank account.
  * 
- * You can create these via Marketplace->bank_accounts->create or
- * Marketplace->createBankAccount. Associate them with a buyer or merchant one
- * creation via Marketplace->createBuyer or Marketplace->createMerchant and
- * with an existing buyer or merchant use Account->addBankAccount.
+ * You can create these via Balanced\Marketplace::bank_accounts::create or
+ * Balanced\Marketplace::createBankAccount. Associate them with a buyer or
+ * merchant one creation via Balanced\Marketplace::createBuyer or
+ * Balanced\Marketplace::createMerchant and with an existing buyer or merchant
+ * use Balanced\Account::addBankAccount.
  * 
  * <code>
  * $marketplace = \Balanced\Marketplace::mine();

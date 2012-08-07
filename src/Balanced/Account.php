@@ -33,6 +33,9 @@ use Balanced\Core\URISpec;
  *         )
  *     );
  * </code>
+ * 
+ * @see Balanced\Marketplace->createBuyer
+ * @see Balanced\Marketplace->createMerchant
  */
 class Account extends Resource
 {
@@ -114,41 +117,49 @@ class Account extends Resource
     }
     
     /**
-     * Associates a card with the account. The card should be created via 
-     * \Balanced\Marketplace->createCard. The default funding source for this
-     * account will be updated to the card. 
+     * Creates or associates a created card with the account. The default
+     * funding source for the account will be this card.
+     * 
+     * @see \Balanced\Marketplace->createCard
      * 
      * @param string card_uri URI referencing a card to add.
      * 
      * @return Balanced\Account
      */
-    public function addCard($card_uri)
+    public function addCard($card)
     {
-        $this->card_uri = $card_uri;
+        if (is_string($card))
+            $this->card_uri = $card;
+        else
+            $this->card = $card;
         return $this->save();
     }
     
     /**
-     * Associates a bank account with the account. The bank account should be
-     * created via \Balanced\Marketplace->createCard. The default funding
-     * destination for this account will be updated to the bank account.
+     * Creates or associates a created bank account with the account. The
+     * default funding destination for the account will be this bank account.
+     * 
+     * @see \Balanced\Marketplace->createBankAccount
      * 
      * @param string bank_account_uri URI referencing a bank account to add.
      
      * @return Balanced\Account
      */
-    public function addBankAccount($bank_account_uri)
+    public function addBankAccount($bank_account)
     {
-        $this->bank_account_uri = $bank_account_uri;
+        if (is_string($bank_account))
+            $this->bank_account_uri = $bank_account;
+        else
+            $this->bank_account = $bank_account;
         return $this->save();
     }
     
     /**
-     * Promotes a role-less or buyer account to a merchant a bank account with
-     * the account. See Balanced\Marketplace::createMerchant for details about
-     * merchant creation. 
+     * Promotes a role-less or buyer account to a merchant.
+     * 
+     * @see Balanced\Marketplace::createMerchant
      *
-     * @param mixed merchant Either an associative array describing the merchants identity or a string containing the a uri for a merchant.
+     * @param mixed merchant An ssociative array describing the merchants identity or a URI referencing a created merchant.
      *       
      * @return Balanced\Account
      */

@@ -8,10 +8,11 @@ use Balanced\Core\URISpec;
 /**
  * Represents an account card.
  * 
- * You can create these via Marketplace->cards->create or
- * Marketplace->createCard. Associate them with a buyer or merchant one
- * creation via Marketplace->createBuyer or Marketplace->createMerchant and
- * with an existing buyer or merchant use Account->addCard.
+ * You can create these via Balanced\Marketplace::cards::create or
+ * Balanced\Marketplace::createCard. Associate them with a buyer or merchant
+ * one creation via Marketplace::createBuyer or
+ * Balanced\Marketplace::createMerchant and with an existing buyer or merchant
+ * use Balanced\Account::addCard.
  * 
  * <code>
  * $marketplace = \Balanced\Marketplace::mine();

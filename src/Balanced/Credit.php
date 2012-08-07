@@ -8,7 +8,7 @@ use Balanced\Core\URISpec;
 /**
  * Represents an account credit transaction.
  * 
- * You create these using Account->credit.
+ * You create these using Balanced\Account::credit.
  * 
  * <code>
  * $marketplace = \Balanced\Marketplace::mine();
