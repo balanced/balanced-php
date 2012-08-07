@@ -130,7 +130,8 @@ class Resource
     public static function get($uri)
     {
         $response = self::getClient()->get($uri);
-        return self($response->body);
+        $class = get_called_class();
+        return new $class($response->body);
     }
     
     public function save()

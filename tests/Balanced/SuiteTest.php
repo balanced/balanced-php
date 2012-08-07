@@ -54,7 +54,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         return self::$marketplace->createCard(
             '123 Fake Street',
             'Jollywood',
-            'CA',
+            null,
             '90210',
             'khalkhalash',
             '4112344112344113',
@@ -192,6 +192,14 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
     
     
+    function testGetBuyer()
+    {
+        $buyer1 = self::_createBuyer();
+        $buyer2 = Account::get($buyer1->uri);
+        $this->assertEquals($buyer1->id, $buyer2->id);
+    }
+    
+    
     function testMe()
     {
         $marketplace = Marketplace::mine();
@@ -289,7 +297,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $card = self::$marketplace->createCard(
             '123 Fake Street',
             'Jollywood',
-            'CA',
+            null,
             '90210',
             'khalkhalash',
             '4112344112344113',
