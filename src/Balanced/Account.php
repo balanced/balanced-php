@@ -53,15 +53,28 @@ class Account extends Resource
      * @param int amount Amount to credit the account in USD pennies.
      * @param string description Optional description of the credit.
      * @param array[string]string meta Optional metadata to associate with the credit.
+     * @param mixed destination Optional URI of a funding destination (i.e. \Balanced\BankAccount) associated with this account to credit. If not specified the funding destination most recently added to the account is used.
+     * @param string appears_on_statement_as Optional description of the credit as it will appears on the customer's billing statement.
      * 
      * @return \Balanced\Credit
      */
-    public function credit($amount, $description = null, $meta = null)
+    public function credit(
+        $amount,
+        $description = null,
+        $meta = null,
+        $destination = null,
+        $appears_on_statement_as = null)
     {
+        if ($destination == null)
+            $destination_uri = null;
+        else
+            $destination_uri = is_string($destination) ? $destination : $destination->uri;
         return $this->credits->create(array(
             'amount' => $amount,
             'description' => $description,
             'meta' => $meta,
+            'destination_uri' => $destination_uri,
+            'appears_on_statement_as' => $appears_on_statement_as
             ));
     }
     
@@ -69,9 +82,10 @@ class Account extends Resource
      * Debit the account.
      * 
      * @param int amount Amount to debit the account in USD pennies.   
-     * @param string appears_on_statement_as Optional description of this debit as it should appear on the account's billing statement.
+     * @param string appears_on_statement_as Optional description of the debit as it will appears on the customer's billing statement.
      * @param string description Optional description of the debit.
      * @param array[string]string meta Optional metadata to associate with the debit.
+     * @param mixed Optional funding source (i.e. \Balanced\Card) or URI of a funding source associated with this account to debit. If not specified the funding source most recently added to the account is used.
      * 
      * @return \Balanced\Debit
      */
@@ -79,14 +93,21 @@ class Account extends Resource
         $amount,
         $appears_on_statement_as = null,
         $description = null,
-        $meta = null)
+        $meta = null,
+        $source = null)
     {
+        if ($source == null)
+            $source_uri = null;
+        else
+            $source_uri = is_string($source) ? $source : $source->uri;
         return $this->debits->create(array(
             'amount' => $amount,
             'appears_on_statement_as' => $appears_on_statement_as,
             'description' => $description,
-            'meta' => $meta)
-            );
+            'meta' => $meta,
+            'source_uri' => $source_uri,
+            'appears_on_statement_as' => $appears_on_statement_as
+            ));
     }
     
     /**
@@ -122,7 +143,7 @@ class Account extends Resource
      * 
      * @see \Balanced\Marketplace->createCard
      * 
-     * @param string card_uri URI referencing a card to add.
+     * @param mixed card \Balanced\Card or URI referencing a card to associate with the account. Alternatively it can be an associative array describing a card to create and associate with the account.
      * 
      * @return Balanced\Account
      */
@@ -130,18 +151,20 @@ class Account extends Resource
     {
         if (is_string($card))
             $this->card_uri = $card;
-        else
+        else if (is_array($card))
             $this->card = $card;
+        else
+            $this->card_uri = $card->uri;
         return $this->save();
     }
     
     /**
      * Creates or associates a created bank account with the account. The
-     * default funding destination for the account will be this bank account.
+     * new default funding destination for the account will be this bank account.
      * 
      * @see \Balanced\Marketplace->createBankAccount
      * 
-     * @param string bank_account_uri URI referencing a bank account to add.
+     * @param mixed bank_account \Balanced\BankAccount or URI for a bank account to assocaite with the account. Alternatively it can be an associative array describing a bank account to create and associate with the account.
      
      * @return Balanced\Account
      */
@@ -149,8 +172,10 @@ class Account extends Resource
     {
         if (is_string($bank_account))
             $this->bank_account_uri = $bank_account;
-        else
+        else if (is_array($bank_account))
             $this->bank_account = $bank_account;
+        else
+            $this->bank_account_uri = $bank_account->uri;
         return $this->save();
     }
     
@@ -159,7 +184,7 @@ class Account extends Resource
      * 
      * @see Balanced\Marketplace::createMerchant
      *
-     * @param mixed merchant An ssociative array describing the merchants identity or a URI referencing a created merchant.
+     * @param mixed merchant Associative array describing the merchants identity or a URI referencing a created merchant.
      *       
      * @return Balanced\Account
      */

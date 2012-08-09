@@ -201,6 +201,8 @@ class AccountTest extends \PHPUnit_Framework_TestCase
                'amount' => 101,
                'description' => 'something sweet',
                'meta' => null,
+               'destination_uri' => null,
+               'appears_on_statement_as' => null
                ));
         
         $account = new Account(array('credits' => $collection));
@@ -221,8 +223,9 @@ class AccountTest extends \PHPUnit_Framework_TestCase
             ->with(array(
                 'amount' => 9911,
                 'description' => 'something tangy',
+                'appears_on_statement_as' => 'BAL*TANG',
                 'meta' => null,
-                'appears_on_statement_as' => 'BAL*TANG',                       
+                'source_uri' => null,
                 ));
         
         $account = new Account(array('debits' => $collection));

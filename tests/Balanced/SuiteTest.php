@@ -49,9 +49,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         );
     }
     
-    static function _createCard()
+    static function _createCard($account = null)
     {
-        return self::$marketplace->createCard(
+        $card = self::$marketplace->createCard(
             '123 Fake Street',
             'Jollywood',
             null,
@@ -61,15 +61,22 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             null,
             12,
             2013);
+        if ($account != null) {
+            $account->addCard($card);
+        }
+        return $card;
     }
     
-    static function _createBankAccount()
+    static function _createBankAccount($account = null)
     {
-        return self::$marketplace->createBankAccount(
+        $bank_account = self::$marketplace->createBankAccount(
             'Homer Jay',
             '112233a',
             '121042882'
             );
+        if ($account != null)
+            $account->addBankAccount($bank_account);
+        return $bank_account;
     }
     
     public static function _createPersonMerchant($email_address = null, $bank_account = null)
@@ -212,11 +219,34 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $buyer = self::_createBuyer();
         $debit = $buyer->debit(
             1000,
-            'something i bought',
             'Softie',
+            'something i bought',
             array('hi' => 'bye')
             );
         $refund = $debit->refund(100);
+    }
+    
+    function testDebitSource()
+    {   
+        $buyer = self::_createBuyer();
+        $card1 = self::_createCard($buyer);
+        $card2 = self::_createCard($buyer);
+
+        $credit = $buyer->debit(
+            1000,
+            'Softie',
+            'something i bought'
+            );
+        $this->assertEquals($credit->source->id, $card2->id);
+        
+        $credit = $buyer->debit(
+            1000,
+            'Softie',
+            'something i bought',
+            null,
+            $card1
+            );
+        $this->assertEquals($credit->source->id, $card1->id);
     }
     
     function testCreateAndVoidHold()
@@ -256,9 +286,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $buyer = self::_createBuyer();
         $buyer->debit(
             1000,
-            'something i bought',
-            'Softie'
-        );
+            'Softie',
+            'something i bought'
+            );
         $merchant = self::_createBusinessMerchant();
         $merchant->credit(0);
     }
@@ -269,13 +299,43 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     function testCreditMoreThanEscrowBalanceFails()
     {
         $buyer = self::_createBuyer();
-        $buyer->debit(
+        $buyer->credit(
             1000,
             'something i bought',
+            null,
+            null,
             'Softie'
             );
         $merchant = self::_createBusinessMerchant();
         $merchant->credit(self::$marketplace->in_escrow + 1);
+    }
+    
+    function testCreditDestiation()
+    {
+        $buyer = self::_createBuyer();
+        $buyer->debit(3000);  # NOTE: build up escrow balance to credit
+        
+        $merchant = self::_createPersonMerchant();
+        $bank_account1 = self::_createBankAccount($merchant);
+        $bank_account2 = self::_createBankAccount($merchant);
+
+        $credit = $merchant->credit(
+            1000,
+            'something i sold',
+            null,
+            null,
+            'Softie'
+            );
+        $this->assertEquals($credit->destination->id, $bank_account2->id);
+        
+        $credit = $merchant->credit(
+            1000,
+            'something i sold',
+            null,
+            $bank_account1,
+            'Softie'
+            );
+        $this->assertEquals($credit->destination->id, $bank_account1->id);
     }
     
     function testAssociateCard()
@@ -416,5 +476,25 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             );
         $card = self::$marketplace->cards->create($payload);
         $this->assertEquals($card->street_address, $payload['street_address']);
+    }
+
+    /**
+     * @expectedException Balanced\Exceptions\NoResultFound
+     */
+    function testAccountWithEmailAddressNotFound()
+    {
+        self::$marketplace->accounts->query()
+            ->filter(Account::$f->email_address->eq('unlikely@address.com'))
+            ->one();
+    }
+    
+    /**
+     * @expectedException Balanced\Exceptions\MultipleResultsFound
+     */
+    function testAccountMultipleResultsFound()
+    {
+        self::_createBuyer();
+        self::_createBuyer();
+        self::$marketplace->accounts->query()->one();
     }
 }
