@@ -9,7 +9,7 @@ namespace Balanced\Exceptions;
  * 
  * @see \Httpful\Response
  */
-class HTTPError extends \Exception
+class HTTPError extends Base
 {
     public $response;
      
