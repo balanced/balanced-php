@@ -98,7 +98,7 @@ $merchant = $marketplace->createMerchant('merchant@example.org',
 print "our buyer is interested in buying something for $130\n";
 $another_debit = $buyer->debit(13000, "MARKETPLACE.COM");
 
-print "let's credit our merchant $110";
+print "let's credit our merchant $110\n";
 $credit = $merchant->credit(11000, "Buyer purchase something on Marketplace.com");
 
 print "let's assume the marketplace charges 15%, so it earned $20\n";
@@ -108,6 +108,10 @@ $mp_credit = $marketplace->owner_account->credit(2000,
 print "ok, let's invalidate the card used so it cannot be used again\n";
 $card->is_valid = false;
 $card->save();
+
+print "how do we look up an existing object from the URI?\n";
+$the_buyer = Balanced\Account::get($buyer->uri);
+print "we got the buyer " . $the_buyer->email_address . "\n";
 
 print "and there you have it :)\n";
 
