@@ -60,21 +60,21 @@ Or if you'd like to skip network calls:
 
 ## Quickstart
 
-   curl -s http://getcomposer.org/installer | php
+    curl -s http://getcomposer.org/installer | php
 
-   echo '{
-       "require": {
-           "balanced/balanced":
-        }
-   }' > composer.json
+    echo '{
+        "require": {
+            "balanced/balanced":
+         }
+    }' > composer.json
 
-   php composer.phar install
+    php composer.phar install
 
-   curl https://raw.github.com/balanced/balanced-php/master/example/example.php > example.php
+    curl https://raw.github.com/balanced/balanced-php/master/example/example.php > example.php
 
-   php example.php
-
-   curl https://raw.github.com/balanced/balanced-php/master/example/buyer-example.php > buyer-example.php
-
-   php -S 127.0.0.1:9321 buyer-example.php 
-   # now open a browser and go to http://127.0.0.1:9321/ to view how to tokenize cards and add to a buyer	
+    php example.php
+ 
+    curl https://raw.github.com/balanced/balanced-php/master/example/buyer-example.php > buyer-example.php
+ 
+    php -S 127.0.0.1:9321 buyer-example.php 
+    # now open a browser and go to http://127.0.0.1:9321/ to view how to tokenize cards and add to a buyer	
