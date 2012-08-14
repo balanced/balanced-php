@@ -6,7 +6,7 @@ Online Marketplace Payments
 
 ## Installation
 
-Balanced is PSR-0 compliant so add this to your `composor.json`:
+Balanced is PSR-0 compliant and uses [Composer](https://github.com/composer/composer), to install add this to your `composer.json`:
 
     {
         "require": {
@@ -56,3 +56,25 @@ Or if you'd like to skip network calls:
 2. Tag it (`git tag -a v{VERSION} -m 'v{VERSION} release'`)
 3. Push the tag (`git push --tag`)
 4. [Packagist](http://packagist.org/packages/balanced/balanced) will see the new tag and take it from there
+
+
+## Quickstart
+
+   curl -s http://getcomposer.org/installer | php
+
+   echo '{
+       "require": {
+           "balanced/balanced":
+        }
+   }' > composer.json
+
+   php composer.phar install
+
+   curl https://raw.github.com/balanced/balanced-php/master/example/example.php > example.php
+
+   php example.php
+
+   curl https://raw.github.com/balanced/balanced-php/master/example/buyer-example.php > buyer-example.php
+
+   php -S 127.0.0.1:9321 buyer-example.php 
+   # now open a browser and go to http://127.0.0.1:9321/ to view how to tokenize cards and add to a buyer	
