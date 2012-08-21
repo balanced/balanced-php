@@ -13,6 +13,10 @@ Balanced is PSR-0 compliant and uses [Composer](https://github.com/composer/comp
             "balanced/balanced": "*"
         }
     }
+    
+If you don't have Composer [install](http://getcomposer.org/doc/00-intro.md#installation) it:
+
+    $ curl -s https://getcomposer.org/installer | php
 
 Or download the repository and `require` it:
 
