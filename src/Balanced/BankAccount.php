@@ -40,4 +40,21 @@ class BankAccount extends Resource
         self::$_uri_spec = new URISpec('bank_accounts', 'id', '/v1');
         self::$_registry->add(get_called_class());
     }
+    
+    public function credit(
+            $amount,
+            $description = null,
+            $meta = null,
+            $appears_on_statement_as = null)
+    {
+        if ($this->account == null) {
+            throw new \UnexpectedValueException('Bank account is not associated with an account.');
+        }
+        return $this->account->credit(
+            $amount,
+            $description,
+            $meta,
+            $this->uri,
+            $appears_on_statement_as);
+    }
 }

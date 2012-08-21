@@ -63,6 +63,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             2013);
         if ($account != null) {
             $account->addCard($card);
+            $card = Card::get($card->uri);
         }
         return $card;
     }
@@ -74,8 +75,10 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             '112233a',
             '121042882'
             );
-        if ($account != null)
+        if ($account != null) {
             $account->addBankAccount($bank_account);
+            $bank_account = BankAccount::get($bank_account->uri);
+        }
         return $bank_account;
     }
     
@@ -487,14 +490,45 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             ->filter(Account::$f->email_address->eq('unlikely@address.com'))
             ->one();
     }
+
+    function testDebitACard()
+    {
+        $buyer = self::_createBuyer();
+        $card = self::_createCard($buyer);
+        $debit = $card->debit(
+            1000,
+            'Softie',
+            'something i bought',
+            array('hi' => 'bye'));
+        $this->assertEquals($debit->source->uri, $card->uri);
+    }
     
     /**
-     * @expectedException Balanced\Exceptions\MultipleResultsFound
+     * @expectedException \UnexpectedValueException
      */
-    function testAccountMultipleResultsFound()
+    function testDebitAnUnassociatedCard()
     {
-        self::_createBuyer();
-        self::_createBuyer();
-        self::$marketplace->accounts->query()->one();
+        $card = self::_createCard();
+        $card->debit(1000, 'Softie');
     }
+    
+    function testCreditABankAccount()
+    {
+        $buyer = self::_createBuyer();
+        $buyer->debit(101);  # NOTE: build up escrow balance to credit
+        
+        $merchant = self::_createPersonMerchant();
+        $bank_account = self::_createBankAccount($merchant);
+        $credit = $bank_account->credit(55, 'something sour');
+        $this->assertEquals($credit->destination->uri, $bank_account->uri);
+    }
+
+    /**
+     * @expectedException \UnexpectedValueException
+     */
+    function testCreditAnUnassocaitedBankAccount()
+    {   
+        $bank_account = self::_createBankAccount();
+        $bank_account->credit(101);
+    }    
 }

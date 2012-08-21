@@ -40,4 +40,22 @@ class Card extends Resource
         self::$_uri_spec = new URISpec('cards', 'id', '/v1');
         self::$_registry->add(get_called_class());
     }
+    
+    public function debit(
+        $amount,
+        $appears_on_statement_as = null,
+        $description = null,
+        $meta = null,
+        $source = null)
+    {
+        if ($this->account == null) {
+            throw new \UnexpectedValueException('Card is not associated with an account.');
+        }
+        return $this->account->debit(
+            $amount,
+            $appears_on_statement_as,
+            $description,
+            $meta,
+            $this->uri);
+    }
 }

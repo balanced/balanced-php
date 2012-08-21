@@ -478,6 +478,40 @@ class BankAccountTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals($expected, $result);
     }
+    
+    function testCredit()
+    {
+        $collection = $this->getMock(
+                '\Balanced\Core\Collection',
+                array('create'),
+                array('\Balanced\Credit', 'some/uri', null)
+        );
+    
+        $collection
+        ->expects($this->once())
+        ->method('create')
+        ->with(array(
+                'amount' => 101,
+                'description' => 'something super sweet',
+                'meta' => null,
+                'destination_uri' => '/some/other/uri',
+                'appears_on_statement_as' => null
+        ));
+    
+        $account = new Account(array('credits' => $collection));
+        $bank_account = new BankAccount(array('uri' => '/some/other/uri', 'account' => $account));
+        
+        $bank_account->credit(101, 'something super sweet');
+    }
+    
+    /**
+     * @expectedException \UnexpectedValueException
+     */
+    function testNotAssociatedCredit()
+    {
+        $bank_account = new BankAccount(array('uri' => '/some/uri', 'account' => null ));
+        $bank_account->credit(101, 'something sweet');
+    }
 }
 
 class CardTest extends \PHPUnit_Framework_TestCase
@@ -497,6 +531,40 @@ class CardTest extends \PHPUnit_Framework_TestCase
             'ids' => array('id' => '136asd6713'),
             );
         $this->assertEquals($expected, $result);
+    }
+    
+    function testDebit()
+    {
+        $collection = $this->getMock(
+                '\Balanced\Core\Collection',
+                array('create'),
+                array('\Balanced\Debit', 'some/uri', null)
+                );
+    
+        $account = new Account(array('debits' => $collection));
+        $card = new Card(array('uri' => '/some/uri', 'account' => $account ));
+        
+        $collection
+        ->expects($this->once())
+        ->method('create')
+        ->with(array(
+                'amount' => 9911,
+                'description' => 'something tangy',
+                'appears_on_statement_as' => 'BAL*TANG',
+                'meta' => null,
+                'source_uri' => '/some/uri',
+                ));
+        
+        $card->debit(9911, 'BAL*TANG', 'something tangy');
+    }
+    
+    /**
+     * @expectedException \UnexpectedValueException
+     */
+    function testNotAssociatedDebit()
+    {
+        $card = new Card(array('uri' => '/some/uri', 'account' => null ));
+        $card->debit(9911, 'BAL*TANG', 'something tangy');
     }
 }
 
