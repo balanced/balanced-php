@@ -68,7 +68,7 @@ Or if you'd like to skip network calls:
 
     echo '{
         "require": {
-            "balanced/balanced":
+            "balanced/balanced": "*"
          }
     }' > composer.json
 
