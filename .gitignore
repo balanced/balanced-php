@@ -4,6 +4,9 @@ composer.lock
 composer.phar
 vendor
 
+# phar
+*.phar
+
 # eclipse-pdt
 .settings
 .project

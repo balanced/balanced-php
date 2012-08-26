@@ -4,9 +4,28 @@ Online Marketplace Payments
 
 [![Build Status](https://secure.travis-ci.org/balanced/balanced-php.png)](http://travis-ci.org/balanced/balanced-php)
 
+The design of this library was heavily influenced by [Httpful](https://github.com/nategood/httpful). 
+
+## Requirements
+
+    - [PHP](http://python.org/) >= 5.3 **with** [cURL](http://www.php.net/manual/en/curl.installation.php)
+    - [Httpful](https://github.com/nategood/httpful) >= 0.1
+    
+## Issues
+
+Please use appropriately tagged github issues to request issues to request features or report bugs.
+
 ## Installation
 
-Balanced is PSR-0 compliant and uses [Composer](https://github.com/composer/composer), to install add this to your `composer.json`:
+You can install using [composer](###Composer), a [phar](###Phar) package or from [source](###Composer). Note that Balanced is [PSR-0](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md) compliant:
+
+### Composer
+
+If you don't have Composer [install](http://getcomposer.org/doc/00-intro.md#installation) it:
+
+    $ curl -s https://getcomposer.org/installer | php
+
+Add this to your `composer.json`: 
 
     {
         "require": {
@@ -14,53 +33,61 @@ Balanced is PSR-0 compliant and uses [Composer](https://github.com/composer/comp
         }
     }
     
-If you don't have Composer [install](http://getcomposer.org/doc/00-intro.md#installation) it:
+Refresh your dependencies:
 
-    $ curl -s https://getcomposer.org/installer | php
-
-Or download the repository and `require` it:
-
-    require($path_to_source . "bootstrap.php")
+    $ php composer.phar install
     
-And make sure to initialize it:
 
+Then make sure to `required` the autoloader and initialize both Httpful and Balanced:
+    
+    ```php
+    <?php
+    require(__DIR__ . '/vendor/autoload.php');
+    
+    Httpful\Bootstrap::init();
     Balanced\Bootstrap::init();
+    ...
+    ```
 
-## Usage
+### Phar
 
-See https://www.balancedpayments.com/docs/php for tutorials and documentation.
+Download a Balanced [phar](http://php.net/manual/en/book.phar.php) file, which are all [here](https://github.com/balanced/balanced-php/downloads):
 
-## Testing
+    $ curl -s -L -o balanced.phar https://github.com/balanced/balanced-php/downloads/balanced-{VERSION}.phar
+
+Download an Httpful [phar](http://php.net/manual/en/book.phar.php) file, which are all [here](https://github.com/nategood/httpful/tree/master/downloads):    
     
-    $ phpunit --bootstrap vendor/autoload.php tests/
+    $ curl -s -L -o httpful.phar https://github.com/downloads/nategood/httpful/httpful.phar
     
-Or if you'd like to skip network calls:
+And then `include` both:
 
-    $ phpunit --exclude-group suite --bootstrap vendor/autoload.php tests/
+    ```php
+    <?php
+    include(__DIR__ . '/httpful.phar');
+    include(__DIR__ . '/balanced.phar');
+    ...
+    ```
 
-## Example
+### Source
 
-    $ cd examples
-    $ composer.phar install
-    $ php -S localhost:8080 buyer-example.php
+Download [Httpful](https://github.com/nategood/httpful) source:
 
-## Contributing
+    $ curl -s -L -o httpful.zip https://github.com/nategood/httpful/zipball/master;
+    $ unzip httpful.zip; mv nategood-httpful* httpful; rm httpful.zip
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Write your code **and tests**
-4. Ensure all tests still pass (`phpunit --bootstrap vendor/autoload.php tests/`)
-5. Commit your changes (`git commit -am 'Add some feature'`)
-6. Push to the branch (`git push origin my-new-feature`)
-7. Create new pull request
+Download the Balanced source:
 
-## Publishing
+    $ curl -s -L -o balanced.zip https://github.com/balanced/balanced-php/zipball/master
+    $ unzip balanced.zip; mv balanced-balanced-php-* balanced; rm balanced.zip
 
-1. Increment minor `VERSION` in `src/Balanced/Settings` and `composer.json` (`git commit -am 'v{VERSION} release'`)
-2. Tag it (`git tag -a v{VERSION} -m 'v{VERSION} release'`)
-3. Push the tag (`git push --tag`)
-4. [Packagist](http://packagist.org/packages/balanced/balanced) will see the new tag and take it from there
+And `require` the bootstrap files:
 
+    ```php
+    <?php
+    require(__DIR__ . "/httpful/bootstrap.php")
+    require(__DIR__ . "/balanced/bootstrap.php")
+    ...
+    ```
 
 ## Quickstart
 
@@ -81,4 +108,35 @@ Or if you'd like to skip network calls:
     curl https://raw.github.com/balanced/balanced-php/master/example/buyer-example.php > buyer-example.php
  
     php -S 127.0.0.1:9321 buyer-example.php 
-    # now open a browser and go to http://127.0.0.1:9321/ to view how to tokenize cards and add to a buyer	
+    # now open a browser and go to http://127.0.0.1:9321/ to view how to tokenize cards and add to a buyer  
+
+## Usage
+
+See https://www.balancedpayments.com/docs/php for tutorials and documentation.
+
+## Testing
+    
+    $ phpunit --bootstrap vendor/autoload.php tests/
+    
+Or if you'd like to skip network calls:
+
+    $ phpunit --exclude-group suite --bootstrap vendor/autoload.php tests/
+
+## Publishing
+
+1. Ensure that **all** [tests](##Testing) pass
+2. Increment minor `VERSION` in `src/Balanced/Settings` and `composer.json` (`git commit -am 'v{VERSION} release'`)
+3. Tag it (`git tag -a v{VERSION} -m 'v{VERSION} release'`)
+4. Push the tag (`git push --tag`)
+5. [Packagist](http://packagist.org/packages/balanced/balanced) will see the new tag and take it from there
+6. Build (`build-phar`) and upload a [phar](http://php.net/manual/en/book.phar.php) file 
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Write your code **and [tests](##Testing)**
+4. Ensure all tests still pass (`phpunit --bootstrap vendor/autoload.php tests/`)
+5. Commit your changes (`git commit -am 'Add some feature'`)
+6. Push to the branch (`git push origin my-new-feature`)
+7. Create new pull request

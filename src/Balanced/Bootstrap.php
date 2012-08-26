@@ -24,6 +24,17 @@ class Bootstrap
         self::_autoload(dirname(dirname(__FILE__)), $classname);
     }
     
+    public static function pharInit()
+    {
+        spl_autoload_register(array('\Balanced\Bootstrap', 'pharAutoload'));
+        self::initializeResources();
+    }
+    
+    public static function pharAutoload($classname)
+    {
+        self::_autoload('phar://balanced.phar', $classname);
+    }
+    
     private static function _autoload($base, $classname)
     {
         $parts = explode(self::NAMESPACE_SEPARATOR, $classname);
