@@ -95,7 +95,7 @@ And `require` the bootstrap files:
 
     echo '{
         "require": {
-            "balanced/balanced":
+            "balanced/balanced": "*"
          }
     }' > composer.json
 
