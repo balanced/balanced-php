@@ -8,8 +8,8 @@ The design of this library was heavily influenced by [Httpful](https://github.co
 
 ## Requirements
 
-    - [PHP](http://python.org/) >= 5.3 **with** [cURL](http://www.php.net/manual/en/curl.installation.php)
-    - [Httpful](https://github.com/nategood/httpful) >= 0.1
+- [PHP](http://python.org/) >= 5.3 **with** [cURL](http://www.php.net/manual/en/curl.installation.php)
+- [Httpful](https://github.com/nategood/httpful) >= 0.1
     
 ## Issues
 
@@ -17,7 +17,7 @@ Please use appropriately tagged github issues to request issues to request featu
 
 ## Installation
 
-You can install using [composer](###Composer), a [phar](###Phar) package or from [source](###Composer). Note that Balanced is [PSR-0](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md) compliant:
+You can install using [composer](#composer), a [phar](#phar) package or from [source](#source). Note that Balanced is [PSR-0](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md) compliant:
 
 ### Composer
 
@@ -40,14 +40,12 @@ Refresh your dependencies:
 
 Then make sure to `required` the autoloader and initialize both Httpful and Balanced:
     
-    ```php
     <?php
     require(__DIR__ . '/vendor/autoload.php');
     
     Httpful\Bootstrap::init();
     Balanced\Bootstrap::init();
     ...
-    ```
 
 ### Phar
 
@@ -61,12 +59,10 @@ Download an Httpful [phar](http://php.net/manual/en/book.phar.php) file, which a
     
 And then `include` both:
 
-    ```php
     <?php
     include(__DIR__ . '/httpful.phar');
     include(__DIR__ . '/balanced.phar');
     ...
-    ```
 
 ### Source
 
@@ -82,12 +78,10 @@ Download the Balanced source:
 
 And `require` the bootstrap files:
 
-    ```php
     <?php
     require(__DIR__ . "/httpful/bootstrap.php")
     require(__DIR__ . "/balanced/bootstrap.php")
     ...
-    ```
 
 ## Quickstart
 
@@ -124,7 +118,7 @@ Or if you'd like to skip network calls:
 
 ## Publishing
 
-1. Ensure that **all** [tests](##Testing) pass
+1. Ensure that **all** [tests](#testing) pass
 2. Increment minor `VERSION` in `src/Balanced/Settings` and `composer.json` (`git commit -am 'v{VERSION} release'`)
 3. Tag it (`git tag -a v{VERSION} -m 'v{VERSION} release'`)
 4. Push the tag (`git push --tag`)
@@ -135,7 +129,7 @@ Or if you'd like to skip network calls:
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Write your code **and [tests](##Testing)**
+3. Write your code **and [tests](#testing)**
 4. Ensure all tests still pass (`phpunit --bootstrap vendor/autoload.php tests/`)
 5. Commit your changes (`git commit -am 'Add some feature'`)
 6. Push to the branch (`git push origin my-new-feature`)
