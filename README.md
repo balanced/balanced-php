@@ -8,12 +8,12 @@ The design of this library was heavily influenced by [Httpful](https://github.co
 
 ## Requirements
 
-- [PHP](http://python.org/) >= 5.3 **with** [cURL](http://www.php.net/manual/en/curl.installation.php)
+- [PHP](http://www.php.net) >= 5.3 **with** [cURL](http://www.php.net/manual/en/curl.installation.php)
 - [Httpful](https://github.com/nategood/httpful) >= 0.1
     
 ## Issues
 
-Please use appropriately tagged github issues to request issues to request features or report bugs.
+Please use appropriately tagged github [issues](https://github.com/balanced/balanced-php/issues) to request features or report bugs.
 
 ## Installation
 
@@ -35,10 +35,10 @@ Add this to your `composer.json`:
     
 Refresh your dependencies:
 
-    $ php composer.phar install
+    $ php composer.phar update
     
 
-Then make sure to `required` the autoloader and initialize both Httpful and Balanced:
+Then make sure to `require` the autoloader and initialize both:
     
     <?php
     require(__DIR__ . '/vendor/autoload.php');
@@ -49,13 +49,13 @@ Then make sure to `required` the autoloader and initialize both Httpful and Bala
 
 ### Phar
 
+Download an Httpful [phar](http://php.net/manual/en/book.phar.php) file, which are all [here](https://github.com/nategood/httpful/downloads):    
+    
+    $ curl -s -L -o httpful.phar https://github.com/downloads/nategood/httpful/httpful.phar
+
 Download a Balanced [phar](http://php.net/manual/en/book.phar.php) file, which are all [here](https://github.com/balanced/balanced-php/downloads):
 
     $ curl -s -L -o balanced.phar https://github.com/balanced/balanced-php/downloads/balanced-{VERSION}.phar
-
-Download an Httpful [phar](http://php.net/manual/en/book.phar.php) file, which are all [here](https://github.com/nategood/httpful/tree/master/downloads):    
-    
-    $ curl -s -L -o httpful.phar https://github.com/downloads/nategood/httpful/httpful.phar
     
 And then `include` both:
 
@@ -76,7 +76,7 @@ Download the Balanced source:
     $ curl -s -L -o balanced.zip https://github.com/balanced/balanced-php/zipball/master
     $ unzip balanced.zip; mv balanced-balanced-php-* balanced; rm balanced.zip
 
-And `require` the bootstrap files:
+And then `require` both bootstrap files:
 
     <?php
     require(__DIR__ . "/httpful/bootstrap.php")
