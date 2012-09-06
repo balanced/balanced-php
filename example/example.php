@@ -113,6 +113,12 @@ print "how do we look up an existing object from the URI?\n";
 $the_buyer = Balanced\Account::get($buyer->uri);
 print "we got the buyer " . $the_buyer->email_address . "\n";
 
+$the_debit = Balanced\Debit::get($debit->uri);
+print "we got the debit: " . $the_debit->uri . "\n";
+
+$the_credit = Balanced\Credit::get($credit->uri);
+print "we got the credit: " . $the_credit->uri . "\n";
+
 print "and there you have it :)\n";
 
 ?>
