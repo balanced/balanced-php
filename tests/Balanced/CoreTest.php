@@ -125,6 +125,8 @@ class PageTest extends \PHPUnit_Framework_TestCase
         $data->previous_uri = 'some/previous/uri';
         $data->next_uri = null;
         $data->last_uri = 'some/last/uri';
+        $data->limit= 25;
+        $data->offset = 0;
         $data->total = 101;
         $data->items = array();
 

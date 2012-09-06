@@ -6,7 +6,9 @@ class Page
 {
     public $resource,
            $total,
-           $items;
+           $items,
+           $offset,
+           $limit;
     
     private $_first_uri,
             $_previous_uri,
@@ -26,6 +28,8 @@ class Page
                 return new $resource($x);
             },
             $data->items);
+        $this->offset = $data->offset;
+        $this->limit = $data->limit;
         $this->_first_uri = $data->first_uri;
         $this->_previous_uri = $data->previous_uri;
         $this->_next_uri = $data->next_uri;

@@ -2,11 +2,30 @@
 
 namespace Balanced\Core;
 
-class Collection extends Pagination
+class Collection extends Itemization
 {
-    public function __constructor($resource, $uri, $data = null)
+    public function __construct($resource, $uri, $data = null)
     {
-        parent::__constructor($resource, $uri, $data);
+        parent::__construct($resource, $uri, $data);
+        $this->_parseUri();
+    }
+    
+    private function _parseUri()
+    {
+        $parsed = parse_url($this->uri);
+        $this->_uri = $parsed['path'];
+        if (array_key_exists('query', $parsed)) {
+            foreach (explode('&', $parsed['query']) as $param) {
+                $param = explode('=', $param);
+                $key = urldecode($param[0]);
+                $val = (count($param) == 1) ? null : urldecode($param[1]);
+    
+                // size
+                if ($key == 'limit') {
+                    $this->_size = $val;
+                }
+            }
+        }
     }
     
     public function create($payload)
@@ -20,5 +39,10 @@ class Collection extends Pagination
     public function query()
     {
         return new Query($this->resource, $this->uri);
+    }
+    
+    public function paginate()
+    {
+        return new Pagination($this->resource, $this->uri);
     }
 }

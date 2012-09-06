@@ -229,6 +229,51 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $refund = $debit->refund(100);
     }
     
+    function testMultipleRefunds()
+    {
+        $buyer = self::_createBuyer();
+        $debit = $buyer->debit(
+            1500,
+            'Softie',
+            'something tart',
+            array('hi' => 'bye'));
+        $refunds = array(
+            $debit->refund(100),
+            $debit->refund(100),
+            $debit->refund(100),
+            $debit->refund(100));
+        $expected_refund_ids = array_map(
+            function($x) {
+                return $x->id;
+            }, $refunds);
+        sort($expected_refund_ids);
+        $this->assertEquals($debit->refunds->total(), 4);
+        
+        // itemization
+        $total = 0;
+        $refund_ids = array();
+        foreach ($debit->refunds as $refund) {
+            $total += $refund->amount;
+             array_push($refund_ids, $refund->id);
+        }
+        sort($refund_ids);
+        $this->assertEquals($total, 400);
+        $this->assertEquals($expected_refund_ids, $refund_ids);
+        
+        // pagination
+        $total = 0;
+        $refund_ids = array();
+        foreach ($debit->refunds->paginate() as $page) {
+            foreach ($page->items as $refund) {
+                $total += $refund->amount;
+                array_push($refund_ids, $refund->id);
+            }
+        }
+        sort($refund_ids);
+        $this->assertEquals($total, 400);
+        $this->assertEquals($expected_refund_ids, $refund_ids);
+    }
+    
     function testDebitSource()
     {   
         $buyer = self::_createBuyer();
@@ -530,5 +575,33 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     {   
         $bank_account = self::_createBankAccount();
         $bank_account->credit(101);
-    }    
+    }
+
+    function testQuery()
+    {
+        $buyer = self::_createBuyer();
+        $debit1 = $buyer->debit(1122, null, null, array('tag' => '1'));
+        $debit2 = $buyer->debit(3322, null, null, array('tag' => '1'));
+        $debit3 = $buyer->debit(2211, null, null, array('tag' => '2'));
+        $expected_debit_ids = array(
+            $debit1->id,
+            $debit2->id,
+            $debit3->id);
+
+        $query = (
+            self::$marketplace->debits->query()
+            ->sort(Debit::$f->created_at->asc())
+            ->limit(1));
+        
+        $this->assertEquals($query->total(), 3);
+        
+        $debit_ids = array();
+        foreach ($query as $debits) {
+            array_push($debit_ids, $debits->id);
+        }
+        $this->assertEquals($debit_ids, $expected_debit_ids);
+        
+        $debit_ids = array($query[0]->id, $query[1]->id, $query[2]->id);
+        $this->assertEquals($debit_ids, $expected_debit_ids);
+    }
 }

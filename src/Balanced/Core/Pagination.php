@@ -2,12 +2,51 @@
 
 namespace Balanced\Core;
 
-class Pagination implements \Iterator
+
+class PaginationIterator implements \Iterator
+{    
+    public function __construct($resource, $uri, $data = null)
+    {
+        $this->_page = new Page($resource, $uri, $data);
+    }
+    
+    // Iterator
+    
+    public function current()
+    {
+        return $this->_page;
+    }
+    
+    public function key()
+    {
+        return $this->_page->index;
+    }
+    
+    public function next()
+    {
+        $this->_page = $this->_page->next();
+    }
+    
+    public function rewind()
+    {
+        $this->_page = $this->_page->first();
+    }
+    
+    public function valid()
+    {
+        return $this->_page != null;
+    }
+}
+
+
+class Pagination implements \IteratorAggregate, \ArrayAccess
 {
     public $resource,
            $uri;
     
-    protected $_page;
+    protected $_page,
+              $_offset=0,
+              $_size=25;
 
     public function __construct($resource, $uri, $data = null)
     {
@@ -19,40 +58,68 @@ class Pagination implements \Iterator
             $this->_page = null;
     }
     
-    protected function _getPage()
+    protected function _getPage($offset = null)
     {
-        if ($this->_page == null)
-            $this->_page = new Page($this->resource, $this->uri);
+        if ($this->_page == null) {
+            $this->_offset = ($offset == null) ? 0 : $offset * $this->_size;
+            $uri = $this->_buildUri();
+            $this->_page = new Page($this->resource, $uri);
+        }
+        else if ($offset != null) {
+            $offset = $offset * $this->_size;
+            if ($offset != $this->_offset) {
+                $this->_offset = $offset;
+                $uri = $this->_buildUri();
+                $this->_page = new Page($this->resource, $uri);
+            }
+        }
         return $this->_page;
     }
 
     public function total()
     {
-        return $this->_getPage()->total;
+        return floor($this->_getPage()->total / $this->_size);
     }
-
-    public function current()
+    
+    protected function _buildUri($offset = null)
     {
-        return $this->_getPage();
+        # TODO: hacky but works for now
+        $offset = ($offset == null) ? $this->_offset : $offset;
+        if (strpos($this->uri, '?') === false)
+            $uri = $this->uri . '?';
+        else 
+            $uri = $this->uri . '&';
+        $uri = $uri . 'offset=' . strval($offset);
+        return $uri;
     }
-
-    public function key()
+    
+    // IteratorAggregate
+    
+    public function getIterator()
     {
-        return $this->_getPage()->index;
+        $uri = $this->_buildUri($offset = 0);
+        return new PaginationIterator($this->resource, $uri);
     }
-
-    public function next()
+    
+    // ArrayAccess
+    
+    public function offsetSet($offset, $value)
     {
-        $this->_page = $this->_getPage()->next();
+        throw new BadMethodCallException(get_class($this) . ' array access is read-only');
     }
-
-    public function rewind()
+    
+    public function offsetExists($offset)
     {
-        $this->_page = $this->_getPage()->first();
+        return (0 <= $offset && $offset < $this->total()); 
     }
-
-    public function valid()
+    
+    public function offsetUnset($offset)
     {
-        return $this->_page != null;
+        throw new BadMethodCallException(get_class($this) . ' array access is read-only');
+    }
+    
+    public function offsetGet($offset)
+    {
+        return $this->_getPage($offset);
     }
 }

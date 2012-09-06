@@ -5,39 +5,39 @@ namespace Balanced\Core;
 use Balanced\Exceptions\NoResultFound;
 use Balanced\Exceptions\MultipleResultsFound;
 
-class Query implements \IteratorAggregate
+
+class Query extends Itemization
 {
-    public $resource,
-           $uri,
-           $filters = array(),
+    public $filters = array(),
            $sorts = array(),
-           $size = 25;
+           $size;
 
     public function __construct($resource, $uri)
     {
-        $this->resource = $resource;
+        parent::__construct($resource, $uri);
+        $this->size = $this->_size;
         $this->_parseUri($uri);
     }
-
+    
     private function _parseUri($uri)
     {
         $parsed = parse_url($uri);
-        $this->_uri = $parsed['path'];
+        $this->uri = $parsed['path'];
         if (array_key_exists('query', $parsed)) {
             foreach (explode('&', $parsed['query']) as $param) {
                 $param = explode('=', $param);
                 $key = urldecode($param[0]);
                 $val = (count($param) == 1) ? null : urldecode($param[1]);
-
+    
                 // limit
                 if ($key == 'limit') {
-                    $this->size = $val;
+                    $this->size = $this->_size = $val;
                 }
-                // sprts
+                // sorts
                 else if ($key == 'sort') {
                     array_push($this->sorts, $val);
                 }
-                // filters
+                // everything else
                 else {
                     if (!array_key_exists($key, $this->filters))
                         $this->filters[$key] = array();
@@ -48,30 +48,34 @@ class Query implements \IteratorAggregate
             }
         }
     }
-
-    private function _buildUri()
+    
+    protected function _buildUri($offset = null)
     {
         // params
         $params = array_merge(
-            $this->filters,
-            array(
-                'sort' => $this->sorts,
-                'limit' => $this->size,
-                )
-            );
+                $this->filters,
+                array(
+                    'sort' => $this->sorts,
+                    'limit' => $this->_size,
+                    'offset' => ($offset == null) ? $this->_offset : $offset));
         $getSingle = function ($v) {
             if (is_array($v) && count($v) == 1)
                 return $v[0];
             return $v;
-        };        
+        };
         $params = array_map($getSingle, $params);
-        
+    
         // url encode params
         // NOTE: http://stackoverflow.com/a/8171667/1339571
         $qs = http_build_query($params);
         $qs = preg_replace('/%5B(?:[0-9]|[1-9][0-9]+)%5D=/', '=', $qs);
-
-        return $this->_uri . '?' . $qs;
+    
+        return $this->uri . '?' . $qs;
+    }
+    
+    private function _reset()
+    {
+        $this->_page = null;
     }
 
     public function filter($expression)
@@ -87,6 +91,7 @@ class Query implements \IteratorAggregate
         if (!array_key_exists($field, $this->filters))
             $this->filters[$field] = array();
         array_push($this->filters[$field], $val);
+        $this->_reset();
         return $this;
     }
 
@@ -94,50 +99,50 @@ class Query implements \IteratorAggregate
     {
         $dir = $expression->ascending ? 'asc' : 'desc';
         array_push($this->sorts, $expression->field . ',' . $dir);
+        $this->_reset();
         return $this;
     }
 
     public function limit($limit)
     {
-        $this->size = $limit;
+        $this->size = $this->_size = $limit;
+        $this->_reset();
         return $this;
     }
 
     public function all()
     {
         $items = array();
-        foreach($this as $page) {
-            foreach($page->items as $item) {
-                array_push($items, $item);
-            }
+        foreach($this as $item) {
+            array_push($items, $item);
         }
         return $items;
     }
 
     public function first()
     {
-        $prev_size = $this->size;
-        $this->size = 1;
+        $prev_size = $this->_size;
+        $this->_size = 1;
         $page = new Page($this->resource, $this->_buildUri());
-        $this->size = $prev_size;
+        $this->_size = $prev_size;
         $item = count($page->items) != 0 ? $page->items[0] : null;
         return $item;
     }
 
     public function one()
     {
-        $prev_size = $this->size;
-        $this->size = 2;
+        $prev_size = $this->_size;
+        $this->_size = 2;
         $page = new Page($this->resource, $this->_buildUri());
-        $this->size = $prev_size;
+        $this->_size = $prev_size;
         if (count($page->items) == 1)
             return $page->items[0];
         if (count($page->items) == 0)
             throw new NoResultFound();
         throw new MultipleResultsFound();
     }
-
-    public function getIterator()
+    
+    public function paginate()
     {
         return new Pagination($this->resource, $this->_buildUri());
     }

@@ -8,9 +8,9 @@ use Httpful\Request;
 
 class Client
 {    
-    public function __constructor($request_class = null)
+    public function __construct($request_class = null)
     {
-        $this->request_class = $request_class == null ? Request : $request_class;
+        $this->request_class = $request_class == null ? 'Request' : $request_class;
     }
     
     public function get($uri)
