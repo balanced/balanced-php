@@ -580,16 +580,15 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     function testQuery()
     {
         $buyer = self::_createBuyer();
-        $debit1 = $buyer->debit(1122, null, null, array('tag' => '1'));
-        $debit2 = $buyer->debit(3322, null, null, array('tag' => '1'));
-        $debit3 = $buyer->debit(2211, null, null, array('tag' => '2'));
-        $expected_debit_ids = array(
-            $debit1->id,
-            $debit2->id,
-            $debit3->id);
+        $tag = '123123123123';
+        $debit1 = $buyer->debit(1122, null, null, array('tag' => $tag));
+        $debit2 = $buyer->debit(3322, null, null, array('tag' => $tag));
+        $debit3 = $buyer->debit(2211, null, null, array('tag' => $tag));
+        $expected_debit_ids = array($debit1->id, $debit2->id, $debit3->id);
 
         $query = (
             self::$marketplace->debits->query()
+            ->filter(Debit::$f->meta->tag->eq($tag))
             ->sort(Debit::$f->created_at->asc())
             ->limit(1));
         
