@@ -3,7 +3,8 @@
 composer.lock
 composer.phar
 vendor
-
+*~
+*#
 # phar
 *.phar
 

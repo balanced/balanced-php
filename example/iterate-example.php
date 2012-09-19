@@ -33,5 +33,38 @@ foreach ($debit->refunds as $r) {
 }
 
 print $total . "\n";
+
+# bigger pagination example
+
+print "Create 60 **buyer** with cards accounts\n";
+
+for ($i = 0; $i < 60; $i++) {
+    $card = $marketplace->cards->create(array(
+    	    "card_number" => "5105105105105100", 
+	    "expiration_month" => "12",
+	    "expiration_year" => "2015"
+    ));
+    $buyer = $marketplace->createBuyer("buyer" . $i . "@example.org", $card->uri);
+    print '.';
+}
+
+print "\n";
+
+$cards = $marketplace->cards;
+
+print $cards->total() . " cards in Marketplace\n";
+
+foreach ($cards as $c) {
+	print "card " . $c->uri . "\n";
+}
+
+# let's iterate through cards for just a single account
+
+foreach ($buyer->cards as $c) {
+	print "buyer's card " . $c->uri . "\n";
+}
+
+print "and there you have it :)\n";
+
         
 ?>
