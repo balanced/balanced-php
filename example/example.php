@@ -68,11 +68,6 @@ print "I have " . $marketplace->in_escrow . " in escrow!\n";
 print "Cool. now let me refund the full amount";
 $refund = $debit->refund();
 
-print "note how Balanced refunds you your fees? refund fees: " . $refund->fee . "\n";
-if ($refund->fee + $debit->fee > 0) {
-   throw new Exception("Woah, fees are incorrect");
-}
-
 print "ok, we have a merchant that's signing up, let's create an account for them first, let's create their bank account\n";
 
 $bank_account = $marketplace->createBankAccount("Jack Q Merchant",
