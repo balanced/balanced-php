@@ -603,4 +603,20 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $debit_ids = array($query[0]->id, $query[1]->id, $query[2]->id);
         $this->assertEquals($debit_ids, $expected_debit_ids);
     }
+    
+    function testBuyerPromoteToMerchant()
+    {
+    	$merchant = array(
+            'type' => 'person',
+            'name' => 'William James',
+            'tax_id' => '393-48-3992',
+            'street_address' => '167 West 74th Street',
+            'postal_code' => '10023',
+            'dob' => '1842-01-01',
+            'phone_number' => '+16505551234',
+            'country_code' => 'USA'
+    	);
+    	$buyer = self::_createBuyer();
+    	$buyer->promoteToMerchant($merchant);
+    }
 }
