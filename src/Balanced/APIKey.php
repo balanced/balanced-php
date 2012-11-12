@@ -2,9 +2,9 @@
 
 namespace Balanced;
 
-use Balanced\Core\Resource;
-use Balanced\Core\URISpec;
+use Balanced\Resource;
 use Balanced\Settings;
+use \RESTful\URISpec;
 
 /**
  * Represents an api key. These are used to autheticate you with the api.

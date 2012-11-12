@@ -55,7 +55,7 @@ class Bootstrap
         if (self::$initialized)
             return;
          
-        \Balanced\Core\Resource::init();
+        \Balanced\Resource::init();
         \Balanced\APIKey::init();
         \Balanced\Marketplace::init();
         \Balanced\Account::init();

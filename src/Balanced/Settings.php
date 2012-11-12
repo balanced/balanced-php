@@ -25,8 +25,10 @@ class Settings
     const VERSION = '0.6.7';
     
     public static $url_root = 'https://api.balancedpayments.com',
-                  $api_key = null;
-    
+                  $api_key = null,
+                  $agent = 'balanced-php',
+                  $version = Settings::VERSION;
+
     /**
      * Configure all settings.
      * 

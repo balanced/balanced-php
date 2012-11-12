@@ -2,8 +2,8 @@
 
 namespace Balanced;
 
-use Balanced\Core\Resource;
-use Balanced\Core\URISpec;
+use Balanced\Resource;
+use \RESTful\URISpec;
 
 /**
  * Represent a buyer or merchant account on a marketplace.

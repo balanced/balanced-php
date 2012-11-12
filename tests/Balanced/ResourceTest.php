@@ -3,10 +3,10 @@
 namespace Balanced\Test;
 
 \Balanced\Bootstrap::init();
+\RESTful\Bootstrap::init();
 \Httpful\Bootstrap::init();
 
-use Balanced\Core\Resource;
-use Balanced\Core\Collection;
+use Balanced\Resource;
 use Balanced\Settings;
 use Balanced\APIKey;
 use Balanced\Marketplace;
@@ -18,6 +18,8 @@ use Balanced\Merchant;
 use Balanced\BankAccount;
 use Balanced\Card;
 use Balanced\Hold;
+
+use \RESTful\Collection;
 
 
 class APIKeyTest extends \PHPUnit_Framework_TestCase
@@ -65,7 +67,7 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
     function testCreateCard()
     {
         $collection = $this->getMock(
-            '\Balanced\Core\Collection',
+            '\RESTful\Collection',
             array('create'),
             array('\Balanced\Card', 'some/uri', null)
             );
@@ -100,7 +102,7 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
     function testCreateBankAccount()
     {
         $collection = $this->getMock(
-            '\Balanced\Core\Collection',
+            '\RESTful\Collection',
             array('create'),
             array('\Balanced\BankAccount', 'some/uri', null)
             );
@@ -123,7 +125,7 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
     function testCreateAccount()
     {
         $collection = $this->getMock(
-            '\Balanced\Core\Collection',
+            '\RESTful\Collection',
             array('create'),
             array('\Balanced\Account', 'some/uri', null)
             );
@@ -145,7 +147,7 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
     function testCreateBuyer()
     {
         $collection = $this->getMock(
-            '\Balanced\Core\Collection',
+            '\RESTful\Collection',
             array('create'),
             array('\Balanced\Account', 'some/uri', null)
             );
@@ -189,7 +191,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
     function testCredit()
     {
         $collection = $this->getMock(
-            '\Balanced\Core\Collection',
+            '\RESTful\Collection',
             array('create'),
             array('\Balanced\Credit', 'some/uri', null)
         );
@@ -212,7 +214,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
     function testDebit()
     {
         $collection = $this->getMock(
-            '\Balanced\Core\Collection',
+            '\RESTful\Collection',
             array('create'),
             array('\Balanced\Debit', 'some/uri', null)
             );
@@ -235,7 +237,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
     function testHold()
     {
         $collection = $this->getMock(
-            '\Balanced\Core\Collection',
+            '\RESTful\Collection',
             array('create'),
             array('\Balanced\Hold', 'some/uri', null)
             );
@@ -357,7 +359,7 @@ class HoldTest extends \PHPUnit_Framework_TestCase
     function testCapture()
     {
         $collection = $this->getMock(
-            '\Balanced\Core\Collection',
+            '\RESTful\Collection',
             array('create'),
             array('\Balanced\Debit', 'some/uri', null)
             );
@@ -420,7 +422,7 @@ class DebitTest extends \PHPUnit_Framework_TestCase
     function testRefund()
     {
         $collection = $this->getMock(
-            '\Balanced\Core\Collection',
+            '\RESTful\Collection',
             array('create'),
             array('\Balanced\Refund', 'some/uri', null)
         );
@@ -482,7 +484,7 @@ class BankAccountTest extends \PHPUnit_Framework_TestCase
     function testCreditAccount()
     {
         $collection = $this->getMock(
-                '\Balanced\Core\Collection',
+                '\RESTful\Collection',
                 array('create'),
                 array('\Balanced\Credit', 'some/uri', null)
         );
@@ -507,7 +509,7 @@ class BankAccountTest extends \PHPUnit_Framework_TestCase
     function testCreditAccountless()
     {
          $collection = $this->getMock(
-                '\Balanced\Core\Collection',
+                '\RESTful\Collection',
                 array('create'),
                 array('\Balanced\Credit', 'some/uri', null)
         );
@@ -551,7 +553,7 @@ class CardTest extends \PHPUnit_Framework_TestCase
     function testDebit()
     {
         $collection = $this->getMock(
-                '\Balanced\Core\Collection',
+                '\RESTful\Collection',
                 array('create'),
                 array('\Balanced\Debit', 'some/uri', null)
                 );

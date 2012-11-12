@@ -3,6 +3,7 @@
 namespace Balanced\Test;
 
 \Balanced\Bootstrap::init();
+\RESTful\Bootstrap::init();
 \Httpful\Bootstrap::init();
 
 use Balanced\Settings;
@@ -15,8 +16,7 @@ use Balanced\Account;
 use Balanced\Merchant;
 use Balanced\BankAccount;
 use Balanced\Card;
-use Balanced\Exceptions\HTTPError;
-use Balanced\Exceptions\NoResultFound;
+
 
 /**
  * Suite test cases. These talk to an API server and so make network calls.
@@ -140,8 +140,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     {
         // url root
         $url_root = getenv('BALANCED_URL_ROOT');
-        if ($url_root != '')
+        if ($url_root != '') {
             Settings::$url_root = $url_root;
+        }
         else
             Settings::$url_root = 'https://api.balancedpayments.com';
             
@@ -160,7 +161,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         try {
             self::$marketplace = Marketplace::mine();
         }
-        catch(NoResultFound $e) {
+        catch(\RESTful\Exceptions\NoResultFound $e) {
             self::$marketplace = new Marketplace();
             self::$marketplace->save();
         }
@@ -173,7 +174,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @expectedException Balanced\Exceptions\HTTPError
+     * @expectedException RESTful\Exceptions\HTTPError
      */
     function testAnotherMarketplace()
     {
@@ -182,7 +183,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @expectedException Balanced\Exceptions\HTTPError
+     * @expectedException RESTful\Exceptions\HTTPError
      */
     function testDuplicateEmailAddress()
     {
@@ -327,7 +328,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Balanced\Exceptions\HTTPError
+     * @expectedException RESTful\Exceptions\HTTPError
      */
     function testCreditRequiresNonZeroAmount()
     {
@@ -342,7 +343,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Balanced\Exceptions\HTTPError
+     * @expectedException RESTful\Exceptions\HTTPError
      */
     function testCreditMoreThanEscrowBalanceFails()
     {
@@ -424,7 +425,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             '121042882'
             );
         $this->assertEquals($bank_account->last_four, '233a');
-        $this->assertEquals($bank_account->account_number, 'xxx233a');
+        $this->assertEquals($bank_account->account_number, '233a');
     }
     
     function testFilteringAndSorting()
@@ -527,7 +528,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Balanced\Exceptions\NoResultFound
+     * @expectedException RESTful\Exceptions\NoResultFound
      */
     function testAccountWithEmailAddressNotFound()
     {
@@ -651,5 +652,20 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($credit->bank_account->name, 'Homer Jay');
         $this->assertEquals($credit->bank_account->account_number, '233a');
         $this->assertEquals($credit->bank_account->type, 'checking');
+    }
+    
+    function testDeleteBankAccount()
+    {
+        $buyer = self::_createBuyer();
+        $buyer->debit(101);  # NOTE: build up escrow balance to credit
+        
+        $bank_account = self::_createBankAccount();
+        $credit = $bank_account->credit(55, 'something sour');
+        $this->assertTrue(property_exists($credit->bank_account, 'uri'));
+        $this->assertTrue(property_exists($credit->bank_account, 'id'));
+        $bank_account->delete();
+        $credit = Credit::get($credit->uri);
+        $this->assertFalse(property_exists($credit->bank_account, 'uri'));
+        $this->assertFalse(property_exists($credit->bank_account, 'id'));
     }
 }

@@ -9,6 +9,7 @@ The design of this library was heavily influenced by [Httpful](https://github.co
 ## Requirements
 
 - [PHP](http://www.php.net) >= 5.3 **with** [cURL](http://www.php.net/manual/en/curl.installation.php)
+- [RESTful](https://github.com/bninja/restful) >= 0.1
 - [Httpful](https://github.com/nategood/httpful) >= 0.1
     
 ## Issues
@@ -38,13 +39,14 @@ Refresh your dependencies:
     $ php composer.phar update
     
 
-Then make sure to `require` the autoloader and initialize both:
+Then make sure to `require` the autoloader and initialize all:
     
     <?php
     require(__DIR__ . '/vendor/autoload.php');
     
-    Httpful\Bootstrap::init();
-    Balanced\Bootstrap::init();
+    \Httpful\Bootstrap::init();
+    \RESTful\Bootstrap::init();
+    \Balanced\Bootstrap::init();
     ...
 
 ### Phar
@@ -52,15 +54,20 @@ Then make sure to `require` the autoloader and initialize both:
 Download an Httpful [phar](http://php.net/manual/en/book.phar.php) file, which are all [here](https://github.com/nategood/httpful/downloads):    
     
     $ curl -s -L -o httpful.phar https://github.com/downloads/nategood/httpful/httpful.phar
+    
+Download a RESTful [phar](http://php.net/manual/en/book.phar.php) file, which are all [here](https://github.com/balanced/restful/downloads):
+
+    $ curl -s -L -o restful.phar https://github.com/balanced/restful/downloads/restful.phar
 
 Download a Balanced [phar](http://php.net/manual/en/book.phar.php) file, which are all [here](https://github.com/balanced/balanced-php/downloads):
 
     $ curl -s -L -o balanced.phar https://github.com/balanced/balanced-php/downloads/balanced-{VERSION}.phar
     
-And then `include` both:
+And then `include` all:
 
     <?php
     include(__DIR__ . '/httpful.phar');
+    include(__DIR__ . '/restful.phar');
     include(__DIR__ . '/balanced.phar');
     ...
 
@@ -71,15 +78,21 @@ Download [Httpful](https://github.com/nategood/httpful) source:
     $ curl -s -L -o httpful.zip https://github.com/nategood/httpful/zipball/master;
     $ unzip httpful.zip; mv nategood-httpful* httpful; rm httpful.zip
 
+Download [RESTful](https://github.com/bninja/restful) source:
+
+    $ curl -s -L -o restful.zip https://github.com/bninja/restful/zipball/master;
+    $ unzip restful.zip; mv bninja-restful* restful; rm restful.zips
+
 Download the Balanced source:
 
     $ curl -s -L -o balanced.zip https://github.com/balanced/balanced-php/zipball/master
     $ unzip balanced.zip; mv balanced-balanced-php-* balanced; rm balanced.zip
 
-And then `require` both bootstrap files:
+And then `require` all bootstrap files:
 
     <?php
     require(__DIR__ . "/httpful/bootstrap.php")
+    require(__DIR__ . "/restful/bootstrap.php")
     require(__DIR__ . "/balanced/bootstrap.php")
     ...
 
