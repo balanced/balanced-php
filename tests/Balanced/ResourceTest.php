@@ -479,7 +479,7 @@ class BankAccountTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
     
-    function testCredit()
+    function testCreditAccount()
     {
         $collection = $this->getMock(
                 '\Balanced\Core\Collection',
@@ -503,14 +503,29 @@ class BankAccountTest extends \PHPUnit_Framework_TestCase
         
         $bank_account->credit(101, 'something super sweet');
     }
-    
-    /**
-     * @expectedException \UnexpectedValueException
-     */
-    function testNotAssociatedCredit()
+
+    function testCreditAccountless()
     {
-        $bank_account = new BankAccount(array('uri' => '/some/uri', 'account' => null ));
-        $bank_account->credit(101, 'something sweet');
+         $collection = $this->getMock(
+                '\Balanced\Core\Collection',
+                array('create'),
+                array('\Balanced\Credit', 'some/uri', null)
+        );
+    
+        $collection
+        ->expects($this->once())
+        ->method('create')
+        ->with(array(
+                'amount' => 101,
+                'description' => 'something super sweet',
+        ));
+        $bank_account = new BankAccount(array(
+                'uri' => '/some/other/uri',
+                'account' => null,
+                'credits' => $collection,
+                ));
+
+        $bank_account->credit(101, 'something super sweet');
     }
 }
 

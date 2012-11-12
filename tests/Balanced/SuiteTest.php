@@ -424,7 +424,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             '121042882'
             );
         $this->assertEquals($bank_account->last_four, '233a');
-        $this->assertFalse(property_exists($bank_account, 'account_number'));
+        $this->assertEquals($bank_account->account_number, 'xxx233a');
     }
     
     function testFilteringAndSorting()
