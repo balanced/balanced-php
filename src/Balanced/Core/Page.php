@@ -30,10 +30,10 @@ class Page
             $data->items);
         $this->offset = $data->offset;
         $this->limit = $data->limit;
-        $this->_first_uri = $data->first_uri;
-        $this->_previous_uri = $data->previous_uri;
-        $this->_next_uri = $data->next_uri;
-        $this->_last_uri = $data->last_uri;
+        $this->_first_uri = property_exists($data, 'first_uri') ? $data->first_uri : null;
+        $this->_previous_uri = property_exists($data, 'previous_uri') ? $data->previous_uri : null;
+        $this->_next_uri = property_exists($data, 'next_uri') ? $data->next_uri : null;
+        $this->_last_uri = property_exists($data, 'last_uri') ? $data->last_uri : null;
     }
 
     public function first()

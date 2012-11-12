@@ -41,20 +41,44 @@ class BankAccount extends Resource
         self::$_registry->add(get_called_class());
     }
     
+    /**
+     * Credit a bank account.
+     *
+     * @param int amount Amount to credit in USD pennies.
+     * @param string description Optional description of the credit.
+     * @param string appears_on_statement_as Optional description of the credit as it will appears on the customer's billing statement.
+     *
+     * @return \Balanced\Credit
+     *
+     * <code>
+     * $bank_account = new \Balanced\BankAccount(array(
+     *     'account_number' => '12341234',
+     *     'name' => 'Fit Finlay',
+     *     'bank_code' => '325182797',
+     *     'type' => 'checking',
+     *     ));
+     *     
+     * $credit = $bank_account->credit(123, 'something descriptive');
+     * </code>
+     */
     public function credit(
             $amount,
             $description = null,
             $meta = null,
             $appears_on_statement_as = null)
     {
-        if ($this->account == null) {
-            throw new \UnexpectedValueException('Bank account is not associated with an account.');
-        }
-        return $this->account->credit(
-            $amount,
-            $description,
-            $meta,
-            $this->uri,
-            $appears_on_statement_as);
+        if ($this->account == null)
+            return $this->credits->create(array(
+                        'amount' => $amount,
+                        'description' => $description,
+                    ));
+        else
+            return $this->account->credit(
+                        $amount,
+                        $description,
+                        $meta,
+                        $this->uri,
+                        $appears_on_statement_as
+                    );
     }
 }

@@ -619,4 +619,37 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     	$buyer = self::_createBuyer();
     	$buyer->promoteToMerchant($merchant);
     }
+    
+    function testCreditAccountlessBankAccount()
+    {
+        $buyer = self::_createBuyer();
+        $buyer->debit(101);  # NOTE: build up escrow balance to credit
+
+        $bank_account = self::_createBankAccount();
+        $credit = $bank_account->credit(55, 'something sour');
+        $this->assertEquals($credit->bank_account->uri, $bank_account->uri);
+        $bank_account = $bank_account->get($bank_account->uri);
+        $this->assertEquals($bank_account->credits->total(), 1);
+    }
+    
+    function testCreditUnstoredBankAccount()
+    {
+        $buyer = self::_createBuyer();
+        $buyer->debit(101);  # NOTE: build up escrow balance to credit
+
+        $credit = Credit::bankAccount(
+                      55,
+                      array(
+                          'name' => 'Homer Jay',
+                          'account_number' => '112233a',
+                          'routing_number' => '121042882',
+                          'type' => 'checking',
+                      ),
+                      'something sour');
+        $this->assertFalse(property_exists($credit->bank_account, 'uri'));
+        $this->assertFalse(property_exists($credit->bank_account, 'id'));
+        $this->assertEquals($credit->bank_account->name, 'Homer Jay');
+        $this->assertEquals($credit->bank_account->account_number, '233a');
+        $this->assertEquals($credit->bank_account->type, 'checking');
+    }
 }
