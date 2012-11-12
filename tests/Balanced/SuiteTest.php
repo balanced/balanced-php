@@ -77,7 +77,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             );
         if ($account != null) {
             $account->addBankAccount($bank_account);
-            $bank_account = BankAccount::get($bank_account->uri);
+            $bank_account  = $account->bank_accounts[0];
         }
         return $bank_account;
     }
@@ -498,10 +498,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         try {
             self::$marketplace->createMerchant(
                 sprintf('m+%d@poundpay.com', self::$email_counter++),
-                $identity
-                );
+                $identity);
         }
-        catch(HTTPError $e) {
+        catch(\RESTful\Exceptions\HTTPError $e) {
             $this->assertEquals($e->response->code, 300);
             $expected = sprintf('https://www.balancedpayments.com/marketplaces/%s/kyc', self::$marketplace->id);
             $this->assertEquals($e->redirect_uri, $expected);
@@ -567,15 +566,6 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $bank_account = self::_createBankAccount($merchant);
         $credit = $bank_account->credit(55, 'something sour');
         $this->assertEquals($credit->destination->uri, $bank_account->uri);
-    }
-
-    /**
-     * @expectedException \UnexpectedValueException
-     */
-    function testCreditAnUnassocaitedBankAccount()
-    {   
-        $bank_account = self::_createBankAccount();
-        $bank_account->credit(101);
     }
 
     function testQuery()
@@ -667,5 +657,23 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $credit = Credit::get($credit->uri);
         $this->assertFalse(property_exists($credit->bank_account, 'uri'));
         $this->assertFalse(property_exists($credit->bank_account, 'id'));
+    }
+
+    /**
+     * @expectedException Balanced\Errors\InsufficientFunds
+     */
+    function testInsufficientFunds()
+    {
+        $marketplace = Marketplace::get(self::$marketplace->uri);
+        $amount = $marketplace->in_escrow + 100;
+        $credit = Credit::bankAccount(
+                $amount,
+                array(
+                        'name' => 'Homer Jay',
+                        'account_number' => '112233a',
+                        'routing_number' => '121042882',
+                        'type' => 'checking',
+                ),
+                'something sour');
     }
 }

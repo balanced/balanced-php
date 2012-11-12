@@ -67,7 +67,7 @@ class BankAccount extends Resource
             $meta = null,
             $appears_on_statement_as = null)
     {
-        if ($this->account == null)
+        if (!property_exists($this, 'account') || $this->account == null)
             return $this->credits->create(array(
                         'amount' => $amount,
                         'description' => $description,

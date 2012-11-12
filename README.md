@@ -55,9 +55,9 @@ Download an Httpful [phar](http://php.net/manual/en/book.phar.php) file, which a
     
     $ curl -s -L -o httpful.phar https://github.com/downloads/nategood/httpful/httpful.phar
     
-Download a RESTful [phar](http://php.net/manual/en/book.phar.php) file, which are all [here](https://github.com/balanced/restful/downloads):
+Download a RESTful [phar](http://php.net/manual/en/book.phar.php) file, which are all [here](https://github.com/bninja/restful/downloads):
 
-    $ curl -s -L -o restful.phar https://github.com/balanced/restful/downloads/restful.phar
+    $ curl -s -L -o restful.phar https://github.com/bninja/restful/downloads/restful.phar
 
 Download a Balanced [phar](http://php.net/manual/en/book.phar.php) file, which are all [here](https://github.com/balanced/balanced-php/downloads):
 
