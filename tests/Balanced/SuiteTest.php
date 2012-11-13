@@ -618,8 +618,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
         $bank_account = self::_createBankAccount();
         $credit = $bank_account->credit(55, 'something sour');
-        $this->assertEquals($credit->bank_account->uri, $bank_account->uri);
-        $bank_account = $bank_account->get($bank_account->uri);
+        $this->assertEquals($credit->bank_account->id, $bank_account->id);
+        $bank_account = $bank_account->get($bank_account->id);
         $this->assertEquals($bank_account->credits->total(), 1);
     }
     
@@ -653,6 +653,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $credit = $bank_account->credit(55, 'something sour');
         $this->assertTrue(property_exists($credit->bank_account, 'uri'));
         $this->assertTrue(property_exists($credit->bank_account, 'id'));
+        $bank_account = BankAccount::get($bank_account->id);
         $bank_account->delete();
         $credit = Credit::get($credit->uri);
         $this->assertFalse(property_exists($credit->bank_account, 'uri'));
