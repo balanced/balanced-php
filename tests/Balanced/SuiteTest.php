@@ -659,6 +659,13 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(property_exists($credit->bank_account, 'id'));
     }
 
+    function testGetBankAccounById()
+    {
+        $bank_account = self::_createBankAccount();
+        $bank_account_2 = BankAccount::get($bank_account->id);
+        $this->assertEquals($bank_account_2->id, $bank_account->id);
+    }
+
     /**
      * @expectedException Balanced\Errors\InsufficientFunds
      */
