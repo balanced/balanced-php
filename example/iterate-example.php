@@ -2,6 +2,7 @@
 require('vendor/autoload.php');
 
 Httpful\Bootstrap::init();
+RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
 $key = new Balanced\APIKey();

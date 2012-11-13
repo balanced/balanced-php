@@ -3,6 +3,7 @@
 require(__DIR__ . '/vendor/autoload.php');
 
 Httpful\Bootstrap::init();
+RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
 $API_KEY_SECRET = '5f4db668a5ec11e1b908026ba7e239a9';

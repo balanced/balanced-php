@@ -3,6 +3,7 @@
 require('vendor/autoload.php');
 
 Httpful\Bootstrap::init();
+RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
 print "create our new api key\n";
