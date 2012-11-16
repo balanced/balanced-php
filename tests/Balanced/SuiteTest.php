@@ -425,7 +425,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             '121042882'
             );
         $this->assertEquals($bank_account->last_four, '233a');
-        $this->assertEquals($bank_account->account_number, '233a');
+        $this->assertEquals($bank_account->account_number, 'xxx233a');
     }
     
     function testFilteringAndSorting()
@@ -640,7 +640,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(property_exists($credit->bank_account, 'uri'));
         $this->assertFalse(property_exists($credit->bank_account, 'id'));
         $this->assertEquals($credit->bank_account->name, 'Homer Jay');
-        $this->assertEquals($credit->bank_account->account_number, '233a');
+        $this->assertEquals($credit->bank_account->account_number, 'xxx233a');
         $this->assertEquals($credit->bank_account->type, 'checking');
     }
     
