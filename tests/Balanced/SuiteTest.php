@@ -45,7 +45,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         return self::$marketplace->createBuyer(
             $email_address,
             $card->uri,
-            array('test#' => 'test_d')
+            array('test#' => 'test_d'),
+            'Hobo Joe'
         );
     }
     

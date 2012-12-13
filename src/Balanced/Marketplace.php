@@ -142,15 +142,17 @@ class Marketplace extends Resource
      * @param string email_address Email address. There can only be one account with this email address.
      * @param string card_uri URI referencing a card to associate with the account.
      * @param array[string]string meta Optional metadata to associate with the account.
+     * @param string name Optional name of the account.
      *
      * @return \Balanced\Account
      */
-    public function createBuyer($email_address, $card_uri, $meta = null)
+    public function createBuyer($email_address, $card_uri, $meta = null, $name = null)
     {
         return $this->accounts->create(array(
             'email_address' => $email_address,
             'card_uri' => $card_uri,
             'meta' => $meta,
+            'name' => $name
             ));
     }
 
