@@ -21,7 +21,7 @@ if ($page == '/') {
         try {
             echo create_buyer($email_address, $card_uri)->uri;  
             return;
-        } catch (Balanced\Exceptions\HTTPError $e) {
+        } catch (Balanced\Errors\Error $e) {
             echo $e->getMessage();
             return;
         }
@@ -36,20 +36,10 @@ function create_buyer($email_address, $card_uri) {
             $email_address,
             $card_uri);
     }
-    catch (Balanced\Exceptions\HTTPError $e) {
-        if ($e->category_code == 'duplicate-email-address') {
-            # oops, account for $email_address already exists so just add the card
-            $buyer = $marketplace
-                ->accounts
-                ->query()
-                ->filter(Balanced\Account::$f->email_address->eq($email_address))
-                ->one();
-            $buyer->addCard($card_uri);    
-        }
-        else {
-            throw $e;
-        }
-            
+    catch (Balanced\Errors\DuplicateAccountEmailAddress $e) {
+        # oops, account for $email_address already exists so just add the card
+        $buyer = Balanced\Account::get($e->extras->account_uri);
+        $buyer->addCard($card_uri);
     }
     return $buyer;
 }
