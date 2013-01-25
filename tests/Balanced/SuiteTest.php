@@ -298,7 +298,29 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             );
         $this->assertEquals($credit->source->id, $card1->id);
     }
-    
+
+    function testDebitOnBehalfOf()
+    {
+        $buyer = self::_createBuyer();
+        $merchant = self::$marketplace->createAccount(null);
+        $card1 = self::_createCard($buyer);
+
+        $debit = $buyer->debit(1000, null, null, null, null, $merchant);
+        $this->assertEquals($debit->amount, 1000);
+        // for now just test the debit succeeds.
+        // TODO: once the on_behalf_of actually shows up on the response, test it.
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    function testDebitOnBehalfOfFailsForBuyer()
+    {
+        $buyer = self::_createBuyer();
+        $card1 = self::_createCard($buyer);
+        $debit = $buyer->debit(1000, null, null, null, null, $buyer);
+    }
+
     function testCreateAndVoidHold()
     {
         $buyer = self::_createBuyer();

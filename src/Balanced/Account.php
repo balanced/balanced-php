@@ -97,13 +97,26 @@ class Account extends Resource
         $source = null,
         $on_behalf_of = null)
     {
-        $source_uri = ($source == null)  ? null
-                    : is_string($source) ? $source
-                                         : $source->uri;
-
-        $on_behalf_of_uri = ($on_behalf_of == null)  ? null
-                          : is_string($on_behalf_of) ? $on_behalf_of
-                                                     : $on_behalf_of->uri;
+        if ($source == null) {
+            $source_uri = null;
+        } else if (is_string($source)) {
+            $source_uri = $source;
+        } else {
+            $source_uri = $source->uri;
+        }
+        
+        if ($on_behalf_of == null) {
+            $on_behalf_of_uri = null;
+        } else if (is_string($on_behalf_of)) {
+            $on_behalf_of_uri = $on_behalf_of;
+        } else {
+            $on_behalf_of_uri = $on_behalf_of->uri;
+        }
+        
+        if ($on_behalf_of_uri == $this->uri)
+            throw new \InvalidArgumentException(
+                'The on_behalf_of parameter MAY NOT be the same account as the account you are debiting!'
+            );
 
         return $this->debits->create(array(
             'amount' => $amount,
