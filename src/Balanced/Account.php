@@ -104,7 +104,7 @@ class Account extends Resource
         } else {
             $source_uri = $source->uri;
         }
-        
+
         if ($on_behalf_of == null) {
             $on_behalf_of_uri = null;
         } else if (is_string($on_behalf_of)) {
@@ -112,8 +112,8 @@ class Account extends Resource
         } else {
             $on_behalf_of_uri = $on_behalf_of->uri;
         }
-        
-        if ($on_behalf_of_uri == $this->uri)
+
+        if (isset($this->uri) && $on_behalf_of_uri == $this->uri)
             throw new \InvalidArgumentException(
                 'The on_behalf_of parameter MAY NOT be the same account as the account you are debiting!'
             );
