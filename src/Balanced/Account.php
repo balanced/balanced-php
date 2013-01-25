@@ -94,18 +94,24 @@ class Account extends Resource
         $appears_on_statement_as = null,
         $description = null,
         $meta = null,
-        $source = null)
+        $source = null,
+        $on_behalf_of = null)
     {
-        if ($source == null)
-            $source_uri = null;
-        else
-            $source_uri = is_string($source) ? $source : $source->uri;
+        $source_uri = ($source == null)  ? null
+                    : is_string($source) ? $source
+                                         : $source->uri;
+
+        $on_behalf_of_uri = ($on_behalf_of == null)  ? null
+                          : is_string($on_behalf_of) ? $on_behalf_of
+                                                     : $on_behalf_of->uri;
+
         return $this->debits->create(array(
             'amount' => $amount,
             'appears_on_statement_as' => $appears_on_statement_as,
             'description' => $description,
             'meta' => $meta,
             'source_uri' => $source_uri,
+            'on_behalf_of_uri' => $on_behalf_of_uri,
             'appears_on_statement_as' => $appears_on_statement_as
             ));
     }
