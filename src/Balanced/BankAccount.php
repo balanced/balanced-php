@@ -67,18 +67,20 @@ class BankAccount extends Resource
             $meta = null,
             $appears_on_statement_as = null)
     {
-        if (!property_exists($this, 'account') || $this->account == null)
-            return $this->credits->create(array(
-                        'amount' => $amount,
-                        'description' => $description,
-                    ));
-        else
-            return $this->account->credit(
-                        $amount,
-                        $description,
-                        $meta,
-                        $this->uri,
-                        $appears_on_statement_as
-                    );
+        if (!property_exists($this, 'account') || $this->account == null) {
+            $credit = $this->credits->create(array(
+                'amount' => $amount,
+                'description' => $description,
+            ));
+        } else {
+            $credit = $this->account->credit(
+                $amount,
+                $description,
+                $meta,
+                $this->uri,
+                $appears_on_statement_as
+            );
+        }
+        return $credit;
     }
 }

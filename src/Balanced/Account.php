@@ -94,18 +94,37 @@ class Account extends Resource
         $appears_on_statement_as = null,
         $description = null,
         $meta = null,
-        $source = null)
+        $source = null,
+        $on_behalf_of = null)
     {
-        if ($source == null)
+        if ($source == null) {
             $source_uri = null;
-        else
-            $source_uri = is_string($source) ? $source : $source->uri;
+        } else if (is_string($source)) {
+            $source_uri = $source;
+        } else {
+            $source_uri = $source->uri;
+        }
+
+        if ($on_behalf_of == null) {
+            $on_behalf_of_uri = null;
+        } else if (is_string($on_behalf_of)) {
+            $on_behalf_of_uri = $on_behalf_of;
+        } else {
+            $on_behalf_of_uri = $on_behalf_of->uri;
+        }
+
+        if (isset($this->uri) && $on_behalf_of_uri == $this->uri)
+            throw new \InvalidArgumentException(
+                'The on_behalf_of parameter MAY NOT be the same account as the account you are debiting!'
+            );
+
         return $this->debits->create(array(
             'amount' => $amount,
             'appears_on_statement_as' => $appears_on_statement_as,
             'description' => $description,
             'meta' => $meta,
             'source_uri' => $source_uri,
+            'on_behalf_of_uri' => $on_behalf_of_uri,
             'appears_on_statement_as' => $appears_on_statement_as
             ));
     }
@@ -165,7 +184,7 @@ class Account extends Resource
      * @see \Balanced\Marketplace->createBankAccount
      * 
      * @param mixed bank_account \Balanced\BankAccount or URI for a bank account to assocaite with the account. Alternatively it can be an associative array describing a bank account to create and associate with the account.
-     
+     * 
      * @return Balanced\Account
      */
     public function addBankAccount($bank_account)
@@ -191,7 +210,7 @@ class Account extends Resource
     public function promoteToMerchant($merchant)
     {
         if (is_string($merchant))
-            return $this->merchant_uri = $merchant;
+            $this->merchant_uri = $merchant;
         else
             $this->merchant = $merchant;
         return $this->save();

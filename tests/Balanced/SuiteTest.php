@@ -298,7 +298,29 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             );
         $this->assertEquals($credit->source->id, $card1->id);
     }
-    
+
+    function testDebitOnBehalfOf()
+    {
+        $buyer = self::_createBuyer();
+        $merchant = self::$marketplace->createAccount(null);
+        $card1 = self::_createCard($buyer);
+
+        $debit = $buyer->debit(1000, null, null, null, null, $merchant);
+        $this->assertEquals($debit->amount, 1000);
+        // for now just test the debit succeeds.
+        // TODO: once the on_behalf_of actually shows up on the response, test it.
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    function testDebitOnBehalfOfFailsForBuyer()
+    {
+        $buyer = self::_createBuyer();
+        $card1 = self::_createCard($buyer);
+        $debit = $buyer->debit(1000, null, null, null, null, $buyer);
+    }
+
     function testCreateAndVoidHold()
     {
         $buyer = self::_createBuyer();
@@ -630,14 +652,14 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $buyer->debit(101);  # NOTE: build up escrow balance to credit
 
         $credit = Credit::bankAccount(
-                      55,
-                      array(
-                          'name' => 'Homer Jay',
-                          'account_number' => '112233a',
-                          'routing_number' => '121042882',
-                          'type' => 'checking',
-                      ),
-                      'something sour');
+            55,
+            array(
+                'name' => 'Homer Jay',
+                'account_number' => '112233a',
+                'routing_number' => '121042882',
+                'type' => 'checking',
+            ),
+            'something sour');
         $this->assertFalse(property_exists($credit->bank_account, 'uri'));
         $this->assertFalse(property_exists($credit->bank_account, 'id'));
         $this->assertEquals($credit->bank_account->name, 'Homer Jay');
@@ -676,13 +698,13 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $marketplace = Marketplace::get(self::$marketplace->uri);
         $amount = $marketplace->in_escrow + 100;
         $credit = Credit::bankAccount(
-                $amount,
-                array(
-                        'name' => 'Homer Jay',
-                        'account_number' => '112233a',
-                        'routing_number' => '121042882',
-                        'type' => 'checking',
-                ),
-                'something sour');
+            $amount,
+            array(
+                'name' => 'Homer Jay',
+                'account_number' => '112233a',
+                'routing_number' => '121042882',
+                'type' => 'checking',
+            ),
+            'something sour');
     }
 }
