@@ -191,7 +191,7 @@ class Account extends Resource
     public function promoteToMerchant($merchant)
     {
         if (is_string($merchant))
-            return $this->merchant_uri = $merchant;
+            $this->merchant_uri = $merchant;
         else
             $this->merchant = $merchant;
         return $this->save();
