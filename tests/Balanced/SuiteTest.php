@@ -630,14 +630,14 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $buyer->debit(101);  # NOTE: build up escrow balance to credit
 
         $credit = Credit::bankAccount(
-                      55,
-                      array(
-                          'name' => 'Homer Jay',
-                          'account_number' => '112233a',
-                          'routing_number' => '121042882',
-                          'type' => 'checking',
-                      ),
-                      'something sour');
+            55,
+            array(
+                'name' => 'Homer Jay',
+                'account_number' => '112233a',
+                'routing_number' => '121042882',
+                'type' => 'checking',
+            ),
+            'something sour');
         $this->assertFalse(property_exists($credit->bank_account, 'uri'));
         $this->assertFalse(property_exists($credit->bank_account, 'id'));
         $this->assertEquals($credit->bank_account->name, 'Homer Jay');
@@ -676,13 +676,13 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $marketplace = Marketplace::get(self::$marketplace->uri);
         $amount = $marketplace->in_escrow + 100;
         $credit = Credit::bankAccount(
-                $amount,
-                array(
-                        'name' => 'Homer Jay',
-                        'account_number' => '112233a',
-                        'routing_number' => '121042882',
-                        'type' => 'checking',
-                ),
-                'something sour');
+            $amount,
+            array(
+                'name' => 'Homer Jay',
+                'account_number' => '112233a',
+                'routing_number' => '121042882',
+                'type' => 'checking',
+            ),
+            'something sour');
     }
 }

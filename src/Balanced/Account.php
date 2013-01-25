@@ -165,7 +165,7 @@ class Account extends Resource
      * @see \Balanced\Marketplace->createBankAccount
      * 
      * @param mixed bank_account \Balanced\BankAccount or URI for a bank account to assocaite with the account. Alternatively it can be an associative array describing a bank account to create and associate with the account.
-     
+     * 
      * @return Balanced\Account
      */
     public function addBankAccount($bank_account)
