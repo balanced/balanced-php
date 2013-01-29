@@ -230,6 +230,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
                 'appears_on_statement_as' => 'BAL*TANG',
                 'meta' => null,
                 'source_uri' => null,
+                'on_behalf_of_uri' => null,
                 ));
         
         $account = new Account(array('debits' => $collection));
@@ -572,6 +573,7 @@ class CardTest extends \PHPUnit_Framework_TestCase
                 'appears_on_statement_as' => 'BAL*TANG',
                 'meta' => null,
                 'source_uri' => '/some/uri',
+                'on_behalf_of_uri' => null,
                 ));
         
         $card->debit(9911, 'BAL*TANG', 'something tangy');
