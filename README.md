@@ -119,7 +119,7 @@ And then `require` all bootstrap files:
 
 ## Usage
 
-See https://www.balancedpayments.com/docs/php for tutorials and documentation.
+See https://www.balancedpayments.com/docs/overview?language=php for tutorials and documentation.
 
 ## Testing
     
