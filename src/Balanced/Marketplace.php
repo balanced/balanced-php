@@ -22,7 +22,7 @@ use \RESTful\URISpec;
  * var_dump($marketplace); 
  * </code>
  * 
- * Each api key is uniquely assocaited with an api key so once you've created a
+ * Each api key is uniquely associated with an api key so once you've created a
  * marketplace:
  * 
  * <code>
@@ -277,5 +277,19 @@ class Marketplace extends Resource
             'name' => $name,
             'meta' => $meta,
             ));
+    }
+
+    /*
+     * Create a callback.
+     *
+     * @param string url URL of callback.
+     */
+    public function createCallback(
+        $url
+    )
+    {
+        return $this->callbacks->create(array(
+            'url' => $url
+        ));
     }
 }
