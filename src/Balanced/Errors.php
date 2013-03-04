@@ -15,7 +15,7 @@ class Error extends HTTPError
             if ($parent_class != 'Balanced\Errors\Error')
                 continue;
             foreach ($class::$codes as $type)
-                self::$codes[$type] = $class; 
+                self::$codes[$type] = $class;
         }
     }
 }
@@ -123,4 +123,13 @@ class CannotDebit extends Error
 class CannotRefund extends Error
 {
     public static $codes = array('funding-source-not-refundable');
+}
+
+class BankAccountVerificationFailure extends Error
+{
+    public static $codes = array(
+        'bank-account-authentication-not-pending',
+        'bank-account-authentication-failed',
+        'bank-account-authentication-already-exists'
+    );
 }

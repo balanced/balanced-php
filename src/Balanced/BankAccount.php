@@ -83,4 +83,45 @@ class BankAccount extends Resource
         }
         return $credit;
     }
+
+    public function verify()
+    {
+        $response = self::getClient()->post(
+            $this->verifications_uri, null
+        );
+        $verification = new BankAccountVerification();
+        $verification->_objectify($response->body);
+        return $verification;
+    }
+}
+
+/**
+ * Represents an verification for a bank account which is a pre-requisite if
+ * you want to create debits using the associated bank account. The side-effect
+ * of creating a verification is that 2 random amounts will be deposited into
+ * the account which must then be confirmed via the confirm method to ensure
+ * that you have access to the bank account in question.
+ *
+ * You can create these via Balanced\Marketplace::bank_accounts::verify.
+ *
+ * <code>
+ * $marketplace = \Balanced\Marketplace::mine();
+ *
+ * $bank_account = $marketplace->bank_accounts->create(array(
+ *     'name' => 'name',
+ *     'account_number' => '11223344',
+ *     'bank_code' => '1313123',
+ *     ));
+ *
+ * $verification = $bank_account->verify();
+ * </code>
+ */
+class BankAccountVerification extends Resource {
+
+    public function confirm($amount1, $amount2) {
+        $this->amount_1 = $amount1;
+        $this->amount_2 = $amount2;
+        $this->save();
+        return $this;
+    }
 }
