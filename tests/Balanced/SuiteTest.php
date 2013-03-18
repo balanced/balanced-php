@@ -202,7 +202,12 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     {
         self::_createBuyer();
     }
-    
+
+    function testCreateAccountWithoutEmailAddress()
+    {
+    	self::$marketplace->createAccount();
+    }
+
     
     function testGetBuyer()
     {
@@ -229,6 +234,19 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             array('hi' => 'bye')
             );
         $refund = $debit->refund(100);
+    }
+    
+    /**
+     * @expectedException RESTful\Exceptions\HTTPError
+     */
+    function testDebitZero()
+    {
+    	$buyer = self::_createBuyer();
+    	$debit = $buyer->debit(
+    			0,
+    			'Softie',
+    			'something i bought'
+    	);
     }
     
     function testMultipleRefunds()

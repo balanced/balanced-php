@@ -123,12 +123,12 @@ class Marketplace extends Resource
      * adding a funding source (e.g a card) or a merchant using
      * \Balanced\Account->promoteToMerchant.
      *
-     * @param string email_address Email address. There can only be one account with this email address.
+     * @param string email_address Optional email address. There can only be one account with this email address.
      * @param array[string]string meta Optional metadata to associate with the account.
      *
      * @return \Balanced\Account
      */
-    public function createAccount($email_address, $meta = null)
+    public function createAccount($email_address = null, $meta = null)
     {
         return $this->accounts->create(array(
             'email_address' => $email_address,
@@ -139,7 +139,7 @@ class Marketplace extends Resource
     /**
      * Create a buyer account.
      * 
-     * @param string email_address Email address. There can only be one account with this email address.
+     * @param string email_address Optional email address. There can only be one account with this email address.
      * @param string card_uri URI referencing a card to associate with the account.
      * @param array[string]string meta Optional metadata to associate with the account.
      * @param string name Optional name of the account.
@@ -251,7 +251,7 @@ class Marketplace extends Resource
      *     );
      * </coe>
      * 
-     * @param string email_address Email address. There can only be one account with this email address.
+     * @param string email_address Optional email address. There can only be one account with this email address.
      * @param array[string]mixed merchant Associative array describing the merchants identity.
      * @param string $bank_account_uri Optional URI referencing a bank account to associate with this account.
      * @param string $merchant_uri URI of a merchant created via the redirection sign-up flow.
@@ -261,13 +261,12 @@ class Marketplace extends Resource
      * @return \Balanced\Account
      */
     public function createMerchant(
-        $email_address,
+        $email_address = null,
         $merchant = null,
         $bank_account_uri = null,
         $merchant_uri = null,
         $name = null,
-        $meta = null
-        )
+        $meta = null)
     {
         return $this->accounts->create(array(
             'email_address' => $email_address,
