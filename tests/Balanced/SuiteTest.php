@@ -20,22 +20,22 @@ use Balanced\Card;
 
 /**
  * Suite test cases. These talk to an API server and so make network calls.
- * 
+ *
  * Enviroment variables can be used to control client settings:
- * 
+ *
  * <ul>
  *     <li>$BALANCED_URL_ROOT If set applies to \Balanced\Settings::$url_root.
  *     <li>$BALANCED_API_KEY If set applies to \Balanced\Settings::$api_key.
  * </ul>
- * 
+ *
  * @group suite
  */
 class SuiteTest extends \PHPUnit_Framework_TestCase
-{   
+{
     static $key,
            $marketplace,
            $email_counter = 0;
-    
+
     static function _createBuyer($email_address = null, $card = null)
     {
         if ($email_address == null)
@@ -49,7 +49,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             'Hobo Joe'
         );
     }
-    
+
     static function _createCard($account = null)
     {
         $card = self::$marketplace->createCard(
@@ -68,7 +68,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         }
         return $card;
     }
-    
+
     static function _createBankAccount($account = null)
     {
         $bank_account = self::$marketplace->createBankAccount(
@@ -82,7 +82,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         }
         return $bank_account;
     }
-    
+
     public static function _createPersonMerchant($email_address = null, $bank_account = null)
     {
         if ($email_address == null)
@@ -105,7 +105,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             $bank_account->uri
             );
     }
-    
+
     public static function _createBusinessMerchant($email_address = null, $bank_account = null)
     {
         if ($email_address == null)
@@ -136,7 +136,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             $bank_account->uri
             );
     }
-    
+
     public static function setUpBeforeClass()
     {
         // url root
@@ -146,7 +146,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         }
         else
             Settings::$url_root = 'https://api.balancedpayments.com';
-            
+
         // api key
         $api_key = getenv('BALANCED_API_KEY');
         if ($api_key != '') {
@@ -157,7 +157,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             self::$key->save();
             Settings::$api_key = self::$key->secret;
         }
-        
+
         // marketplace
         try {
             self::$marketplace = Marketplace::mine();
@@ -167,13 +167,13 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             self::$marketplace->save();
         }
     }
-         
+
     function testMarketplaceMine()
     {
         $marketplace = Marketplace::mine();
         $this->assertEquals($this::$marketplace->id, $marketplace->id);
     }
-    
+
     /**
      * @expectedException RESTful\Exceptions\HTTPError
      */
@@ -182,7 +182,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $marketplace = new Marketplace();
         $marketplace->save();
     }
-    
+
     /**
      * @expectedException RESTful\Exceptions\HTTPError
      */
@@ -191,13 +191,13 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         self::_createBuyer('dupe@poundpay.com');
         self::_createBuyer('dupe@poundpay.com');
     }
-    
+
     function testIndexMarketplace()
     {
         $marketplaces = Marketplace::query()->all();
         $this->assertEquals(count($marketplaces), 1);
     }
-    
+
     function testCreateBuyer()
     {
         self::_createBuyer();
@@ -208,22 +208,21 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     	self::$marketplace->createAccount();
     }
 
-    
     function testGetBuyer()
     {
         $buyer1 = self::_createBuyer();
         $buyer2 = Account::get($buyer1->uri);
         $this->assertEquals($buyer1->id, $buyer2->id);
     }
-    
-    
+
+
     function testMe()
     {
         $marketplace = Marketplace::mine();
         $merchant = Merchant::me();
         $this->assertEquals($marketplace->id, $merchant->marketplace->id);
     }
-    
+
     function testDebitAndRefundBuyer()
     {
         $buyer = self::_createBuyer();
@@ -235,7 +234,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             );
         $refund = $debit->refund(100);
     }
-    
+
     /**
      * @expectedException RESTful\Exceptions\HTTPError
      */
@@ -248,7 +247,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     			'something i bought'
     	);
     }
-    
+
     function testMultipleRefunds()
     {
         $buyer = self::_createBuyer();
@@ -268,7 +267,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             }, $refunds);
         sort($expected_refund_ids);
         $this->assertEquals($debit->refunds->total(), 4);
-        
+
         // itemization
         $total = 0;
         $refund_ids = array();
@@ -279,7 +278,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         sort($refund_ids);
         $this->assertEquals($total, 400);
         $this->assertEquals($expected_refund_ids, $refund_ids);
-        
+
         // pagination
         $total = 0;
         $refund_ids = array();
@@ -293,9 +292,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($total, 400);
         $this->assertEquals($expected_refund_ids, $refund_ids);
     }
-    
+
     function testDebitSource()
-    {   
+    {
         $buyer = self::_createBuyer();
         $card1 = self::_createCard($buyer);
         $card2 = self::_createCard($buyer);
@@ -306,7 +305,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             'something i bought'
             );
         $this->assertEquals($credit->source->id, $card2->id);
-        
+
         $credit = $buyer->debit(
             1000,
             'Softie',
@@ -347,7 +346,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $hold->void();
         $this->assertEquals($hold->is_void, true);
     }
-    
+
     function testCreateAndCaptureHold()
     {
         $buyer = self::_createBuyer();
@@ -357,12 +356,12 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($debit->hold->id, $hold->id);
         $this->assertEquals($hold->debit->id, $debit->id);
     }
-    
+
     function testCreatePersonMerchant()
     {
         $merchant = self::_createPersonMerchant();
     }
-    
+
     function testCreateBusinessMerchant()
     {
         $merchant = self::_createBusinessMerchant();
@@ -399,12 +398,12 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $merchant = self::_createBusinessMerchant();
         $merchant->credit(self::$marketplace->in_escrow + 1);
     }
-    
+
     function testCreditDestiation()
     {
         $buyer = self::_createBuyer();
         $buyer->debit(3000);  # NOTE: build up escrow balance to credit
-        
+
         $merchant = self::_createPersonMerchant();
         $bank_account1 = self::_createBankAccount($merchant);
         $bank_account2 = self::_createBankAccount($merchant);
@@ -417,7 +416,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             'Softie'
             );
         $this->assertEquals($credit->destination->id, $bank_account2->id);
-        
+
         $credit = $merchant->credit(
             1000,
             'something i sold',
@@ -427,21 +426,21 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             );
         $this->assertEquals($credit->destination->id, $bank_account1->id);
     }
-    
+
     function testAssociateCard()
     {
         $merchant = self::_createPersonMerchant();
         $card = self::_createCard();
         $merchant->addCard($card->uri);
     }
-    
+
     function testAssociateBankAccount()
     {
         $merchant = self::_createPersonMerchant();
         $bank_account = self::_createBankAccount();
         $merchant->addBankAccount($bank_account->uri);
     }
-    
+
     function testCardMasking()
     {
         $card = self::$marketplace->createCard(
@@ -457,7 +456,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($card->last_four, '4113');
         $this->assertFalse(property_exists($card, 'number'));
     }
-    
+
     function testBankAccountMasking()
     {
         $bank_account = self::$marketplace->createBankAccount(
@@ -468,18 +467,18 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($bank_account->last_four, '233a');
         $this->assertEquals($bank_account->account_number, 'xxx233a');
     }
-    
+
     function testFilteringAndSorting()
     {
         $buyer = self::_createBuyer();
         $debit1 = $buyer->debit(1122, null, null, array('tag' => '1'));
         $debit2 = $buyer->debit(3322, null, null, array('tag' => '1'));
         $debit3 = $buyer->debit(2211, null, null, array('tag' => '2'));
-        
+
         $getId = function($o) {
-            return $o->id;   
+            return $o->id;
         };
-        
+
         $debits = (
             self::$marketplace->debits->query()
             ->filter(Debit::$f->meta->tag->eq('1'))
@@ -487,14 +486,14 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             ->all());
         $debit_ids = array_map($getId, $debits);
         $this->assertEquals($debit_ids, array($debit1->id, $debit2->id));
-        
+
         $debits = (
             self::$marketplace->debits->query()
             ->filter(Debit::$f->meta->tag->eq('2'))
             ->all());
         $debit_ids = array_map($getId, $debits);
         $this->assertEquals($debit_ids, array($debit3->id));
-        
+
         $debits = (
             self::$marketplace->debits->query()
             ->filter(Debit::$f->meta->contains('tag'))
@@ -502,7 +501,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             ->all());
         $debit_ids = array_map($getId, $debits);
         $this->assertEquals($debit_ids, array($debit1->id, $debit2->id, $debit3->id));
-        
+
         $debits = (
             self::$marketplace->debits->query()
             ->filter(Debit::$f->meta->contains('tag'))
@@ -535,7 +534,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
                 'country_code' => 'USA',
                 ),
             );
-        
+
         try {
             self::$marketplace->createMerchant(
                 sprintf('m+%d@poundpay.com', self::$email_counter++),
@@ -550,7 +549,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         }
         $this->fail('Expected exception HTTPError not raised.');
     }
-   
+
     function testInternationalCard()
     {
         $payload = array(
@@ -588,7 +587,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             array('hi' => 'bye'));
         $this->assertEquals($debit->source->uri, $card->uri);
     }
-    
+
     /**
      * @expectedException \UnexpectedValueException
      */
@@ -597,12 +596,12 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $card = self::_createCard();
         $card->debit(1000, 'Softie');
     }
-    
+
     function testCreditABankAccount()
     {
         $buyer = self::_createBuyer();
         $buyer->debit(101);  # NOTE: build up escrow balance to credit
-        
+
         $merchant = self::_createPersonMerchant();
         $bank_account = self::_createBankAccount($merchant);
         $credit = $bank_account->credit(55, 'something sour');
@@ -623,19 +622,19 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             ->filter(Debit::$f->meta->tag->eq($tag))
             ->sort(Debit::$f->created_at->asc())
             ->limit(1));
-        
+
         $this->assertEquals($query->total(), 3);
-        
+
         $debit_ids = array();
         foreach ($query as $debits) {
             array_push($debit_ids, $debits->id);
         }
         $this->assertEquals($debit_ids, $expected_debit_ids);
-        
+
         $debit_ids = array($query[0]->id, $query[1]->id, $query[2]->id);
         $this->assertEquals($debit_ids, $expected_debit_ids);
     }
-    
+
     function testBuyerPromoteToMerchant()
     {
     	$merchant = array(
@@ -651,7 +650,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     	$buyer = self::_createBuyer();
     	$buyer->promoteToMerchant($merchant);
     }
-    
+
     function testCreditAccountlessBankAccount()
     {
         $buyer = self::_createBuyer();
@@ -663,7 +662,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $bank_account = $bank_account->get($bank_account->id);
         $this->assertEquals($bank_account->credits->total(), 1);
     }
-    
+
     function testCreditUnstoredBankAccount()
     {
         $buyer = self::_createBuyer();
@@ -684,12 +683,12 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($credit->bank_account->account_number, 'xxx233a');
         $this->assertEquals($credit->bank_account->type, 'checking');
     }
-    
+
     function testDeleteBankAccount()
     {
         $buyer = self::_createBuyer();
         $buyer->debit(101);  # NOTE: build up escrow balance to credit
-        
+
         $bank_account = self::_createBankAccount();
         $credit = $bank_account->credit(55, 'something sour');
         $this->assertTrue(property_exists($credit->bank_account, 'uri'));
@@ -724,5 +723,45 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
                 'type' => 'checking',
             ),
             'something sour');
+    }
+
+    /**
+     * @expectedException Balanced\Errors\BankAccountVerificationFailure
+     */
+    function testBankAccountVerificationFailure() {
+        $bank_account = self::_createBankAccount();
+        $buyer = self::_createBuyer();
+        $buyer->addBankAccount($bank_account);
+        $verification = $bank_account->verify();
+        $verification->confirm(1, 2);
+    }
+
+    /**
+     * @expectedException Balanced\Errors\BankAccountVerificationFailure
+     */
+    function testBankAccountVerificationDuplicate() {
+        $bank_account = self::_createBankAccount();
+        $buyer = self::_createBuyer();
+        $buyer->addBankAccount($bank_account);
+        $bank_account->verify();
+        $bank_account->verify();
+    }
+
+    function testBankAccountVerificationSuccess() {
+        $bank_account = self::_createBankAccount();
+        $buyer = self::_createBuyer();
+        $buyer->addBankAccount($bank_account);
+        $verification = $bank_account->verify();
+        $verification->confirm(1, 1);
+
+        //  this will fail if the bank account is not verified
+        $debit = $buyer->debit(
+            1000,
+            'Softie',
+            'something i bought',
+            array('hi' => 'bye'),
+            $bank_account
+        );
+        $this->assertTrue(strpos($debit->source->uri, 'bank_account') > 0);
     }
 }
