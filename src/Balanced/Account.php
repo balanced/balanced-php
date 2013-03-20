@@ -131,7 +131,7 @@ class Account extends Resource
     
     /**
      * Create a hold (i.e. a guaranteed pending debit) for account funds. You
-     * can later capture or void. A hold is assocaited with a account funding
+     * can later capture or void. A hold is associated with a account funding
      * source (i.e. \Balanced\Card). If you don't specify the source then the
      * current primary funding source for the account is used. 
      * 
@@ -164,7 +164,7 @@ class Account extends Resource
      * 
      * @param mixed card \Balanced\Card or URI referencing a card to associate with the account. Alternatively it can be an associative array describing a card to create and associate with the account.
      * 
-     * @return Balanced\Account
+     * @return \Balanced\Account
      */
     public function addCard($card)
     {
@@ -183,9 +183,9 @@ class Account extends Resource
      * 
      * @see \Balanced\Marketplace->createBankAccount
      * 
-     * @param mixed bank_account \Balanced\BankAccount or URI for a bank account to assocaite with the account. Alternatively it can be an associative array describing a bank account to create and associate with the account.
+     * @param mixed bank_account \Balanced\BankAccount or URI for a bank account to associate with the account. Alternatively it can be an associative array describing a bank account to create and associate with the account.
      * 
-     * @return Balanced\Account
+     * @return \Balanced\Account
      */
     public function addBankAccount($bank_account)
     {
@@ -205,7 +205,7 @@ class Account extends Resource
      *
      * @param mixed merchant Associative array describing the merchants identity or a URI referencing a created merchant.
      *       
-     * @return Balanced\Account
+     * @return \Balanced\Account
      */
     public function promoteToMerchant($merchant)
     {

@@ -33,7 +33,7 @@ class Settings
      * Configure all settings.
      * 
      * @param string url_root The root (schema://hostname[:port]) to use when constructing api URLs.
-     * @param string api_key The api key secret to use for authenticating when talking to the api. If null then api usage is limited to uauthenticated endpoints.  
+     * @param string api_key The api key secret to use for authenticating when talking to the api. If null then api usage is limited to unauthenticated endpoints.
      */
     public static function configure($url_root, $api_key)
     {
