@@ -22,7 +22,7 @@ use \RESTful\URISpec;
  * var_dump($marketplace); 
  * </code>
  * 
- * Each api key is uniquely assocaited with an api key so once you've created a
+ * Each api key is uniquely associated with an api key so once you've created a
  * marketplace:
  * 
  * <code>
@@ -44,7 +44,7 @@ class Marketplace extends Resource
      * Get the marketplace associated with the currently configured
      * \Balanced\Settings::$api_key. 
      *
-     * @throws \Balanced\Exceptions\NoResult
+     * @throws \RESTful\Exceptions\NoResultFound
      * @return \Balanced\Marketplace
      */
     public static function mine()

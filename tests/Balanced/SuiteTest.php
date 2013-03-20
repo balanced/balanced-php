@@ -21,7 +21,7 @@ use Balanced\Card;
 /**
  * Suite test cases. These talk to an API server and so make network calls.
  *
- * Enviroment variables can be used to control client settings:
+ * Environment variables can be used to control client settings:
  *
  * <ul>
  *     <li>$BALANCED_URL_ROOT If set applies to \Balanced\Settings::$url_root.
@@ -175,7 +175,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException RESTful\Exceptions\HTTPError
+     * @expectedException \RESTful\Exceptions\HTTPError
      */
     function testAnotherMarketplace()
     {
@@ -184,7 +184,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException RESTful\Exceptions\HTTPError
+     * @expectedException \RESTful\Exceptions\HTTPError
      */
     function testDuplicateEmailAddress()
     {
@@ -236,7 +236,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException RESTful\Exceptions\HTTPError
+     * @expectedException \RESTful\Exceptions\HTTPError
      */
     function testDebitZero()
     {
@@ -368,7 +368,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException RESTful\Exceptions\HTTPError
+     * @expectedException \RESTful\Exceptions\HTTPError
      */
     function testCreditRequiresNonZeroAmount()
     {
@@ -383,7 +383,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException RESTful\Exceptions\HTTPError
+     * @expectedException \RESTful\Exceptions\HTTPError
      */
     function testCreditMoreThanEscrowBalanceFails()
     {
@@ -567,7 +567,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException RESTful\Exceptions\NoResultFound
+     * @expectedException \RESTful\Exceptions\NoResultFound
      */
     function testAccountWithEmailAddressNotFound()
     {
@@ -708,7 +708,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Balanced\Errors\InsufficientFunds
+     * @expectedException \Balanced\Errors\InsufficientFunds
      */
     function testInsufficientFunds()
     {
@@ -726,7 +726,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Balanced\Errors\BankAccountVerificationFailure
+     * @expectedException \Balanced\Errors\BankAccountVerificationFailure
      */
     function testBankAccountVerificationFailure() {
         $bank_account = self::_createBankAccount();
@@ -737,7 +737,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Balanced\Errors\BankAccountVerificationFailure
+     * @expectedException \Balanced\Errors\BankAccountVerificationFailure
      */
     function testBankAccountVerificationDuplicate() {
         $bank_account = self::_createBankAccount();
