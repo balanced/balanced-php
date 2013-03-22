@@ -101,20 +101,26 @@ class Marketplace extends Resource
      * 
      * @param string name Name of the account holder.
      * @param string account_number Account number.
-     * @param string bank_code Bank code or routing number.
+     * @param string routing_number Bank code or routing number.
+     * @param string type checking or savings
+     * @param array meta Single level mapping from string keys to string values.
      * 
      * @return \Balanced\BankAccount
      */
     public function createBankAccount(
         $name,
         $account_number,
-        $bank_code
+        $routing_number,
+        $type,
+        $meta = null
         )
     {
         return $this->bank_accounts->create(array(
-            'name' => $name,
+            'name'           => $name,
             'account_number' => $account_number,
-            'bank_code' => $bank_code,
+            'routing_number' => $routing_number,
+            'type'           => $type,
+            'meta'           => $meta
             ));
     }
     
