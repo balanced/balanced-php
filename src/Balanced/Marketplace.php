@@ -3,6 +3,8 @@
 namespace Balanced;
 
 use Balanced\Resource;
+use Balanced\Errors;
+use Balanced\Account;
 use \RESTful\URISpec;
 
 /**
@@ -22,7 +24,7 @@ use \RESTful\URISpec;
  * var_dump($marketplace);
  * </code>
  *
- * Each api key is uniquely assocaited with an api key so once you've created a
+ * Each api key is uniquely associated with an api key so once you've created a
  * marketplace:
  *
  * <code>
@@ -44,7 +46,7 @@ class Marketplace extends Resource
      * Get the marketplace associated with the currently configured
      * \Balanced\Settings::$api_key.
      *
-     * @throws \Balanced\Exceptions\NoResult
+     * @throws \RESTful\Exceptions\NoResultFound
      * @return \Balanced\Marketplace
      */
     public static function mine()
@@ -101,20 +103,26 @@ class Marketplace extends Resource
      *
      * @param string name Name of the account holder.
      * @param string account_number Account number.
-     * @param string bank_code Bank code or routing number.
+     * @param string routing_number Bank code or routing number.
+     * @param string type checking or savings
+     * @param array meta Single level mapping from string keys to string values.
      *
      * @return \Balanced\BankAccount
      */
     public function createBankAccount(
         $name,
         $account_number,
-        $bank_code
+        $routing_number,
+        $type,
+        $meta = null
         )
     {
         return $this->bank_accounts->create(array(
-            'name' => $name,
+            'name'           => $name,
             'account_number' => $account_number,
-            'bank_code' => $bank_code,
+            'routing_number' => $routing_number,
+            'type'           => $type,
+            'meta'           => $meta
             ));
     }
 
@@ -147,12 +155,14 @@ class Marketplace extends Resource
      */
     function findOrCreateAccountByEmailAddress($email_address)
     {
-    	$marketplace = Balanced\Marketplace::mine();
+    	$marketplace = Marketplace::mine();
     	try {
-    		$account = $this->accounts->create(array(email_address=>$email_address));
+    		$account = $this->accounts->create(array(
+    		        'email_address' => $email_address
+    		        ));
     	}
-    	catch (Balanced\Errors\DuplicateAccountEmailAddress $e) {
-    		$account = Balanced\Account::get($e->extras->account_uri);
+    	catch (Errors\DuplicateAccountEmailAddress $e) {
+    		$account = Account::get($e->extras->account_uri);
     	}
     	return $account;
     }
