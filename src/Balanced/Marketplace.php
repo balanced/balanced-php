@@ -7,42 +7,42 @@ use \RESTful\URISpec;
 
 /**
  * Represents a marketplace.
- * 
+ *
  * To get started you create an api key and then create a marketplace:
- *   
+ *
  * <code>
  * $api_key = new \Balanced\APIKey();
  * $api_key->save();
  * $secret = $api_key->secret  // better save this somewhere
  * print $secret;
  * \Balanced\Settings::$api_key = $secret;
- * 
+ *
  * $marketplace = new \Balanced\Marketplace();
  * $marketplace->save();
- * var_dump($marketplace); 
+ * var_dump($marketplace);
  * </code>
- * 
+ *
  * Each api key is uniquely assocaited with an api key so once you've created a
  * marketplace:
- * 
+ *
  * <code>
  * \Balanced\Settings::$api_key = $secret;
- * $marketplace = \Balanced\Marketplace::mine();  // this is the marketplace associated with $secret  
+ * $marketplace = \Balanced\Marketplace::mine();  // this is the marketplace associated with $secret
  * </code>
  */
 class Marketplace extends Resource
 {
     protected static $_uri_spec = null;
-    
+
     public static function init()
     {
         self::$_uri_spec = new URISpec('marketplaces', 'id', '/v1');
         self::$_registry->add(get_called_class());
     }
-    
+
     /**
      * Get the marketplace associated with the currently configured
-     * \Balanced\Settings::$api_key. 
+     * \Balanced\Settings::$api_key.
      *
      * @throws \Balanced\Exceptions\NoResult
      * @return \Balanced\Marketplace
@@ -51,11 +51,11 @@ class Marketplace extends Resource
     {
         return self::query()->one();
     }
-    
+
     /**
      * Create a card. These can later be associated with an account using
-     * \Balanced\Account->addCard or \Balanced\Marketplace->createBuyer. 
-     * 
+     * \Balanced\Account->addCard or \Balanced\Marketplace->createBuyer.
+     *
      * @param string street_address Street address. Use null if there is no address for the card.
      * @param string city City. Use null if there is no address for the card.
      * @param string postal_code Postal code. Use null if there is no address for the card.
@@ -64,7 +64,7 @@ class Marketplace extends Resource
      * @param string security_code Card security code. Use null if it is no available.
      * @param int expiration_month Expiration month.
      * @param int expiration_year Expiration year.
-     * 
+     *
      * @return \Balanced\Card
      */
     public function createCard(
@@ -94,15 +94,15 @@ class Marketplace extends Resource
             'expiration_year' => $expiration_year
             ));
     }
-    
+
     /**
      * Create a bank account. These can later be associated with an account
      * using \Balanced\Account->addBankAccount.
-     * 
+     *
      * @param string name Name of the account holder.
      * @param string account_number Account number.
      * @param string bank_code Bank code or routing number.
-     * 
+     *
      * @return \Balanced\BankAccount
      */
     public function createBankAccount(
@@ -117,7 +117,7 @@ class Marketplace extends Resource
             'bank_code' => $bank_code,
             ));
     }
-    
+
     /**
      * Create a role-less account. You can later turn this into a buyer by
      * adding a funding source (e.g a card) or a merchant using
@@ -135,10 +135,31 @@ class Marketplace extends Resource
             'meta' => $meta,
             ));
     }
-    
+
+    /**
+     * Find or create a role-less account by email address. You can later turn
+     * this into a buyer by adding a funding source (e.g a card) or a merchant
+     * using \Balanced\Account->promoteToMerchant.
+     *
+     * @param string email_address Email address. There can only be one account with this email address.
+     *
+     * @return \Balanced\Account
+     */
+    function findOrCreateAccountByEmailAddress($email_address)
+    {
+    	$marketplace = Balanced\Marketplace::mine();
+    	try {
+    		$account = $this->accounts->create(array(email_address=>$email_address));
+    	}
+    	catch (Balanced\Errors\DuplicateAccountEmailAddress $e) {
+    		$account = Balanced\Account::get($e->extras->account_uri);
+    	}
+    	return $account;
+    }
+
     /**
      * Create a buyer account.
-     * 
+     *
      * @param string email_address Optional email address. There can only be one account with this email address.
      * @param string card_uri URI referencing a card to associate with the account.
      * @param array[string]string meta Optional metadata to associate with the account.
@@ -158,15 +179,15 @@ class Marketplace extends Resource
 
     /**
      * Create a merchant account.
-     * 
+     *
      * Unlike buyers the identity of a merchant must be established before
      * the account can function as a merchant (i.e. be credited). A merchant
      * can be either a person or a business. Either way that information is
      * represented as an associative array and passed as the merchant parameter
      * when creating the merchant account.
-     * 
+     *
      * For a person the array looks like this:
-     * 
+     *
      * <code>
      * array(
      *     'type' => 'person',
@@ -179,9 +200,9 @@ class Marketplace extends Resource
      *     'country_code' => 'USA'
      *     )
      * </code>
-     * 
+     *
      * For a business the array looks like this:
-     * 
+     *
      * <code>
      * array(
      *     'type' => 'business',
@@ -202,10 +223,10 @@ class Marketplace extends Resource
      *         )
      *     )
      * </code>
-     * 
+     *
      * In some cases the identity of the merchant, person or business, cannot
      * be verified in which case a \Balanced\Exceptions\HTTPError is thrown:
-     * 
+     *
      * <code>
      * $identity = array(
      *     'type' => 'business',
@@ -225,7 +246,7 @@ class Marketplace extends Resource
      *         'country_code' => 'USA',
      *         ),
      *     );
-     *     
+     *
      *  try {
      *      $merchant = \Balanced\Marketplace::mine()->createMerchant(
      *          'merchant@example.com',
@@ -233,15 +254,15 @@ class Marketplace extends Resource
      *          );
      *  catch (\Balanced\Exceptions\HTTPError $e) {
      *      if ($e->code != 300) {
-     *          throw $e;   
+     *          throw $e;
      *      }
      *      print e->response->header['Location'] // this is where merchant must signup
      *  }
      * </code>
-     * 
+     *
      * Once the merchant has completed signup you can use the resulting URI to
      * create an account for them on your marketplace:
-     * 
+     *
      * <code>
      * $merchant = self::$marketplace->createMerchant(
      *     'merchant@example.com',
@@ -250,14 +271,14 @@ class Marketplace extends Resource
      *     $merchant_uri
      *     );
      * </coe>
-     * 
+     *
      * @param string email_address Optional email address. There can only be one account with this email address.
      * @param array[string]mixed merchant Associative array describing the merchants identity.
      * @param string $bank_account_uri Optional URI referencing a bank account to associate with this account.
      * @param string $merchant_uri URI of a merchant created via the redirection sign-up flow.
      * @param string $name Optional name of the merchant.
      * @param array[string]string meta Optional metadata to associate with the account.
-     * 
+     *
      * @return \Balanced\Account
      */
     public function createMerchant(

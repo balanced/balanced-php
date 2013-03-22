@@ -208,6 +208,15 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     	self::$marketplace->createAccount();
     }
 
+    function testFindOrCreateAccountByEmailAddress()
+    {
+    	$account1 = self::$marketplace->createAccount('foc@example.com');
+    	$account2 = self::$marketplace->findOrCreateAccountByEmailAddress('foc@example.com');
+    	$this->assertEquals($account2->id, $account2->id);
+    	$account3 = self::$marketplace->findOrCreateAccountByEmailAddress('foc2@example.com');
+    	$this->assertNotEquals($account3->id, $account1->id);
+    }
+
     function testGetBuyer()
     {
         $buyer1 = self::_createBuyer();
