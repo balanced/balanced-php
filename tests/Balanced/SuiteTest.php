@@ -74,7 +74,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $bank_account = self::$marketplace->createBankAccount(
             'Homer Jay',
             '112233a',
-            '121042882'
+            '121042882',
+            'checking'
             );
         if ($account != null) {
             $account->addBankAccount($bank_account);
@@ -462,7 +463,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $bank_account = self::$marketplace->createBankAccount(
             'Homer Jay',
             '112233a',
-            '121042882'
+            '121042882',
+            'checking'
             );
         $this->assertEquals($bank_account->last_four, '233a');
         $this->assertEquals($bank_account->account_number, 'xxx233a');
