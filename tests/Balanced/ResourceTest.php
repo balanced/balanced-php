@@ -113,7 +113,7 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
                        'name' => 'Homer Jay',
                        'account_number' => '112233a',
                        'routing_number' => '121042882',
-                       'type' => 'checking',
+                       'type' => 'savings',
                        'meta' => null
                        ));
         
@@ -122,7 +122,7 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
             'Homer Jay',
             '112233a',
             '121042882',
-            'checking');
+            'savings');
     }
     
     function testCreateAccount()
