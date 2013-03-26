@@ -308,4 +308,18 @@ class Marketplace extends Resource
             'meta' => $meta,
             ));
     }
+
+    /*
+     * Create a callback.
+     *
+     * @param string url URL of callback.
+     */
+    public function createCallback(
+        $url
+    )
+    {
+        return $this->callbacks->create(array(
+            'url' => $url
+        ));
+    }
 }
