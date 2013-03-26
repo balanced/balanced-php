@@ -136,7 +136,7 @@ Or if you'd like to skip network calls:
 3. Tag it (`git tag -a v{VERSION} -m 'v{VERSION} release'`)
 4. Push the tag (`git push --tag`)
 5. [Packagist](http://packagist.org/packages/balanced/balanced) will see the new tag and take it from there
-6. Build (`build-phar`) and upload a [phar](http://php.net/manual/en/book.phar.php) file 
+6. Build (`build-phar`) and upload a [phar](http://php.net/manual/en/book.phar.php) file
 
 ## Contributing
 
@@ -147,3 +147,8 @@ Or if you'd like to skip network calls:
 5. Commit your changes (`git commit -am 'Add some feature'`)
 6. Push to the branch (`git push origin my-new-feature`)
 7. Create new pull request
+
+## Contributors
+
+* [Jacob Rus](https://github.com/jrus)
+* [Matt Drollette](https://github.com/MDrollette)
