@@ -71,7 +71,9 @@ class Bootstrap
         \Balanced\BankAccount::init();
         \Balanced\Hold::init();
         \Balanced\Merchant::init();
-        
+        \Balanced\Callback::init();
+        \Balanced\Event::init();
+
         self::$initialized = true;
     }
 }

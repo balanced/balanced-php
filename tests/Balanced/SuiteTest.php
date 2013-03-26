@@ -736,6 +736,13 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             'something sour');
     }
 
+    function testCreateCallback() {
+        $callback = self::$marketplace->createCallback(
+            'http://example.com/php'
+        );
+        $this->assertEquals($callback->url, 'http://example.com/php');
+    }
+
     /**
      * @expectedException \Balanced\Errors\BankAccountVerificationFailure
      */
@@ -774,5 +781,20 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             $bank_account
         );
         $this->assertTrue(strpos($debit->source->uri, 'bank_account') > 0);
+    }
+
+    function testEvents() {
+        $prev_num_events = Marketplace::mine()->events->total();
+        $account = self::_createBuyer();
+        $account->debit(123);
+        $cur_num_events = Marketplace::mine()->events->total();
+        $count = 0;
+        while ($cur_num_events == $prev_num_events && $count < 10) {
+            printf("waiting for events - %d, %d == %d\n", $count + 1, $cur_num_events, $prev_num_events);
+            sleep(2); // 2 seconds
+            $cur_num_events = Marketplace::mine()->events->total();
+            $count += 1;
+        }
+        $this->assertTrue($cur_num_events > $prev_num_events);
     }
 }
