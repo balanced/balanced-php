@@ -20,22 +20,22 @@ use Balanced\Card;
 
 /**
  * Suite test cases. These talk to an API server and so make network calls.
- * 
- * Enviroment variables can be used to control client settings:
- * 
+ *
+ * Environment variables can be used to control client settings:
+ *
  * <ul>
  *     <li>$BALANCED_URL_ROOT If set applies to \Balanced\Settings::$url_root.
  *     <li>$BALANCED_API_KEY If set applies to \Balanced\Settings::$api_key.
  * </ul>
- * 
+ *
  * @group suite
  */
 class SuiteTest extends \PHPUnit_Framework_TestCase
-{   
+{
     static $key,
            $marketplace,
            $email_counter = 0;
-    
+
     static function _createBuyer($email_address = null, $card = null)
     {
         if ($email_address == null)
@@ -49,7 +49,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             'Hobo Joe'
         );
     }
-    
+
     static function _createCard($account = null)
     {
         $card = self::$marketplace->createCard(
@@ -68,13 +68,14 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         }
         return $card;
     }
-    
+
     static function _createBankAccount($account = null)
     {
         $bank_account = self::$marketplace->createBankAccount(
             'Homer Jay',
             '112233a',
-            '121042882'
+            '121042882',
+            'checking'
             );
         if ($account != null) {
             $account->addBankAccount($bank_account);
@@ -82,7 +83,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         }
         return $bank_account;
     }
-    
+
     public static function _createPersonMerchant($email_address = null, $bank_account = null)
     {
         if ($email_address == null)
@@ -105,7 +106,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             $bank_account->uri
             );
     }
-    
+
     public static function _createBusinessMerchant($email_address = null, $bank_account = null)
     {
         if ($email_address == null)
@@ -136,7 +137,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             $bank_account->uri
             );
     }
-    
+
     public static function setUpBeforeClass()
     {
         // url root
@@ -146,7 +147,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         }
         else
             Settings::$url_root = 'https://api.balancedpayments.com';
-            
+
         // api key
         $api_key = getenv('BALANCED_API_KEY');
         if ($api_key != '') {
@@ -157,7 +158,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             self::$key->save();
             Settings::$api_key = self::$key->secret;
         }
-        
+
         // marketplace
         try {
             self::$marketplace = Marketplace::mine();
@@ -167,7 +168,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             self::$marketplace->save();
         }
     }
-         
+
     function testMarketplaceMine()
     {
         $marketplace = Marketplace::mine();
@@ -175,7 +176,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException RESTful\Exceptions\HTTPError
+     * @expectedException \RESTful\Exceptions\HTTPError
      */
     function testAnotherMarketplace()
     {
@@ -184,7 +185,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException RESTful\Exceptions\HTTPError
+     * @expectedException \RESTful\Exceptions\HTTPError
      */
     function testDuplicateEmailAddress()
     {
@@ -203,6 +204,19 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         self::_createBuyer();
     }
 
+    function testCreateAccountWithoutEmailAddress()
+    {
+    	self::$marketplace->createAccount();
+    }
+
+    function testFindOrCreateAccountByEmailAddress()
+    {
+    	$account1 = self::$marketplace->createAccount('foc@example.com');
+    	$account2 = self::$marketplace->findOrCreateAccountByEmailAddress('foc@example.com');
+    	$this->assertEquals($account2->id, $account2->id);
+    	$account3 = self::$marketplace->findOrCreateAccountByEmailAddress('foc2@example.com');
+    	$this->assertNotEquals($account3->id, $account1->id);
+    }
 
     function testGetBuyer()
     {
@@ -229,6 +243,19 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             array('hi' => 'bye')
             );
         $refund = $debit->refund(100);
+    }
+
+    /**
+     * @expectedException \RESTful\Exceptions\HTTPError
+     */
+    function testDebitZero()
+    {
+    	$buyer = self::_createBuyer();
+    	$debit = $buyer->debit(
+    			0,
+    			'Softie',
+    			'something i bought'
+    	);
     }
 
     function testMultipleRefunds()
@@ -351,7 +378,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException RESTful\Exceptions\HTTPError
+     * @expectedException \RESTful\Exceptions\HTTPError
      */
     function testCreditRequiresNonZeroAmount()
     {
@@ -366,7 +393,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException RESTful\Exceptions\HTTPError
+     * @expectedException \RESTful\Exceptions\HTTPError
      */
     function testCreditMoreThanEscrowBalanceFails()
     {
@@ -445,7 +472,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $bank_account = self::$marketplace->createBankAccount(
             'Homer Jay',
             '112233a',
-            '121042882'
+            '121042882',
+            'checking'
             );
         $this->assertEquals($bank_account->last_four, '233a');
         $this->assertEquals($bank_account->account_number, 'xxx233a');
@@ -550,7 +578,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException RESTful\Exceptions\NoResultFound
+     * @expectedException \RESTful\Exceptions\NoResultFound
      */
     function testAccountWithEmailAddressNotFound()
     {
@@ -691,7 +719,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Balanced\Errors\InsufficientFunds
+     * @expectedException \Balanced\Errors\InsufficientFunds
      */
     function testInsufficientFunds()
     {
@@ -713,5 +741,60 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             'http://example.com/php'
         );
         $this->assertEquals($callback->url, 'http://example.com/php');
+    }
+
+    /**
+     * @expectedException \Balanced\Errors\BankAccountVerificationFailure
+     */
+    function testBankAccountVerificationFailure() {
+        $bank_account = self::_createBankAccount();
+        $buyer = self::_createBuyer();
+        $buyer->addBankAccount($bank_account);
+        $verification = $bank_account->verify();
+        $verification->confirm(1, 2);
+    }
+
+    /**
+     * @expectedException \Balanced\Errors\BankAccountVerificationFailure
+     */
+    function testBankAccountVerificationDuplicate() {
+        $bank_account = self::_createBankAccount();
+        $buyer = self::_createBuyer();
+        $buyer->addBankAccount($bank_account);
+        $bank_account->verify();
+        $bank_account->verify();
+    }
+
+    function testBankAccountVerificationSuccess() {
+        $bank_account = self::_createBankAccount();
+        $buyer = self::_createBuyer();
+        $buyer->addBankAccount($bank_account);
+        $verification = $bank_account->verify();
+        $verification->confirm(1, 1);
+
+        //  this will fail if the bank account is not verified
+        $debit = $buyer->debit(
+            1000,
+            'Softie',
+            'something i bought',
+            array('hi' => 'bye'),
+            $bank_account
+        );
+        $this->assertTrue(strpos($debit->source->uri, 'bank_account') > 0);
+    }
+
+    function testEvents() {
+        $prev_num_events = Marketplace::mine()->events->total();
+        $account = self::_createBuyer();
+        $account->debit(123);
+        $cur_num_events = Marketplace::mine()->events->total();
+        $count = 0;
+        while ($cur_num_events == $prev_num_events && $count < 10) {
+            printf("waiting for events - %d, %d == %d\n", $count + 1, $cur_num_events, $prev_num_events);
+            sleep(2); // 2 seconds
+            $cur_num_events = Marketplace::mine()->events->total();
+            $count += 1;
+        }
+        $this->assertTrue($cur_num_events > $prev_num_events);
     }
 }

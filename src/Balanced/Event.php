@@ -21,4 +21,3 @@ class Event extends Resource
         self::$_registry->add(get_called_class());
     }
 }
-?>

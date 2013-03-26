@@ -11,3 +11,4 @@ vendor
 # eclipse-pdt
 .settings
 .project
+*.iml

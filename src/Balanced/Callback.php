@@ -22,5 +22,3 @@ class Callback extends Resource
         self::$_registry->add(get_called_class());
     }
 }
-
-?>
