@@ -151,5 +151,6 @@ Or if you'd like to skip network calls:
 ## Contributors
 
 * [Jacob Rus](https://github.com/jrus)
+* [Leon Smith](https://github.com/leonsmith)
 * [Matt Drollette](https://github.com/MDrollette)
 * [You](https://github.com/balanced/balanced-php/issues)!
