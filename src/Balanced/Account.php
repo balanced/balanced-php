@@ -120,7 +120,6 @@ class Account extends Resource
 
         return $this->debits->create(array(
             'amount' => $amount,
-            'appears_on_statement_as' => $appears_on_statement_as,
             'description' => $description,
             'meta' => $meta,
             'source_uri' => $source_uri,
