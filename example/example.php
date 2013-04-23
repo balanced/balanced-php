@@ -73,7 +73,8 @@ print "ok, we have a merchant that's signing up, let's create an account for the
 
 $bank_account = $marketplace->createBankAccount("Jack Q Merchant",
 	      "123123123", /* account_number */
-	      "123123123"  /* bank_code (routing number is USA)*/
+	      "123123123",  /* bank_code (routing number is USA)*/
+	      "checking" /* type */
 	      );
 
 $identity = array(
