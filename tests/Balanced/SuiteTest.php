@@ -900,17 +900,34 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($active_bank_account);
     }
 
-    function testCustomerDebit() {
+    function testCustomerCreditDebit() {
         $buyer = $this->_createPersonCustomer();
+        $card = $this->_createCard();
+        $buyer->addCard($card);
+
         $seller = $this->_createBusinessCustomer();
+        $bank_account = $this->_createBankAccount();
+        $seller->addBankAccount($bank_account);
 
-        // TODO
-    }
+        $debit = $buyer->debit(
+            1234,
+            "TANGY",
+            array("ship", "soonish"),
+            "something tangy",
+            null,
+            null);
+            # TODO: uncomment once bug is fixed
+            #$seller);
 
-    function testCustomerCredit() {
-        $buyer = $this->_createPersonCustomer();
-        $seller = $this->_createPersonCustomer();
+        $credit = $seller->credit(
+                1200,
+                "something tangy",
+                array("ship", "soonish"),
+                null,
+                "TANGY",
+                $debit);
 
-        // TODO
+        $this->assertEquals($debit->source->id, $card->id);
+        $this->assertEquals($credit->destination->id, $bank_account->id);
     }
 }
