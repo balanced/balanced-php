@@ -69,6 +69,10 @@ And then `include` all:
     include(__DIR__ . '/httpful.phar');
     include(__DIR__ . '/restful.phar');
     include(__DIR__ . '/balanced.phar');
+    
+    \Httpful\Bootstrap::init();
+    \RESTful\Bootstrap::init();
+    \Balanced\Bootstrap::init();
     ...
 
 ### Source
@@ -94,6 +98,10 @@ And then `require` all bootstrap files:
     require(__DIR__ . "/httpful/bootstrap.php")
     require(__DIR__ . "/restful/bootstrap.php")
     require(__DIR__ . "/balanced/bootstrap.php")
+
+    \Httpful\Bootstrap::init();
+    \RESTful\Bootstrap::init();
+    \Balanced\Bootstrap::init();
     ...
 
 ## Quickstart
