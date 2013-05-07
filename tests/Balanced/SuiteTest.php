@@ -16,6 +16,7 @@ use Balanced\Account;
 use Balanced\Merchant;
 use Balanced\BankAccount;
 use Balanced\Card;
+use Balanced\Customer;
 
 
 /**
@@ -36,10 +37,15 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
            $marketplace,
            $email_counter = 0;
 
+    static function _emailAddress()
+    {
+        return sprintf('m+%d@poundpay.com', self::$email_counter++);
+    }
+
     static function _createBuyer($email_address = null, $card = null)
     {
         if ($email_address == null)
-            $email_address = sprintf('m+%d@poundpay.com', self::$email_counter++);
+            $email_address = self::_emailAddress();
         if ($card == null)
             $card = self::_createCard();
         return self::$marketplace->createBuyer(
@@ -87,7 +93,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     public static function _createPersonMerchant($email_address = null, $bank_account = null)
     {
         if ($email_address == null)
-            $email_address = sprintf('m+%d@poundpay.com', self::$email_counter++);
+            $email_address = self::_emailAddress();
         if ($bank_account == null)
             $bank_account = self::_createBankAccount();
         $merchant = array(
@@ -110,7 +116,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     public static function _createBusinessMerchant($email_address = null, $bank_account = null)
     {
         if ($email_address == null)
-            $email_address = sprintf('m+%d@poundpay.com', self::$email_counter++);
+            $email_address = self::_emailAddress();
         if ($bank_account == null)
             $bank_account = self::_createBankAccount();
         $merchant = array(
@@ -136,6 +142,64 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             $merchant,
             $bank_account->uri
             );
+    }
+
+    public function _createPersonCustomer($email_address = null)
+    {
+        if ($email_address == null)
+            $email_address = self::_emailAddress();
+        $customer = new Customer(array(
+                "name" => "John Lee Hooker",
+                "twitter" => "@balanced",
+                "phone" => "(904) 555-1796",
+                "meta" => array(
+                        "meta can store" => "any flat key/value data you like",
+                        "github" => "https://github.com/balanced",
+                        "more_additional_data" => 54.8
+                ),
+                "facebook" => "https://facebook.com/balanced",
+                "address" => array(
+                        "city" => "San Francisco",
+                        "state" => "CA",
+                        "postal_code" => "94103",
+                        "line1" => "965 Mission St",
+                        "country_code" => "US"
+                ),
+                "ssn_last4" => "3209",
+                "email" => $email_address,
+        ));
+        $customer->save();
+        return $customer;
+    }
+
+    public function _createBusinessCustomer($email_address = null)
+    {
+        if ($email_address == null)
+            $email_address = self::_emailAddress();
+        $customer = new Customer(array(
+                "name" => "John Lee Hooker",
+                "twitter" => "@balanced",
+                "phone" => "(904) 555-1796",
+                "meta" => array(
+                        "meta can store" => "any flat key/value data you like",
+                        "github" => "https://github.com/balanced",
+                        "more_additional_data" => 54.8
+                ),
+                "facebook" => "https://facebook.com/balanced",
+                "address" => array(
+                        "city" => "San Francisco",
+                        "state" => "CA",
+                        "postal_code" => "94103",
+                        "line1" => "965 Mission St",
+                        "country_code" => "US"
+                ),
+                "business_name" => "Balanced",
+                "ssn_last4" => "3209",
+                "email" => $email_address,
+                "ein" => "123456789"
+        ));
+        $customer->save();
+        return $customer;
     }
 
     public static function setUpBeforeClass()
@@ -796,5 +860,57 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             $count += 1;
         }
         $this->assertTrue($cur_num_events > $prev_num_events);
+    }
+
+    function testCustomerPersonCreate() {
+        $this->_createPersonCustomer();
+    }
+
+    function testCustomerBusinessCreate() {
+        $this->_createBusinessCustomer();
+    }
+
+    function testCustomerAddCard() {
+        $customer = $this->_createPersonCustomer();
+        $active_card = $customer->activeCard();
+        $this->assertNull($active_card);
+
+        $card = $this->_createCard();
+        $customer->addCard($card);
+        $active_card = $customer->activeCard();
+        $this->assertEquals($active_card->id, $card->id);
+
+        $active_card->invalidate();
+        $active_card = $customer->activeCard();
+        $this->assertNull($active_card);
+    }
+
+    function testCustomerAddBankAccount() {
+        $customer = $this->_createBusinessCustomer();
+        $active_bank_account = $customer->activeBankAccount();
+        $this->assertNull($active_bank_account);
+
+        $bank_account = $this->_createBankAccount();
+        $customer->addBankAccount($bank_account);
+        $active_bank_account = $customer->activeBankAccount();
+        $this->assertEquals($active_bank_account->id, $bank_account->id);
+
+        $active_bank_account->invalidate();
+        $active_bank_account = $customer->activeBankAccount();
+        $this->assertNull($active_bank_account);
+    }
+
+    function testCustomerDebit() {
+        $buyer = $this->_createPersonCustomer();
+        $seller = $this->_createBusinessCustomer();
+
+        // TODO
+    }
+
+    function testCustomerCredit() {
+        $buyer = $this->_createPersonCustomer();
+        $seller = $this->_createPersonCustomer();
+
+        // TODO
     }
 }

@@ -7,22 +7,22 @@ use \RESTful\URISpec;
 
 /**
  * Represents an account card.
- * 
+ *
  * You can create these via Balanced\Marketplace::cards::create or
  * Balanced\Marketplace::createCard. Associate them with a buyer or merchant
  * one creation via Marketplace::createBuyer or
  * Balanced\Marketplace::createMerchant and with an existing buyer or merchant
  * use Balanced\Account::addCard.
- * 
+ *
  * <code>
  * $marketplace = \Balanced\Marketplace::mine();
- * 
+ *
  * $card = $marketplace->cards->create(array(
  *     'name' => 'name',
  *     'account_number' => '11223344',
  *     'bank_code' => '1313123'
  *     ));
- * 
+ *
  * $account = $marketplace
  *     ->accounts
  *     ->query()
@@ -40,7 +40,7 @@ class Card extends Resource
         self::$_uri_spec = new URISpec('cards', 'id', '/v1');
         self::$_registry->add(get_called_class());
     }
-    
+
     public function debit(
         $amount,
         $appears_on_statement_as = null,
@@ -57,5 +57,11 @@ class Card extends Resource
             $description,
             $meta,
             $this->uri);
+    }
+
+    public function invalidate()
+    {
+        $this->is_valid = False;
+        return $this->save();
     }
 }
