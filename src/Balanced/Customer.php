@@ -76,7 +76,7 @@ class Customer extends Resource
         $card = (
             $this->cards->query()
             ->filter(Card::$f->is_valid->eq(True))
-            ->sort(Card::$f->created_at->asc())
+            ->sort(Card::$f->created_at->desc())
             ->first()
         );
         return $card;
@@ -115,7 +115,7 @@ class Customer extends Resource
         $bank_account = (
             $this->bank_accounts->query()
             ->filter(BankAccount::$f->is_valid->eq(True))
-            ->sort(BankAccount::$f->created_at->asc())
+            ->sort(BankAccount::$f->created_at->desc())
             ->first()
         );
         return $bank_account;
