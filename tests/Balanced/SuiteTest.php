@@ -912,20 +912,18 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $debit = $buyer->debit(
             1234,
             "TANGY",
-            array("ship", "soonish"),
+            array("ship" => "soonish"),
             "something tangy",
             null,
-            null);
-            # TODO: uncomment once bug is fixed
-            #$seller);
+            $seller);
 
         $credit = $seller->credit(
-                1200,
-                "something tangy",
-                array("ship", "soonish"),
-                null,
-                "TANGY",
-                $debit);
+            1200,
+            "something tangy",
+            array("ship" => "soonish"),
+            null,
+            "TANGY",
+            $debit);
 
         $this->assertEquals($debit->source->id, $card->id);
         $this->assertEquals($credit->destination->id, $bank_account->id);
