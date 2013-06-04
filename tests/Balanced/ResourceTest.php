@@ -63,7 +63,7 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
             );
         $this->assertEquals($expected, $result);
     }
-    
+
     function testCreateCard()
     {
         $collection = $this->getMock(
@@ -85,7 +85,7 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
                        'expiration_month' => 12,
                        'expiration_year' => 2013,
                        ));
-        
+
         $marketplace = new Marketplace(array('cards' => $collection));
         $marketplace->createCard(
             '123 Fake Street',
@@ -106,7 +106,7 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
             array('create'),
             array('\Balanced\BankAccount', 'some/uri', null)
             );
-        
+
         $collection->expects($this->once())
                    ->method('create')
                    ->with(array(
@@ -116,7 +116,7 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
                        'type' => 'savings',
                        'meta' => null
                        ));
-        
+
         $marketplace = new Marketplace(array('bank_accounts' => $collection));
         $marketplace->createBankAccount(
             'Homer Jay',
@@ -124,7 +124,7 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
             '121042882',
             'savings');
     }
-    
+
     function testCreateAccount()
     {
         $collection = $this->getMock(
@@ -132,21 +132,22 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
             array('create'),
             array('\Balanced\Account', 'some/uri', null)
             );
-    
+
         $collection->expects($this->once())
         ->method('create')
         ->with(array(
             'email_address' => 'role-less@example.com',
+            'name' => 'Bilbo Baggins',
             'meta' => array('test#' => 'test_d')
              ));
-    
+
         $marketplace = new Marketplace(array('accounts' => $collection));
         $marketplace->createAccount(
             'role-less@example.com',
             array('test#' => 'test_d')
             );
     }
-    
+
     function testCreateBuyer()
     {
         $collection = $this->getMock(
@@ -154,7 +155,7 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
             array('create'),
             array('\Balanced\Account', 'some/uri', null)
             );
-        
+
         $collection->expects($this->once())
                    ->method('create')
                    ->with(array(
@@ -163,7 +164,7 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
                        'meta' => array('test#' => 'test_d'),
                        'name' => 'Buy Er'
                        ));
-        
+
         $marketplace = new Marketplace(array('accounts' => $collection));
         $marketplace->createBuyer(
             'buyer@example.com',
@@ -200,7 +201,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
             array('create'),
             array('\Balanced\Credit', 'some/uri', null)
         );
-        
+
         $collection
             ->expects($this->once())
             ->method('create')
@@ -211,11 +212,11 @@ class AccountTest extends \PHPUnit_Framework_TestCase
                'destination_uri' => null,
                'appears_on_statement_as' => null
                ));
-        
+
         $account = new Account(array('credits' => $collection));
         $account->credit(101, 'something sweet');
     }
-    
+
     function testDebit()
     {
         $collection = $this->getMock(
@@ -223,7 +224,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
             array('create'),
             array('\Balanced\Debit', 'some/uri', null)
             );
-        
+
         $collection
             ->expects($this->once())
             ->method('create')
@@ -235,11 +236,11 @@ class AccountTest extends \PHPUnit_Framework_TestCase
                 'source_uri' => null,
                 'on_behalf_of_uri' => null,
                 ));
-        
+
         $account = new Account(array('debits' => $collection));
         $account->debit(9911, 'BAL*TANG', 'something tangy');
     }
-    
+
     function testHold()
     {
         $collection = $this->getMock(
@@ -247,7 +248,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
             array('create'),
             array('\Balanced\Hold', 'some/uri', null)
             );
-        
+
         $collection
             ->expects($this->once())
             ->method('create')
@@ -266,51 +267,51 @@ class AccountTest extends \PHPUnit_Framework_TestCase
             array('test#' => 'test_d')
             );
     }
-    
+
     function testAddCard()
     {
         $account = $this->getMock(
             '\Balanced\Account',
             array('save')
             );
-        
+
         $account
             ->expects($this->once())
             ->method('save')
             ->with();
-        
+
         $account->addCard('/my/new/card/121212');
         $this->assertEquals($account->card_uri, '/my/new/card/121212');
     }
-    
+
     function testAddBankAccount()
     {
         $account = $this->getMock(
             '\Balanced\Account',
             array('save')
             );
-        
+
         $account
             ->expects($this->once())
             ->method('save')
             ->with();
-        
+
         $account->addBankAccount('/my/new/bank_account/121212');
         $this->assertEquals($account->bank_account_uri, '/my/new/bank_account/121212');
     }
-    
+
     function testPromotToMerchant()
     {
         $account = $this->getMock(
             '\Balanced\Account',
             array('save')
             );
-    
+
         $account
             ->expects($this->once())
             ->method('save')
             ->with();
-    
+
         $merchant = array(
             'type' => 'person',
             'name' => 'William James',
@@ -345,23 +346,23 @@ class HoldTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals($expected, $result);
     }
-    
+
     function testVoid()
     {
         $hold = $this->getMock(
             '\Balanced\Hold',
             array('save')
             );
-        
+
         $hold
             ->expects($this->once())
             ->method('save')
             ->with();
-        
+
         $hold->void();
         $this->assertTrue($hold->is_void);
     }
-    
+
     function testCapture()
     {
         $collection = $this->getMock(
@@ -369,7 +370,7 @@ class HoldTest extends \PHPUnit_Framework_TestCase
             array('create'),
             array('\Balanced\Debit', 'some/uri', null)
             );
-        
+
         $collection
             ->expects($this->once())
             ->method('create')
@@ -379,9 +380,9 @@ class HoldTest extends \PHPUnit_Framework_TestCase
                 ));
 
         $account = new Account(array('debits' => $collection));
-        
+
         $hold = new Hold(array('uri' => 'some/hold/uri', 'account' => $account));
-        
+
         $hold->capture(2211);
     }
 }
@@ -424,7 +425,7 @@ class DebitTest extends \PHPUnit_Framework_TestCase
             );
         $this->assertEquals($expected, $result);
     }
-    
+
     function testRefund()
     {
         $collection = $this->getMock(
@@ -432,7 +433,7 @@ class DebitTest extends \PHPUnit_Framework_TestCase
             array('create'),
             array('\Balanced\Refund', 'some/uri', null)
         );
-        
+
         $collection
             ->expects($this->once())
             ->method('create')
@@ -441,9 +442,9 @@ class DebitTest extends \PHPUnit_Framework_TestCase
                 'description' => null,
                 'meta' => array('test#' => 'test_d')
                 ));
-        
+
         $debit = new Debit(array('refunds' => $collection));
-        
+
         $debit->refund(5645, null, array('test#' => 'test_d'));
     }
 }
@@ -486,7 +487,7 @@ class BankAccountTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals($expected, $result);
     }
-    
+
     function testCreditAccount()
     {
         $collection = $this->getMock(
@@ -494,7 +495,7 @@ class BankAccountTest extends \PHPUnit_Framework_TestCase
                 array('create'),
                 array('\Balanced\Credit', 'some/uri', null)
         );
-    
+
         $collection
         ->expects($this->once())
         ->method('create')
@@ -505,10 +506,10 @@ class BankAccountTest extends \PHPUnit_Framework_TestCase
                 'destination_uri' => '/some/other/uri',
                 'appears_on_statement_as' => null
         ));
-    
+
         $account = new Account(array('credits' => $collection));
         $bank_account = new BankAccount(array('uri' => '/some/other/uri', 'account' => $account));
-        
+
         $bank_account->credit(101, 'something super sweet');
     }
 
@@ -519,7 +520,7 @@ class BankAccountTest extends \PHPUnit_Framework_TestCase
                 array('create'),
                 array('\Balanced\Credit', 'some/uri', null)
         );
-    
+
         $collection
         ->expects($this->once())
         ->method('create')
@@ -555,7 +556,7 @@ class CardTest extends \PHPUnit_Framework_TestCase
             );
         $this->assertEquals($expected, $result);
     }
-    
+
     function testDebit()
     {
         $collection = $this->getMock(
@@ -563,10 +564,10 @@ class CardTest extends \PHPUnit_Framework_TestCase
                 array('create'),
                 array('\Balanced\Debit', 'some/uri', null)
                 );
-    
+
         $account = new Account(array('debits' => $collection));
         $card = new Card(array('uri' => '/some/uri', 'account' => $account ));
-        
+
         $collection
         ->expects($this->once())
         ->method('create')
@@ -578,10 +579,10 @@ class CardTest extends \PHPUnit_Framework_TestCase
                 'source_uri' => '/some/uri',
                 'on_behalf_of_uri' => null,
                 ));
-        
+
         $card->debit(9911, 'BAL*TANG', 'something tangy');
     }
-    
+
     /**
      * @expectedException \UnexpectedValueException
      */

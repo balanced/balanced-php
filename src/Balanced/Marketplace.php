@@ -136,10 +136,11 @@ class Marketplace extends Resource
      *
      * @return \Balanced\Account
      */
-    public function createAccount($email_address = null, $meta = null)
+    public function createAccount($email_address = null, $name = null $meta = null)
     {
         return $this->accounts->create(array(
             'email_address' => $email_address,
+            'name' => $name,
             'meta' => $meta,
             ));
     }
