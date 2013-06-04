@@ -144,6 +144,7 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
         $marketplace = new Marketplace(array('accounts' => $collection));
         $marketplace->createAccount(
             'role-less@example.com',
+            'Bilbo Baggins',
             array('test#' => 'test_d')
             );
     }
