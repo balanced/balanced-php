@@ -137,16 +137,14 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
         ->method('create')
         ->with(array(
             'email_address' => 'role-less@example.com',
-            'name' => 'Bilbo Baggins',
-            'meta' => array('test#' => 'test_d')
-             ));
+            'meta' => array('test#' => 'test_d'),
+            'name' => 'Bilbo Baggins');
 
         $marketplace = new Marketplace(array('accounts' => $collection));
         $marketplace->createAccount(
             'role-less@example.com',
-            'Bilbo Baggins',
-            array('test#' => 'test_d')
-            );
+            array('test#' => 'test_d'),
+            'Bilbo Baggins');
     }
 
     function testCreateBuyer()
