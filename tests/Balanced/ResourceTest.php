@@ -131,7 +131,7 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
             '\RESTful\Collection',
             array('create'),
             array('\Balanced\Account', 'some/uri', null)
-            );
+            ));
 
         $collection->expects($this->once())
         ->method('create')
