@@ -131,14 +131,14 @@ class MarketplaceTest extends \PHPUnit_Framework_TestCase
             '\RESTful\Collection',
             array('create'),
             array('\Balanced\Account', 'some/uri', null)
-            ));
+            );
 
         $collection->expects($this->once())
         ->method('create')
         ->with(array(
             'email_address' => 'role-less@example.com',
             'meta' => array('test#' => 'test_d'),
-            'name' => 'Bilbo Baggins');
+            'name' => 'Bilbo Baggins'));
 
         $marketplace = new Marketplace(array('accounts' => $collection));
         $marketplace->createAccount(
