@@ -1,23 +1,8 @@
 <?php
     define("SCENARIOS_PATH", __dir__);
-    define("SCENARIO_CACHE", __dir__ . "/../scenario.cache");
 
     if(!is_dir(SCENARIOS_PATH)) {
         fwrite(STDERR, "'" . SCENARIOS_PATH . "' is not a directory.\n");
-        exit(1);
-    }
-
-    if(!file_exists(SCENARIO_CACHE)) {
-        fwrite(STDERR, "'" . SCENARIO_CACHE . "' file does not exist.\n");
-        exit(1);
-    }
-
-    //Get the contents of SCENARIO_CACHE
-    $scenarios = file_get_contents(SCENARIO_CACHE);
-    $scenarios = json_decode($scenarios);
-
-    if($scenarios === null) {
-        fwrite(STDERR, "Failed to json decode file '" . SCENARIO_CACHE . "'.\n");
         exit(1);
     }
 
@@ -27,10 +12,10 @@
            if($current !== "." && $current !== ".." && is_dir(SCENARIOS_PATH . "/" . $current)) {
                 echo "\nReading [" . SCENARIOS_PATH . "/" . $current . "]";
 
-                $lines = @file(SCENARIOS_PATH . "/" . $current . "/php.mako");
+                $lines = @file(SCENARIOS_PATH . "/" . $current . "/php.original.mako");
 
                 if($lines) {
-                    echo "\n\t=> php.mako found <=\n";
+                    echo "\n\t=> php.original.mako found <=\n";
 
                     foreach($lines as $number => $line) {
                         $line = trim($line);

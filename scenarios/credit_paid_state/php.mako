@@ -1,17 +1,25 @@
-<%namespace file='/_main.mako' name='main'/>
 % if mode == 'definition':
 Balanced\Credit::bankAccount()
 
 % else:
-${main.php_boilerplate()}
+<?php
+
+require(__DIR__ . '/vendor/autoload.php');
+
+Httpful\Bootstrap::init();
+RESTful\Bootstrap::init();
+Balanced\Bootstrap::init();
+
+Balanced\Settings::$api_key = "2fd37702d33511e2a00f026ba7d31e6f";
+
 $bank_account_info = array(
-% for k, v in request['bank_account'].iteritems():
-    "${k}" => "${v}",
-% endfor
+    "account_number" => "9900000002",
+    "name" => "Johann Bernoulli",
+    "routing_number" => "121000358",
+    "type" => "checking",
 );
 $credit = Balanced\Credit::bankAccount(
-    ${request['amount']},
+    10000,
     $bank_account_info
 );
-
 % endif

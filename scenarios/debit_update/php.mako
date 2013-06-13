@@ -1,17 +1,22 @@
-<%namespace file='/_main.mako' name='main'/>
 % if mode == 'definition':
 Balanced\Debit->save()
 
 % else:
-${main.php_boilerplate()}
-$debit = Balanced\Debit::get("${request['uri']}");
-$debit->description = "${payload['description']}";
+<?php
+
+require(__DIR__ . '/vendor/autoload.php');
+
+Httpful\Bootstrap::init();
+RESTful\Bootstrap::init();
+Balanced\Bootstrap::init();
+
+Balanced\Settings::$api_key = "2fd37702d33511e2a00f026ba7d31e6f";
+
+$debit = Balanced\Debit::get("/v1/marketplaces/TEST-MP29J5STPtZVvnjAFndM0N62/debits/WD2WxgyBFgXDKw942umEDHa8");
+$debit->description = "New description for debit";
 $debit->meta = array(
-% for k, v in payload['meta'].iteritems():
-    "${k}" => "${v}",
-% endfor
+    "anykey" => "valuegoeshere",
+    "facebook.id" => "1234567890",
 );
 $debit->save();
-
 % endif
-

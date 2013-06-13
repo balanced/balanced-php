@@ -1,22 +1,33 @@
-<%namespace file='/_main.mako' name='main'/>
 % if mode == 'definition':
 Balanced\Marketplace->createAccount();
 
 % else:
-${main.php_boilerplate()}
+<?php
+
+require(__DIR__ . '/vendor/autoload.php');
+
+Httpful\Bootstrap::init();
+RESTful\Bootstrap::init();
+Balanced\Bootstrap::init();
+
+Balanced\Settings::$api_key = "2fd37702d33511e2a00f026ba7d31e6f";
+
 $marketplace = Balanced\Marketplace::mine();
 
 $merchant_data = array(
-% for k, v in payload['merchant'].iteritems():
-    % if k != 'person':
-    "${k}" => "${v}",
-    % endif
-% endfor
-    "person" => array(
-    % for k, v in payload['merchant']['person'].iteritems():
-        "${k}" => "${v}",
-    % endfor
-    ),
+        "name" => "Skripts4Kids",
+                "phone_number" => "+140899188155",
+            "postal_code" => "91111",
+            "street_address" => "555 VoidMain Road",
+            "tax_id" => "211111111",
+            "type" => "business",
+        "person" => array(
+            "dob" => "1989-12",
+            "name" => "Timmy Q. CopyPasta",
+            "phone_number" => "+14089999999",
+            "postal_code" => "94110",
+            "street_address" => "121 Skriptkid Row",
+        ),
 );
 
 $account = $marketplace->createAccount();
@@ -30,5 +41,4 @@ try {
     /* TODO: handle 400 and 409 exceptions as required */
     throw $error;
 }
-
 % endif

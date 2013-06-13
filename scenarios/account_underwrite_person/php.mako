@@ -1,15 +1,26 @@
-<%namespace file='/_main.mako' name='main'/>
 % if mode == 'definition':
 Balanced\Marketplace->createAccount();
 
 % else:
-${main.php_boilerplate()}
+<?php
+
+require(__DIR__ . '/vendor/autoload.php');
+
+Httpful\Bootstrap::init();
+RESTful\Bootstrap::init();
+Balanced\Bootstrap::init();
+
+Balanced\Settings::$api_key = "2fd37702d33511e2a00f026ba7d31e6f";
+
 $marketplace = Balanced\Marketplace::mine();
 
 $merchant_data = array(
-% for k, v in payload['merchant'].iteritems():
-    "${k}" => "${v}",
-% endfor
+    "dob" => "1989-12",
+    "name" => "Timmy Q. CopyPasta",
+    "phone_number" => "+14089999999",
+    "postal_code" => "94110",
+    "street_address" => "121 Skriptkid Row",
+    "type" => "person",
 );
 
 $account = $marketplace->createAccount();
@@ -23,5 +34,4 @@ try {
     /* TODO: handle 400 and 409 exceptions as required */
     throw $error;
 }
-
 % endif

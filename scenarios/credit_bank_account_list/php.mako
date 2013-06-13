@@ -1,10 +1,17 @@
-<%namespace file='/_main.mako' name='main'/>
 % if mode == 'definition':
 Balanced\BankAccount->credits()
 
 % else:
-${main.php_boilerplate()}
-$bank_account = Balanced\BankAccount::get("${request['uri']}");
-$credits = $bank_account->credits->query()->all();
+<?php
 
+require(__DIR__ . '/vendor/autoload.php');
+
+Httpful\Bootstrap::init();
+RESTful\Bootstrap::init();
+Balanced\Bootstrap::init();
+
+Balanced\Settings::$api_key = "2fd37702d33511e2a00f026ba7d31e6f";
+
+$bank_account = Balanced\BankAccount::get("/v1/bank_accounts/BA2fU4b0MNuBHuI3NrvyOsTE");
+$credits = $bank_account->credits->query()->all();
 % endif

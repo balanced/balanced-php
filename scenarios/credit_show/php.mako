@@ -1,9 +1,16 @@
-<%namespace file='/_main.mako' name='main'/>
 % if mode == 'definition':
 Balanced\Credit::get()
 
 % else:
-${main.php_boilerplate()}
-$credit = Balanced\Credit::get("${request['uri']}");
+<?php
 
+require(__DIR__ . '/vendor/autoload.php');
+
+Httpful\Bootstrap::init();
+RESTful\Bootstrap::init();
+Balanced\Bootstrap::init();
+
+Balanced\Settings::$api_key = "2fd37702d33511e2a00f026ba7d31e6f";
+
+$credit = Balanced\Credit::get("/v1/credits/CR2M7u0Orut0VyFgtba8GAMf");
 % endif

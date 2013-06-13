@@ -4,7 +4,7 @@
 
     class Scenario {
         private $scenario;
-        private $scenario_cache_path;
+        private $scenarios_cache;
         private $boilerplate = <<<EOT
 <?php
 
@@ -21,23 +21,43 @@ EOT;
 
         function __construct($scenario, $scenario_cache_path =  "../scenario.cache") {
             $this->scenario = $scenario;
-            $this->scenario_cache_path = $scenario_cache_path;
+            $this->scenarios_cache = json_decode(file_get_contents($scenario_cache_path), TRUE);
         }
 
-        public function write($rendered) {
-            file_put_contents($this->scenario . '/' . $this->scenario . '.php', $this->boilerplate . $rendered);
+        public function write_executable($rendered) {
+            if(empty($rendered)) {
+                return false;
+            }
+
+            return file_put_contents($this->scenario . '/' . $this->scenario . '.php', $this->boilerplate . $rendered);
+        }
+
+        public function write_mako($definition, $request) {
+            if(empty($definition) || empty($request)) {
+                return false;
+            }
+
+            $mako_contents = "% if mode == 'definition':\n";
+            $mako_contents .= $definition . "\n\n";
+            $mako_contents .= "% else:\n";
+            $mako_contents .= $this->boilerplate;
+            $mako_contents .= $request . "\n";
+            $mako_contents .= "% endif";
+
+            return file_put_contents($this->scenario . '/php.mako', $mako_contents);
         }
 
         public function render() {
-            $scenarios_cache = file_get_contents($this->scenario_cache_path);
-            $scenarios_cache = json_decode($scenarios_cache, TRUE);
-            $scenario_cache = $scenarios_cache[$this->scenario];
+            if(isset($this->scenarios_cache[$this->scenario])) {
+                $scenario_cache = $this->scenarios_cache[$this->scenario];
 
-            $loader = new Twig_Loader_Filesystem(__dir__ . "/" . $this->scenario);
-            $twig = new Twig_Environment($loader);
-            $template = $twig->loadTemplate('request.php');
-            return $template->render($scenario_cache);
+                $loader = new Twig_Loader_Filesystem(__dir__ . "/" . $this->scenario);
+                $twig = new Twig_Environment($loader);
+                $template = $twig->loadTemplate('request.php');
+                return $template->render($scenario_cache);
+            }
+
+            return false;
         }
     }
-
 ?>
