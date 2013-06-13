@@ -3,7 +3,7 @@ $debit->refund(
     null,
     "{{ request.payload.description }}",
     array(
-    {% for k, v in payload.meta %}
+    {% for k, v in request.payload.meta %}
         "{{ k }}" => "{{ v }}",
     {% endfor %}
     )

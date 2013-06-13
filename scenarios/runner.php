@@ -22,8 +22,13 @@
                         if(file_exists(SCENARIOS_PATH . "/" . $current . "/definition.php")) {
                             $scenario->write_mako(file_get_contents(SCENARIOS_PATH . "/" . $current . "/definition.php"), $rendered);
                             echo "[CREATED] - " . SCENARIOS_PATH . "/" . $current . "/php.mako\n";
-                        } else {
-                            echo "** ERROR ** - " . SCENARIOS_PATH . "/" . $current . "/php.mako - Missing definition.php\n";
+                        }
+                        ////
+                        // No definition exists, but still create the php.mako just will a no definition
+                        ////
+                        else {
+                            $scenario->write_mako('', $rendered);
+                            echo "[CREATED] - " . SCENARIOS_PATH . "/" . $current . "/php.mako\n";
                         }
                     } else {
                         echo "*** ERROR ** - " . SCENARIOS_PATH . "/" . $current . " - failed to render scenario. Likely scenario.cache does not have a definition for this scenario.\n";
