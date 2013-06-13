@@ -12,6 +12,6 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "2fd37702d33511e2a00f026ba7d31e6f";
 
-$account = \Balanced\Account::get("/v1/marketplaces/TEST-MP29J5STPtZVvnjAFndM0N62/accounts/AC2CcqNuwOGPFi8oaeeVik6y");
-$account->addBankAccount("/v1/bank_accounts/BA2G3VwpWEazRJliQSQfDmgU");
+$account = \Balanced\Account::get("/v1/marketplaces/TEST-MP64bmAzypIUS0SUZ4qkoFqG/accounts/AC6x0RfYdlHM6EV2G2ZTq0K2");
+$account->addBankAccount("/v1/bank_accounts/BA6AOckxt2HBpyXSGwiyCIKy");
 % endif

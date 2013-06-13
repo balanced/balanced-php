@@ -9,7 +9,7 @@ Balanced\Bootstrap::init();
 Balanced\Settings::$api_key = "2fd37702d33511e2a00f026ba7d31e6f";
 
 $bank_account_info = array(
-    "account_number" => "9900000001",
+    "account_number" => "9900000000",
     "name" => "Johann Bernoulli",
     "routing_number" => "121000358",
     "type" => "checking",

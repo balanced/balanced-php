@@ -12,5 +12,5 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "2fd37702d33511e2a00f026ba7d31e6f";
 
-$credit = Balanced\Credit::get("/v1/credits/CR2M7u0Orut0VyFgtba8GAMf");
+$credit = Balanced\Credit::get("/v1/credits/CR6HPyOqdWtPuNdeHJFd7ybY");
 % endif

@@ -12,5 +12,5 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "2fd37702d33511e2a00f026ba7d31e6f";
 
-$bank_account = Balanced\BankAccount::get("/v1/bank_accounts/BA2fU4b0MNuBHuI3NrvyOsTE");
+$bank_account = Balanced\BankAccount::get("/v1/bank_accounts/BA6aflmsJEE7FldgQGpsgW0u");
 % endif

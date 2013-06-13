@@ -12,5 +12,5 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "2fd37702d33511e2a00f026ba7d31e6f";
 
-$event = Balanced\Event::get("/v1/events/EV46e176b8cd8811e28d53026ba7cac9da");
+$event = Balanced\Event::get("/v1/events/EVc75db820d3ae11e29834026ba7cac9da");
 % endif
