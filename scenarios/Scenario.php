@@ -33,10 +33,6 @@ EOT;
         }
 
         public function write_mako($definition, $request) {
-            if(empty($definition) || empty($request)) {
-                return false;
-            }
-
             $mako_contents = "% if mode == 'definition':\n";
             $mako_contents .= $definition . "\n\n";
             $mako_contents .= "% else:\n";
