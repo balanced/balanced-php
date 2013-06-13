@@ -1,0 +1,1 @@
+$bank_account = Balanced\Callback::get("{{ request.uri }}");

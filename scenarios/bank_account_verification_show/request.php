@@ -1,0 +1,1 @@
+$verification = Balanced\Verification::get("{{ request.uri }}");

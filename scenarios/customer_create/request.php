@@ -1,0 +1,1 @@
+$customer = Balanced\Customer::mine()->createCustomer();

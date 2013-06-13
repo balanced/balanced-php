@@ -1,0 +1,1 @@
+$account = Balanced\Marketplace::mine()->createAccount();
