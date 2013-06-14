@@ -156,7 +156,7 @@ class Customer extends Resource
 
         if ($source == null) {
             $source_uri = null;
-        } else if (is_string($$source)) {
+        } else if (is_string($source)) {
             $source_uri = $source;
         } else {
             $source_uri = $source->uri;
