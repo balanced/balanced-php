@@ -12,3 +12,4 @@ vendor
 .settings
 .project
 *.iml
+.idea
