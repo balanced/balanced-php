@@ -13,7 +13,7 @@
         }
     ],
     "require": {
-        "nategood/httpful": "*",
+        "nategood/httpful": "0.1",
         "bninja/restful": "*"
     },
     "autoload": {
