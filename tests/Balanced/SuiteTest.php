@@ -769,7 +769,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(property_exists($credit->bank_account, 'uri'));
         $this->assertTrue(property_exists($credit->bank_account, 'id'));
         $bank_account = BankAccount::get($bank_account->id);
-        $bank_account->delete();
+        $bank_account->unstore();
         $credit = Credit::get($credit->uri);
         $this->assertFalse(property_exists($credit->bank_account, 'uri'));
         $this->assertFalse(property_exists($credit->bank_account, 'id'));
@@ -927,5 +927,21 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($debit->source->id, $card->id);
         $this->assertEquals($credit->destination->id, $bank_account->id);
+    }
+
+    function testDeleteCard()
+    {
+        $buyer = self::_createBuyer();
+        $buyer->debit(101);  # NOTE: build up escrow balance to credit
+
+        $card = self::_createCard();
+        $credit = $card->credit(55, 'something sour');
+        $this->assertTrue(property_exists($credit->card, 'uri'));
+        $this->assertTrue(property_exists($credit->card, 'id'));
+        $card = BankAccount::get($card->id);
+        $card->unstore();
+        $credit = Credit::get($credit->uri);
+        $this->assertFalse(property_exists($credit->card, 'uri'));
+        $this->assertFalse(property_exists($credit->card, 'id'));
     }
 }

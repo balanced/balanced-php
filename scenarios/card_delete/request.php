@@ -1,2 +1,2 @@
 $card = Balanced\Card::get("{{ request.uri }}");
-$card->delete();
+$card->unstore();

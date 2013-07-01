@@ -1,1 +1,1 @@
-Balanced\Card->delete()
+Balanced\Card->unstore()
