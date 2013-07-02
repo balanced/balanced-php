@@ -928,4 +928,18 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($debit->source->id, $card->id);
         $this->assertEquals($credit->destination->id, $bank_account->id);
     }
+
+    function testReversal() {
+        $buyer = $this->_createBuyer();
+        $debit = $buyer->debit(
+            1000,
+            'Softie',
+            'something i bought',
+            array('hi' => 'bye')
+        );
+        $merchant = $this->_createPersonMerchant();
+        $credit = $merchant->credit(1000);
+        $reverse = $credit->reverse();
+        print_r($reverse);
+    }
 }

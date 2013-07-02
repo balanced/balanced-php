@@ -13,6 +13,7 @@ use Balanced\Marketplace;
 use Balanced\Credit;
 use Balanced\Debit;
 use Balanced\Refund;
+use Balanced\Reversal;
 use Balanced\Account;
 use Balanced\Merchant;
 use Balanced\BankAccount;
@@ -403,6 +404,30 @@ class CreditTest extends \PHPUnit_Framework_TestCase
             'ids' => array('id' => '9988'),
             );
         $this->assertEquals($expected, $result);
+    }
+
+    function testReversal ()
+    {
+        $collection = $this->getMock(
+            '\RESTful\Collection',
+            array('create'),
+            array('\Balanced\Reversal', 'some/uri', null)
+        );
+
+        print_r($collection);
+
+        $collection
+            ->expects($this->once())
+            ->method('create')
+            ->with(array(
+                'amount' => 645,
+                'description' => null,
+                'meta' => array('test#' => 'test_d')
+                ));
+
+        $credit = new Credit(array('reversal' => $collection));
+
+        $debit->reversal(null, null, array('test#' => 'test_d'));
     }
 }
 
