@@ -853,7 +853,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $account->debit(123);
         $cur_num_events = Marketplace::mine()->events->total();
         $count = 0;
-        while ($cur_num_events == $prev_num_events && $count < 10) {
+        while ($cur_num_events == $prev_num_events && $count < 60) {
             printf("waiting for events - %d, %d == %d\n", $count + 1, $cur_num_events, $prev_num_events);
             sleep(2); // 2 seconds
             $cur_num_events = Marketplace::mine()->events->total();
