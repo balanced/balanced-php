@@ -414,20 +414,18 @@ class CreditTest extends \PHPUnit_Framework_TestCase
             array('\Balanced\Reversal', 'some/uri', null)
         );
 
-        print_r($collection);
-
         $collection
             ->expects($this->once())
             ->method('create')
             ->with(array(
-                'amount' => 645,
+                'amount' => null,
                 'description' => null,
                 'meta' => array('test#' => 'test_d')
                 ));
 
-        $credit = new Credit(array('reversal' => $collection));
+        $credit = new Credit(array('reversals' => $collection));
 
-        $debit->reversal(null, null, array('test#' => 'test_d'));
+        $credit->reverse(null, null, array('test#' => 'test_d'));
     }
 }
 
