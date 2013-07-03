@@ -22,7 +22,7 @@ namespace Balanced;
  */
 class Settings
 {
-    const VERSION = '0.7.2';
+    const VERSION = '0.7.3';
 
     public static $url_root = 'https://api.balancedpayments.com',
                   $api_key = null,
