@@ -98,11 +98,35 @@ require(__DIR__ . "/balanced/bootstrap.php")
 ```bash    
 curl -s http://getcomposer.org/installer | php
 
-echo '{
+echo '
+{
+    "name": "balanced/balanced",
+    "description": "Client for Balanced API",
+    "homepage": "http://github.com/balanced/balanced-php",
+    "license": "MIT",
+    "keywords": ["payments", "api"],
+    "version": "0.7.2",
+    "authors": [
+        {
+            "name": "Balanced",
+            "email": "dev@balancedpayments.com",
+            "homepage": "http://www.balancedpayments.com"
+        }
+    ],
     "require": {
-        "balanced/balanced": "*"
-     }
-}' > composer.json
+        "nategood/httpful": "<0.2.5",
+        "bninja/restful": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Balanced": "src/"
+        }
+    }
+}
+' > composer.json
 
 php composer.phar install
 
