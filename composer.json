@@ -14,7 +14,8 @@
     ],
     "require": {
         "nategood/httpful": "0.2.3",
-        "bninja/restful": "*"
+        "bninja/restful": "*",
+        "balanced/balanced": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
@@ -23,9 +24,6 @@
         "psr-0": {
             "Balanced": "src/"
         }
-    }
-    "require": {
-        "balanced/balanced": "*"
     }
 }
 

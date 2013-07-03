@@ -45,7 +45,8 @@ Add this to your `composer.json`:
     ],
     "require": {
         "nategood/httpful": "0.2.3",
-        "bninja/restful": "*"
+        "bninja/restful": "*",
+        "balanced/balanced": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
@@ -55,11 +56,7 @@ Add this to your `composer.json`:
             "Balanced": "src/"
         }
     }
-    "require": {
-        "balanced/balanced": "*"
-    }
 }
-
 ```
     
 Refresh your dependencies:
@@ -141,7 +138,8 @@ echo '
     ],
     "require": {
         "nategood/httpful": "0.2.3",
-        "bninja/restful": "*"
+        "bninja/restful": "*",
+        "balanced/balanced": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
@@ -150,9 +148,6 @@ echo '
         "psr-0": {
             "Balanced": "src/"
         }
-    }
-    "require": {
-        "balanced/balanced": "*"
     }
 }
 ' > composer.json
