@@ -13,7 +13,7 @@
         }
     ],
     "require": {
-        "nategood/httpful": "<0.2.5",
+        "nategood/httpful": "0.2.3",
         "bninja/restful": "*"
     },
     "require-dev": {
@@ -23,6 +23,9 @@
         "psr-0": {
             "Balanced": "src/"
         }
+    }
+    "require": {
+        "balanced/balanced": "*"
     }
 }
 

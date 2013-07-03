@@ -44,7 +44,7 @@ Add this to your `composer.json`:
         }
     ],
     "require": {
-        "nategood/httpful": "<0.2.5",
+        "nategood/httpful": "0.2.3",
         "bninja/restful": "*"
     },
     "require-dev": {
@@ -54,6 +54,9 @@ Add this to your `composer.json`:
         "psr-0": {
             "Balanced": "src/"
         }
+    }
+    "require": {
+        "balanced/balanced": "*"
     }
 }
 
@@ -137,7 +140,7 @@ echo '
         }
     ],
     "require": {
-        "nategood/httpful": "<0.2.5",
+        "nategood/httpful": "0.2.3",
         "bninja/restful": "*"
     },
     "require-dev": {
@@ -147,6 +150,9 @@ echo '
         "psr-0": {
             "Balanced": "src/"
         }
+    }
+    "require": {
+        "balanced/balanced": "*"
     }
 }
 ' > composer.json
