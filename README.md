@@ -4,14 +4,14 @@ Online Marketplace Payments
 
 [![Build Status](https://secure.travis-ci.org/balanced/balanced-php.png)](http://travis-ci.org/balanced/balanced-php)
 
-The design of this library was heavily influenced by [Httpful](https://github.com/nategood/httpful). 
+The design of this library was heavily influenced by [Httpful](https://github.com/nategood/httpful).
 
 ## Requirements
 
 - [PHP](http://www.php.net) >= 5.3 **with** [cURL](http://www.php.net/manual/en/curl.installation.php)
 - [RESTful](https://github.com/bninja/restful) >= 0.1
 - [Httpful](https://github.com/nategood/httpful) >= 0.1
-    
+
 ## Issues
 
 Please use appropriately tagged github [issues](https://github.com/balanced/balanced-php/issues) to request features or report bugs.
@@ -26,49 +26,26 @@ If you don't have Composer [install](http://getcomposer.org/doc/00-intro.md#inst
 
     $ curl -s https://getcomposer.org/installer | php
 
-Add this to your `composer.json`: 
+Add this to your `composer.json`:
 
 ```javascript
 {
-    "name": "balanced/balanced",
-    "description": "Client for Balanced API",
-    "homepage": "http://github.com/balanced/balanced-php",
-    "license": "MIT",
-    "keywords": ["payments", "api"],
-    "version": "0.7.2",
-    "authors": [
-        {
-            "name": "Balanced",
-            "email": "dev@balancedpayments.com",
-            "homepage": "http://www.balancedpayments.com"
-        }
-    ],
     "require": {
-        "nategood/httpful": "0.2.3",
-        "bninja/restful": "*",
         "balanced/balanced": "*"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "3.7.*"
-    },
-    "autoload": {
-        "psr-0": {
-            "Balanced": "src/"
-        }
     }
 }
 ```
-    
+
 Refresh your dependencies:
 
 ```bash
 $ php composer.phar update
 ```
-    
+
 
 Then make sure to `require` the autoloader and initialize all:
-   
-```php 
+
+```php
 <?php
 require(__DIR__ . '/vendor/autoload.php');
 
@@ -100,7 +77,7 @@ Download the Balanced source:
 $ curl -s -L -o balanced.zip https://github.com/balanced/balanced-php/zipball/master
 $ unzip balanced.zip; mv balanced-balanced-php-* balanced; rm balanced.zip
 ```
-    
+
 
 And then `require` all bootstrap files:
 
@@ -118,7 +95,7 @@ require(__DIR__ . "/balanced/bootstrap.php")
 
 ## Quickstart
 
-```bash    
+```bash
 curl -s http://getcomposer.org/installer | php
 
 echo '
@@ -157,11 +134,11 @@ php composer.phar install
 curl https://raw.github.com/balanced/balanced-php/master/example/example.php > example.php
 
 php example.php
- 
+
 curl https://raw.github.com/balanced/balanced-php/master/example/buyer-example.php > buyer-example.php
- 
-php -S 127.0.0.1:9321 buyer-example.php 
-# now open a browser and go to http://127.0.0.1:9321/ to view how to tokenize cards and add to a buyer  
+
+php -S 127.0.0.1:9321 buyer-example.php
+# now open a browser and go to http://127.0.0.1:9321/ to view how to tokenize cards and add to a buyer
 ```
 
 ## Usage
@@ -169,9 +146,9 @@ php -S 127.0.0.1:9321 buyer-example.php
 See https://www.balancedpayments.com/docs/overview?language=php for tutorials and documentation.
 
 ## Testing
-    
+
     $ phpunit --bootstrap vendor/autoload.php tests/
-    
+
 Or if you'd like to skip network calls:
 
     $ phpunit --exclude-group suite --bootstrap vendor/autoload.php tests/

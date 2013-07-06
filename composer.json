@@ -4,7 +4,7 @@
     "homepage": "http://github.com/balanced/balanced-php",
     "license": "MIT",
     "keywords": ["payments", "api"],
-    "version": "0.7.2",
+    "version": "0.7.3",
     "authors": [
         {
             "name": "Balanced",
@@ -14,8 +14,7 @@
     ],
     "require": {
         "nategood/httpful": "0.2.3",
-        "bninja/restful": "*",
-        "balanced/balanced": "*"
+        "bninja/restful": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
@@ -26,4 +25,3 @@
         }
     }
 }
-

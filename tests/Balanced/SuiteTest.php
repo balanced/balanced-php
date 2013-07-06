@@ -940,6 +940,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $merchant = $this->_createPersonMerchant();
         $credit = $merchant->credit(1000);
         $reverse = $credit->reverse();
-        print_r($reverse);
+        $this->assertEquals($reverse->credit->uri, $credit->uri);
+        $this->assertEquals($reverse->amount, 1000);
     }
 }
