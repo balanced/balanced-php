@@ -1,1 +1,1 @@
-Balanced\Customer->createCustomer();
+Balanced\Customer()
