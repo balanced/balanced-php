@@ -8,5 +8,5 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "2fd37702d33511e2a00f026ba7d31e6f";
 
-$card = Balanced\Card::unstore("/v1/bank_accounts/BA64BU1PUa8MKCAg0omlaNwm");
+$card = Balanced\Card::get("/v1/marketplaces/TEST-MP64bmAzypIUS0SUZ4qkoFqG/cards/CC6mSyhNe9lAcrUYtqAxHi1i");
 $card->unstore();

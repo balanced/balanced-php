@@ -4,7 +4,4 @@ card = json.loads(
 
 request = {
     'uri': card['uri'],
-    'payload': {
-        'is_valid': 'false',
-    }
 }
