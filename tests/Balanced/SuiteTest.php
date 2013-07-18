@@ -931,13 +931,18 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
     function testDeleteCard()
     {
+        $buyer = self::_createBuyer();
+        $buyer->debit(101);  # NOTE: build up escrow balance to credit
+
         $card = self::_createCard();
+        $credit = $card->credit(55, 'something sour');
+        $this->assertTrue(property_exists($credit->card, 'uri'));
+        $this->assertTrue(property_exists($credit->card, 'id'));
+        $card = Card::get($card->id);
         $card->unstore();
-    }
-    function testDeleteBA()
-    {
-        $bank_account = self::_createBankAccount();
-        $bank_account->unstore();
+        $credit = Credit::get($credit->uri);
+        $this->assertFalse(property_exists($credit->card, 'uri'));
+        $this->assertFalse(property_exists($credit->card, 'id'));
     }
 
     function testReversal() {
