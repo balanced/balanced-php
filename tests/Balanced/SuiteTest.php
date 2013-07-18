@@ -853,7 +853,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $account->debit(123);
         $cur_num_events = Marketplace::mine()->events->total();
         $count = 0;
-        while ($cur_num_events == $prev_num_events && $count < 10) {
+        while ($cur_num_events == $prev_num_events && $count < 60) {
             printf("waiting for events - %d, %d == %d\n", $count + 1, $cur_num_events, $prev_num_events);
             sleep(2); // 2 seconds
             $cur_num_events = Marketplace::mine()->events->total();
@@ -938,5 +938,20 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     {
         $bank_account = self::_createBankAccount();
         $bank_account->unstore();
+    }
+
+    function testReversal() {
+        $buyer = $this->_createBuyer();
+        $debit = $buyer->debit(
+            1000,
+            'Softie',
+            'something i bought',
+            array('hi' => 'bye')
+        );
+        $merchant = $this->_createPersonMerchant();
+        $credit = $merchant->credit(1000);
+        $reverse = $credit->reverse();
+        $this->assertEquals($reverse->credit->uri, $credit->uri);
+        $this->assertEquals($reverse->amount, 1000);
     }
 }

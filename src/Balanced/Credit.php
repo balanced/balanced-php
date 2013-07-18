@@ -7,18 +7,18 @@ use \RESTful\URISpec;
 
 /**
  * Represents an account credit transaction.
- * 
+ *
  * You create these using Balanced\Account::credit.
- * 
+ *
  * <code>
  * $marketplace = \Balanced\Marketplace::mine();
- * 
+ *
  * $account = $marketplace
  *     ->accounts
  *     ->query()
  *     ->filter(Account::f->email_address->eq('merchant@example.com'))
  *     ->one();
- * 
+ *
  * $credit = $account->credit(
  *     100,
  *     'how it '
@@ -37,7 +37,7 @@ class Credit extends Resource
         self::$_uri_spec = new URISpec('credits', 'id', '/v1');
         self::$_registry->add(get_called_class());
     }
-    
+
     /**
      * Credit an unstored bank account.
      *
@@ -46,7 +46,7 @@ class Credit extends Resource
      * @param mixed bank_account Associative array describing a bank account to credit. The bank account will *not* be stored.
      *
      * @return \Balanced\Credit
-     *  
+     *
      * <code>
      * $credit = \Balanced\Credit::bankAccount(
      *     123,
@@ -71,5 +71,17 @@ class Credit extends Resource
         ));
         $credit->save();
         return $credit;
+    }
+
+    public function reverse(
+        $amount = null,
+        $description = null,
+        $meta = null)
+    {
+        return $this->reversals->create(array(
+            'amount' => $amount,
+            'description' => $description,
+            'meta' => $meta
+        ));
     }
 }
