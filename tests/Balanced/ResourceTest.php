@@ -535,31 +535,6 @@ class BankAccountTest extends \PHPUnit_Framework_TestCase
         $bank_account->credit(101, 'something super sweet');
     }
 
-    function testDelete()
-    {
-        $collection = $this->getMock(
-            '\RESTful\Collection',
-            array('create'),
-            array('\Balanced\Credit', 'some/uri', null)
-        );
-
-        $collection
-            ->expects($this->once())
-            ->method('create')
-            ->with(array(
-                'amount' => 101,
-                'description' => 'something super sweet',
-                'meta' => null,
-                'destination_uri' => '/some/other/uri',
-                'appears_on_statement_as' => null
-            ));
-
-        $account = new Account(array('credits' => $collection));
-        $bank_account = new BankAccount(array('uri' => '/some/other/uri', 'account' => $account));
-
-        $bank_account->delete();
-    }
-
     function testCreditAccountless()
     {
          $collection = $this->getMock(
@@ -628,18 +603,6 @@ class CardTest extends \PHPUnit_Framework_TestCase
                 ));
 
         $card->debit(9911, 'BAL*TANG', 'something tangy');
-    }
-    function testDelete()
-    {
-        $collection = $this->getMock(
-            '\RESTful\Collection',
-            array('create'),
-            array('\Balanced\Debit', 'some/uri', null)
-        );
-
-        $account = new Account(array('debits' => $collection));
-        $card = new Card(array('uri' => '/some/uri', 'account' => $account ));
-        $card->delete();
     }
 
     /**

@@ -45,9 +45,4 @@ class Resource extends \RESTful\Resource
         $class = get_called_class();
         return $class::$_uri_spec;
     }
-
-    public static function unstore()
-    {
-        self::delete();
-    }
 }
