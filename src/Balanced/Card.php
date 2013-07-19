@@ -64,4 +64,9 @@ class Card extends Resource
         $this->is_valid = False;
         return $this->save();
     }
+
+    public function unstore()
+    {
+        return $this->delete();
+    }
 }
