@@ -34,8 +34,8 @@ use Balanced\Customer;
 class SuiteTest extends \PHPUnit_Framework_TestCase
 {
     static $key,
-           $marketplace,
-           $email_counter = 0;
+        $marketplace,
+        $email_counter = 0;
 
     static function _emailAddress()
     {
@@ -82,10 +82,10 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             '112233a',
             '121042882',
             'checking'
-            );
+        );
         if ($account != null) {
             $account->addBankAccount($bank_account);
-            $bank_account  = $account->bank_accounts[0];
+            $bank_account = $account->bank_accounts[0];
         }
         return $bank_account;
     }
@@ -105,12 +105,12 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             'dob' => '1842-01-01',
             'phone_number' => '+16505551234',
             'country_code' => 'USA'
-            );
+        );
         return self::$marketplace->createMerchant(
             $email_address,
             $merchant,
             $bank_account->uri
-            );
+        );
     }
 
     public static function _createBusinessMerchant($email_address = null, $bank_account = null)
@@ -135,13 +135,13 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
                 'dob' => '1842-01-01',
                 'phone_number' => '+16505551234',
                 'country_code' => 'USA',
-                ),
-            );
+            ),
+        );
         return self::$marketplace->createMerchant(
             $email_address,
             $merchant,
             $bank_account->uri
-            );
+        );
     }
 
     public function _createPersonCustomer($email_address = null)
@@ -149,24 +149,24 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         if ($email_address == null)
             $email_address = self::_emailAddress();
         $customer = new Customer(array(
-                "name" => "John Lee Hooker",
-                "twitter" => "@balanced",
-                "phone" => "(904) 555-1796",
-                "meta" => array(
-                        "meta can store" => "any flat key/value data you like",
-                        "github" => "https://github.com/balanced",
-                        "more_additional_data" => 54.8
-                ),
-                "facebook" => "https://facebook.com/balanced",
-                "address" => array(
-                        "city" => "San Francisco",
-                        "state" => "CA",
-                        "postal_code" => "94103",
-                        "line1" => "965 Mission St",
-                        "country_code" => "US"
-                ),
-                "ssn_last4" => "3209",
-                "email" => $email_address,
+            "name" => "John Lee Hooker",
+            "twitter" => "@balanced",
+            "phone" => "(904) 555-1796",
+            "meta" => array(
+                "meta can store" => "any flat key/value data you like",
+                "github" => "https://github.com/balanced",
+                "more_additional_data" => 54.8
+            ),
+            "facebook" => "https://facebook.com/balanced",
+            "address" => array(
+                "city" => "San Francisco",
+                "state" => "CA",
+                "postal_code" => "94103",
+                "line1" => "965 Mission St",
+                "country_code" => "US"
+            ),
+            "ssn_last4" => "3209",
+            "email" => $email_address,
         ));
         $customer->save();
         return $customer;
@@ -177,26 +177,26 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         if ($email_address == null)
             $email_address = self::_emailAddress();
         $customer = new Customer(array(
-                "name" => "John Lee Hooker",
-                "twitter" => "@balanced",
-                "phone" => "(904) 555-1796",
-                "meta" => array(
-                        "meta can store" => "any flat key/value data you like",
-                        "github" => "https://github.com/balanced",
-                        "more_additional_data" => 54.8
-                ),
-                "facebook" => "https://facebook.com/balanced",
-                "address" => array(
-                        "city" => "San Francisco",
-                        "state" => "CA",
-                        "postal_code" => "94103",
-                        "line1" => "965 Mission St",
-                        "country_code" => "US"
-                ),
-                "business_name" => "Balanced",
-                "ssn_last4" => "3209",
-                "email" => $email_address,
-                "ein" => "123456789"
+            "name" => "John Lee Hooker",
+            "twitter" => "@balanced",
+            "phone" => "(904) 555-1796",
+            "meta" => array(
+                "meta can store" => "any flat key/value data you like",
+                "github" => "https://github.com/balanced",
+                "more_additional_data" => 54.8
+            ),
+            "facebook" => "https://facebook.com/balanced",
+            "address" => array(
+                "city" => "San Francisco",
+                "state" => "CA",
+                "postal_code" => "94103",
+                "line1" => "965 Mission St",
+                "country_code" => "US"
+            ),
+            "business_name" => "Balanced",
+            "ssn_last4" => "3209",
+            "email" => $email_address,
+            "ein" => "123456789"
         ));
         $customer->save();
         return $customer;
@@ -208,16 +208,14 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $url_root = getenv('BALANCED_URL_ROOT');
         if ($url_root != '') {
             Settings::$url_root = $url_root;
-        }
-        else
+        } else
             Settings::$url_root = 'https://api.balancedpayments.com';
 
         // api key
         $api_key = getenv('BALANCED_API_KEY');
         if ($api_key != '') {
             Settings::$api_key = $api_key;
-        }
-        else {
+        } else {
             self::$key = new APIKey();
             self::$key->save();
             Settings::$api_key = self::$key->secret;
@@ -226,8 +224,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         // marketplace
         try {
             self::$marketplace = Marketplace::mine();
-        }
-        catch(\RESTful\Exceptions\NoResultFound $e) {
+        } catch (\RESTful\Exceptions\NoResultFound $e) {
             self::$marketplace = new Marketplace();
             self::$marketplace->save();
         }
@@ -270,16 +267,16 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
     function testCreateAccountWithoutEmailAddress()
     {
-    	self::$marketplace->createAccount();
+        self::$marketplace->createAccount();
     }
 
     function testFindOrCreateAccountByEmailAddress()
     {
-    	$account1 = self::$marketplace->createAccount('foc@example.com');
-    	$account2 = self::$marketplace->findOrCreateAccountByEmailAddress('foc@example.com');
-    	$this->assertEquals($account2->id, $account2->id);
-    	$account3 = self::$marketplace->findOrCreateAccountByEmailAddress('foc2@example.com');
-    	$this->assertNotEquals($account3->id, $account1->id);
+        $account1 = self::$marketplace->createAccount('foc@example.com');
+        $account2 = self::$marketplace->findOrCreateAccountByEmailAddress('foc@example.com');
+        $this->assertEquals($account2->id, $account2->id);
+        $account3 = self::$marketplace->findOrCreateAccountByEmailAddress('foc2@example.com');
+        $this->assertNotEquals($account3->id, $account1->id);
     }
 
     function testGetBuyer()
@@ -305,7 +302,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             'Softie',
             'something i bought',
             array('hi' => 'bye')
-            );
+        );
         $refund = $debit->refund(100);
     }
 
@@ -314,12 +311,12 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
      */
     function testDebitZero()
     {
-    	$buyer = self::_createBuyer();
-    	$debit = $buyer->debit(
-    			0,
-    			'Softie',
-    			'something i bought'
-    	);
+        $buyer = self::_createBuyer();
+        $debit = $buyer->debit(
+            0,
+            'Softie',
+            'something i bought'
+        );
     }
 
     function testMultipleRefunds()
@@ -336,7 +333,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             $debit->refund(100),
             $debit->refund(100));
         $expected_refund_ids = array_map(
-            function($x) {
+            function ($x) {
                 return $x->id;
             }, $refunds);
         sort($expected_refund_ids);
@@ -347,7 +344,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $refund_ids = array();
         foreach ($debit->refunds as $refund) {
             $total += $refund->amount;
-             array_push($refund_ids, $refund->id);
+            array_push($refund_ids, $refund->id);
         }
         sort($refund_ids);
         $this->assertEquals($total, 400);
@@ -377,7 +374,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             1000,
             'Softie',
             'something i bought'
-            );
+        );
         $this->assertEquals($credit->source->id, $card2->id);
 
         $credit = $buyer->debit(
@@ -386,7 +383,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             'something i bought',
             null,
             $card1
-            );
+        );
         $this->assertEquals($credit->source->id, $card1->id);
     }
 
@@ -451,7 +448,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             1000,
             'Softie',
             'something i bought'
-            );
+        );
         $merchant = self::_createBusinessMerchant();
         $merchant->credit(0);
     }
@@ -468,7 +465,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             null,
             null,
             'Softie'
-            );
+        );
         $merchant = self::_createBusinessMerchant();
         $merchant->credit(self::$marketplace->in_escrow + 1);
     }
@@ -476,7 +473,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     function testCreditDestiation()
     {
         $buyer = self::_createBuyer();
-        $buyer->debit(3000);  # NOTE: build up escrow balance to credit
+        $buyer->debit(3000); # NOTE: build up escrow balance to credit
 
         $merchant = self::_createPersonMerchant();
         $bank_account1 = self::_createBankAccount($merchant);
@@ -488,7 +485,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             null,
             null,
             'Softie'
-            );
+        );
         $this->assertEquals($credit->destination->id, $bank_account2->id);
 
         $credit = $merchant->credit(
@@ -497,7 +494,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             null,
             $bank_account1,
             'Softie'
-            );
+        );
         $this->assertEquals($credit->destination->id, $bank_account1->id);
     }
 
@@ -538,7 +535,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             '112233a',
             '121042882',
             'checking'
-            );
+        );
         $this->assertEquals($bank_account->last_four, '233a');
         $this->assertEquals($bank_account->account_number, 'xxx233a');
     }
@@ -550,12 +547,12 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $debit2 = $buyer->debit(3322, null, null, array('tag' => '1'));
         $debit3 = $buyer->debit(2211, null, null, array('tag' => '2'));
 
-        $getId = function($o) {
+        $getId = function ($o) {
             return $o->id;
         };
 
         $debits = (
-            self::$marketplace->debits->query()
+        self::$marketplace->debits->query()
             ->filter(Debit::$f->meta->tag->eq('1'))
             ->sort(Debit::$f->created_at->asc())
             ->all());
@@ -563,14 +560,14 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($debit_ids, array($debit1->id, $debit2->id));
 
         $debits = (
-            self::$marketplace->debits->query()
+        self::$marketplace->debits->query()
             ->filter(Debit::$f->meta->tag->eq('2'))
             ->all());
         $debit_ids = array_map($getId, $debits);
         $this->assertEquals($debit_ids, array($debit3->id));
 
         $debits = (
-            self::$marketplace->debits->query()
+        self::$marketplace->debits->query()
             ->filter(Debit::$f->meta->contains('tag'))
             ->sort(Debit::$f->created_at->asc())
             ->all());
@@ -578,7 +575,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($debit_ids, array($debit1->id, $debit2->id, $debit3->id));
 
         $debits = (
-            self::$marketplace->debits->query()
+        self::$marketplace->debits->query()
             ->filter(Debit::$f->meta->contains('tag'))
             ->sort(Debit::$f->amount->desc())
             ->all());
@@ -607,15 +604,14 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
                 'dob' => '1842-01-01',
                 'phone_number' => '+16505551234',
                 'country_code' => 'USA',
-                ),
-            );
+            ),
+        );
 
         try {
             self::$marketplace->createMerchant(
                 sprintf('m+%d@poundpay.com', self::$email_counter++),
                 $identity);
-        }
-        catch(\RESTful\Exceptions\HTTPError $e) {
+        } catch (\RESTful\Exceptions\HTTPError $e) {
             $this->assertEquals($e->response->code, 300);
             $expected = sprintf('https://www.balancedpayments.com/marketplaces/%s/kyc', self::$marketplace->id);
             $this->assertEquals($e->redirect_uri, $expected);
@@ -636,7 +632,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             'name' => 'Johnny Fresh',
             'postal_code' => '4020054',
             'street_address' => '\xe7\x94\xb0\xe5\x8e\x9f\xef\xbc\x93\xe3\x83\xbc\xef\xbc\x98\xe3\x83\xbc\xef\xbc\x91'
-            );
+        );
         $card = self::$marketplace->cards->create($payload);
         $this->assertEquals($card->street_address, $payload['street_address']);
     }
@@ -675,7 +671,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     function testCreditABankAccount()
     {
         $buyer = self::_createBuyer();
-        $buyer->debit(101);  # NOTE: build up escrow balance to credit
+        $buyer->debit(101); # NOTE: build up escrow balance to credit
 
         $merchant = self::_createPersonMerchant();
         $bank_account = self::_createBankAccount($merchant);
@@ -693,7 +689,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $expected_debit_ids = array($debit1->id, $debit2->id, $debit3->id);
 
         $query = (
-            self::$marketplace->debits->query()
+        self::$marketplace->debits->query()
             ->filter(Debit::$f->meta->tag->eq($tag))
             ->sort(Debit::$f->created_at->asc())
             ->limit(1));
@@ -712,7 +708,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
     function testBuyerPromoteToMerchant()
     {
-    	$merchant = array(
+        $merchant = array(
             'type' => 'person',
             'name' => 'William James',
             'tax_id' => '393-48-3992',
@@ -721,15 +717,15 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             'dob' => '1842-01-01',
             'phone_number' => '+16505551234',
             'country_code' => 'USA'
-    	);
-    	$buyer = self::_createBuyer();
-    	$buyer->promoteToMerchant($merchant);
+        );
+        $buyer = self::_createBuyer();
+        $buyer->promoteToMerchant($merchant);
     }
 
     function testCreditAccountlessBankAccount()
     {
         $buyer = self::_createBuyer();
-        $buyer->debit(101);  # NOTE: build up escrow balance to credit
+        $buyer->debit(101); # NOTE: build up escrow balance to credit
 
         $bank_account = self::_createBankAccount();
         $credit = $bank_account->credit(55, 'something sour');
@@ -741,7 +737,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     function testCreditUnstoredBankAccount()
     {
         $buyer = self::_createBuyer();
-        $buyer->debit(101);  # NOTE: build up escrow balance to credit
+        $buyer->debit(101); # NOTE: build up escrow balance to credit
 
         $credit = Credit::bankAccount(
             55,
@@ -761,18 +757,18 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
     function testDeleteBankAccount()
     {
-        $buyer = self::_createBuyer();
-        $buyer->debit(101);  # NOTE: build up escrow balance to credit
-
         $bank_account = self::_createBankAccount();
-        $credit = $bank_account->credit(55, 'something sour');
-        $this->assertTrue(property_exists($credit->bank_account, 'uri'));
-        $this->assertTrue(property_exists($credit->bank_account, 'id'));
-        $bank_account = BankAccount::get($bank_account->id);
-        $bank_account->delete();
-        $credit = Credit::get($credit->uri);
-        $this->assertFalse(property_exists($credit->bank_account, 'uri'));
-        $this->assertFalse(property_exists($credit->bank_account, 'id'));
+        $bank_account->unstore();
+        return $bank_account->uri;
+    }
+
+    /**
+     * @expectedException \RESTful\Exceptions\HTTPError
+     */
+    function testGetDeletedBankAccount()
+    {
+        $ba_uri = $this->testDeleteBankAccount();
+        BankAccount::get($ba_uri);
     }
 
     function testGetBankAccounById()
@@ -800,7 +796,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             'something sour');
     }
 
-    function testCreateCallback() {
+    function testCreateCallback()
+    {
         $callback = self::$marketplace->createCallback(
             'http://example.com/php'
         );
@@ -810,7 +807,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \Balanced\Errors\BankAccountVerificationFailure
      */
-    function testBankAccountVerificationFailure() {
+    function testBankAccountVerificationFailure()
+    {
         $bank_account = self::_createBankAccount();
         $buyer = self::_createBuyer();
         $buyer->addBankAccount($bank_account);
@@ -821,7 +819,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \Balanced\Errors\BankAccountVerificationFailure
      */
-    function testBankAccountVerificationDuplicate() {
+    function testBankAccountVerificationDuplicate()
+    {
         $bank_account = self::_createBankAccount();
         $buyer = self::_createBuyer();
         $buyer->addBankAccount($bank_account);
@@ -829,7 +828,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $bank_account->verify();
     }
 
-    function testBankAccountVerificationSuccess() {
+    function testBankAccountVerificationSuccess()
+    {
         $bank_account = self::_createBankAccount();
         $buyer = self::_createBuyer();
         $buyer->addBankAccount($bank_account);
@@ -847,7 +847,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(strpos($debit->source->uri, 'bank_account') > 0);
     }
 
-    function testEvents() {
+    function testEvents()
+    {
         $prev_num_events = Marketplace::mine()->events->total();
         $account = self::_createBuyer();
         $account->debit(123);
@@ -862,15 +863,18 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($cur_num_events > $prev_num_events);
     }
 
-    function testCustomerPersonCreate() {
+    function testCustomerPersonCreate()
+    {
         $this->_createPersonCustomer();
     }
 
-    function testCustomerBusinessCreate() {
+    function testCustomerBusinessCreate()
+    {
         $this->_createBusinessCustomer();
     }
 
-    function testCustomerAddCard() {
+    function testCustomerAddCard()
+    {
         $customer = $this->_createPersonCustomer();
         $active_card = $customer->activeCard();
         $this->assertNull($active_card);
@@ -885,7 +889,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($active_card);
     }
 
-    function testCustomerAddBankAccount() {
+    function testCustomerAddBankAccount()
+    {
         $customer = $this->_createBusinessCustomer();
         $active_bank_account = $customer->activeBankAccount();
         $this->assertNull($active_bank_account);
@@ -900,7 +905,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($active_bank_account);
     }
 
-    function testCustomerCreditDebit() {
+    function testCustomerCreditDebit()
+    {
         $buyer = $this->_createPersonCustomer();
         $card = $this->_createCard();
         $buyer->addCard($card);
@@ -929,7 +935,25 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($credit->destination->id, $bank_account->id);
     }
 
-    function testReversal() {
+    function testDeleteCard()
+    {
+        $card = self::_createCard();
+        $card->unstore();
+        return $card->uri;
+
+    }
+
+    /**
+     * @expectedException \RESTful\Exceptions\HTTPError
+     */
+    function testGetDeletedCard()
+    {
+        $card_uri = $this->testDeleteCard();
+        Card::get($card_uri);
+    }
+
+    function testReversal()
+    {
         $buyer = $this->_createBuyer();
         $debit = $buyer->debit(
             1000,

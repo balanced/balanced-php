@@ -1,1 +1,1 @@
-Balanced\BankAccount->delete()
+Balanced\BankAccount->unstore()
