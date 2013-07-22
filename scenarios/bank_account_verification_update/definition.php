@@ -1,1 +1,1 @@
-Balanced\Verification->save()
+Balanced\BankAccountVerification->save()

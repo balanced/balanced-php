@@ -1,5 +1,5 @@
 % if mode == 'definition':
-\Balanced\Verification->save()
+\Balanced\BankAccountVerification->save()
 
 % else:
 <?php
