@@ -1,1 +1,1 @@
-Balanced\Verification::get
+Balanced\BankAccountVerification::get
