@@ -13,5 +13,5 @@ Balanced\Bootstrap::init();
 Balanced\Settings::$api_key = "2fd37702d33511e2a00f026ba7d31e6f";
 
 $bank_account = Balanced\BankAccount::get("/v1/bank_accounts/BA7LMoiDtVIogA3dSCkb93xQ");
-$bank_account->credit(1000);
+$bank_account->debit(1000);
 % endif
