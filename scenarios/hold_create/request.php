@@ -1,5 +1,5 @@
-$buyer = Balanced\Account::get("{{ request.account_uri }}");
-$buyer->hold(
+$customer = Balanced\Customer::get("{{ request.customer_uri }}");
+$customer->hold(
     "{{ request.payload.amount }}",
     "{{ request.payload.description }}"
 );
