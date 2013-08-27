@@ -1,1 +1,1 @@
-Balanced\Buyer->hold()
+Balanced\Customer->hold()
