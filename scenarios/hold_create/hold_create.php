@@ -8,8 +8,8 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "2fd37702d33511e2a00f026ba7d31e6f";
 
-$buyer = Balanced\Account::get("");
-$buyer->hold(
+$customer = Balanced\Customer::get("");
+$customer->hold(
     "5000",
     "Some descriptive text for the debit in the dashboard"
 );
