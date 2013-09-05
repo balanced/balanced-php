@@ -57,8 +57,6 @@ class Bootstrap
         if (self::$initialized)
             return;
 
-        \Balanced\Errors\Error::init();
-
         \Balanced\Resource::init();
 
         \Balanced\APIKey::init();
