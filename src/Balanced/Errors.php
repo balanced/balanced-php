@@ -58,7 +58,7 @@ class InvalidBankAccountNumber extends Error
 
 class Declined extends Error
 {
-    public static $codes = array('funding-destination-declined', 'authorization-failed');
+    public static $codes = array('funding-destination-declined', 'authorization-failed', 'card-declined');
 }
 
 class CannotAssociateMerchantWithAccount extends Error
