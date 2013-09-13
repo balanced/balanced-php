@@ -48,7 +48,7 @@ class Hold extends Resource
     
     /**
      ** Voids a pending hold. This releases the held funds. Once voided a hold
-     * is not longer pending can cannot be re-captured or re-voided.
+     * is no longer pending can cannot be re-captured or re-voided.
      * 
      * @return \Balanced\Hold
      */

@@ -1,4 +1,4 @@
-% if mode == 'definition':
+%if mode == 'definition':
 Balanced\BankAccount->unstore()
 
 % else:
@@ -10,8 +10,10 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "2fd37702d33511e2a00f026ba7d31e6f";
+Balanced\Settings::$api_key = "4210e1bc1c0e11e3a141026ba7f8ec28";
 
-$bank_account = Balanced\BankAccount::get("/v1/bank_accounts/BA64BU1PUa8MKCAg0omlaNwm");
+$bank_account = Balanced\BankAccount::get("/v1/bank_accounts/BA2u6eI5wwn9pGSccrUJ7mIn");
 $bank_account->unstore();
-% endif
+
+?>
+%endif
