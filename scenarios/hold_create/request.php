@@ -1,5 +1,6 @@
-$customer = Balanced\Customer::get("{{ request.customer_uri }}");
-$customer->hold(
-    "{{ request.payload.amount }}",
-    "{{ request.payload.description }}"
-);
+$marketplace = \Balanced\Marketplace::mine();
+$hold = $marketplace->holds->create(array(
+  "amount" => "{{ request.payload.amount }}",
+  "description" => "{{ request.payload.description }}",
+  "source_uri" => "{{ request.payload.source_uri }}"
+));

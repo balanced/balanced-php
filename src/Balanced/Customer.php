@@ -226,4 +226,10 @@ class Customer extends Resource
                 'debit_uri' => $debit_uri
         ));
     }
+    
+    
+    public function unstore()
+    {
+        return $this->delete();
+    }
 }

@@ -1,4 +1,4 @@
-% if mode == 'definition':
+%if mode == 'definition':
 \Balanced\Customer->debit();
 
 % else:
@@ -10,8 +10,10 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "2fd37702d33511e2a00f026ba7d31e6f";
+Balanced\Settings::$api_key = "4210e1bc1c0e11e3a141026ba7f8ec28";
 
-$customer = \Balanced\Customer::get("/v1/customers/CU7GuPv9Y2F8ySwJHuHL0YWq");
-$customer->debit('1000');
-% endif
+$customer = \Balanced\Customer::get("/v1/customers/AC3f5gEida4PzEge2hoy6mlY");
+$customer->debit('5000');
+
+?>
+%endif
