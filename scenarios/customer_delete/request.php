@@ -1,2 +1,2 @@
-$customer = Balanced\Customer::get("{{ request.customer_uri }}");
+$customer = Balanced\Customer::get("{{ request.uri }}");
 $customer->unstore();

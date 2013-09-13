@@ -1,4 +1,4 @@
-% if mode == 'definition':
+%if mode == 'definition':
 Balanced\Debit->refund()
 
 % else:
@@ -10,8 +10,10 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "2fd37702d33511e2a00f026ba7d31e6f";
+Balanced\Settings::$api_key = "4210e1bc1c0e11e3a141026ba7f8ec28";
 
-$debit = Balanced\Debit::get("/v1/marketplaces/TEST-MP64bmAzypIUS0SUZ4qkoFqG/debits/WD77SpSXQMyRXw8pMUujCjua");
+$debit = Balanced\Debit::get("/v1/marketplaces/TEST-MP20QSIx33BcCbLmSfH5uFTA/debits/WD3xfie9u6Uj6gq9j1XtPvzo");
 $debit->refund();
-% endif
+
+?>
+%endif

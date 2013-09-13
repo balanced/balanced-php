@@ -1,4 +1,4 @@
-% if mode == 'definition':
+%if mode == 'definition':
 Balanced\Hold::get
 
 % else:
@@ -10,7 +10,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "2fd37702d33511e2a00f026ba7d31e6f";
+Balanced\Settings::$api_key = "4210e1bc1c0e11e3a141026ba7f8ec28";
 
-$hold = Balanced\Hold::get("/v1/marketplaces/TEST-MP64bmAzypIUS0SUZ4qkoFqG/holds/HL7bjNLGObnfJJhcKdOjTon5");
-% endif
+$hold = Balanced\Hold::get("/v1/marketplaces/TEST-MP20QSIx33BcCbLmSfH5uFTA/holds/HL3N2sk2FHdZFsUT40fZjSUg");
+
+?>
+%endif
