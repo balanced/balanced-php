@@ -8,15 +8,31 @@ class Error extends HTTPError
 {
     public static $codes = array();
     
-    public static function init()
+    protected static function init()
     {
+        $errorClass = get_class();
+        
         foreach (get_declared_classes() as $class) {
-            $parent_class = get_parent_class($class);
-            if ($parent_class != 'Balanced\Errors\Error')
-                continue;
-            foreach ($class::$codes as $type)
-                self::$codes[$type] = $class;
+            if (get_parent_class($class) == $errorClass) {
+                foreach ($class::$codes as $type)
+                    self::$codes[$type] = $class;
+            }
         }
+    }
+    
+    public static function createFromResponse($response)
+    {
+        if (empty(self::$codes))
+            self::init();
+        
+        $code = $response->body->category_code;
+        
+        if (isset(self::$codes[$code]))
+            $cn = self::$codes[$code];
+        else
+            $cn = get_class();
+        
+        return new $cn($response);
     }
 }
 
@@ -42,7 +58,7 @@ class InvalidBankAccountNumber extends Error
 
 class Declined extends Error
 {
-    public static $codes = array('funding-destination-declined', 'authorization-failed');
+    public static $codes = array('funding-destination-declined', 'authorization-failed', 'card-declined');
 }
 
 class CannotAssociateMerchantWithAccount extends Error
