@@ -237,7 +237,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RESTful\Exceptions\HTTPError
+     * @expectedException \Balanced\Errors\Error
      */
     function testAnotherMarketplace()
     {
@@ -246,7 +246,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RESTful\Exceptions\HTTPError
+     * @expectedException \Balanced\Errors\Error
      */
     function testDuplicateEmailAddress()
     {
@@ -307,7 +307,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RESTful\Exceptions\HTTPError
+     * @expectedException \Balanced\Errors\Error
      */
     function testDebitZero()
     {
@@ -439,7 +439,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RESTful\Exceptions\HTTPError
+     * @expectedException \Balanced\Errors\Error
      */
     function testCreditRequiresNonZeroAmount()
     {
@@ -454,7 +454,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RESTful\Exceptions\HTTPError
+     * @expectedException \Balanced\Errors\Error
      */
     function testCreditMoreThanEscrowBalanceFails()
     {
@@ -611,7 +611,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             self::$marketplace->createMerchant(
                 sprintf('m+%d@poundpay.com', self::$email_counter++),
                 $identity);
-        } catch (\RESTful\Exceptions\HTTPError $e) {
+        } catch (\Balanced\Errors\Error $e) {
             $this->assertEquals($e->response->code, 300);
             $expected = sprintf('https://www.balancedpayments.com/marketplaces/%s/kyc', self::$marketplace->id);
             $this->assertEquals($e->redirect_uri, $expected);
@@ -763,7 +763,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RESTful\Exceptions\HTTPError
+     * @expectedException \Balanced\Errors\Error
      */
     function testGetDeletedBankAccount()
     {
@@ -944,7 +944,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RESTful\Exceptions\HTTPError
+     * @expectedException \Balanced\Errors\Error
      */
     function testGetDeletedCard()
     {
