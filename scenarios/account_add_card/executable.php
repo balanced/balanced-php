@@ -6,9 +6,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "4210e1bc1c0e11e3a141026ba7f8ec28";
+Balanced\Settings::$api_key = "ak-test-1p1Tsac7gHeMQowL2seB7ieliuAJAufyq";
 
-$account = \Balanced\Account::get("/v1/marketplaces/TEST-MP20QSIx33BcCbLmSfH5uFTA/accounts/AC29qhoujo2WdBgmYZ5rAi1A");
-$account->addCard("/v1/marketplaces/TEST-MP20QSIx33BcCbLmSfH5uFTA/cards/CC2b6Zb5BpLF6GdpdJzxrDtR");
+$account = \Balanced\Account::get("/v1/marketplaces/TEST-MP5FKPQwyjvVgTDt7EiRw3Kq/accounts/CU5U8N8xXdkTgLmmV3wSozLc");
+$account->addCard("/v1/marketplaces/TEST-MP5FKPQwyjvVgTDt7EiRw3Kq/cards/CC5WUKAGJIemxz0Bd7AJ8Lxu");
 
 ?>
