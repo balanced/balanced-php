@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\Callback->delete()
+Balanced\Callback->unstore()
 
 % else:
 <?php
@@ -10,6 +10,10 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "2fd37702d33511e2a00f026ba7d31e6f";
+Balanced\Settings::$api_key = "ak-test-1p1Tsac7gHeMQowL2seB7ieliuAJAufyq";
 
+$callback = \Balanced\Callback::get("/v1/callbacks/CB6DYHGJOCaSxYwDz34j5TGa");
+$callback->unstore();
+
+?>
 %endif

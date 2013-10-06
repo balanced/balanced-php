@@ -1,1 +1,1 @@
-Balanced\Callback->delete()
+Balanced\Callback->unstore()

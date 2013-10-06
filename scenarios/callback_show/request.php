@@ -1,0 +1,1 @@
+$callback = \Balanced\Callback::get("{{ request.uri }}");
