@@ -10,9 +10,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "4210e1bc1c0e11e3a141026ba7f8ec28";
+Balanced\Settings::$api_key = "ak-test-1p1Tsac7gHeMQowL2seB7ieliuAJAufyq";
 
-$hold = Balanced\Hold::get("/v1/marketplaces/TEST-MP20QSIx33BcCbLmSfH5uFTA/holds/HL45zqjnqTk8c1sw3BTdOLfE");
+$hold = Balanced\Hold::get("/v1/marketplaces/TEST-MP5FKPQwyjvVgTDt7EiRw3Kq/holds/HLz4ihqQhojMB0z17ZPxDXI");
 $hold->void();
 
 ?>

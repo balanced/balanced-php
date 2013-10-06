@@ -6,7 +6,7 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "4210e1bc1c0e11e3a141026ba7f8ec28";
+Balanced\Settings::$api_key = "ak-test-1p1Tsac7gHeMQowL2seB7ieliuAJAufyq";
 
 $marketplace = Balanced\Marketplace::mine();
 $cards = $marketplace->cards->query()->all();
