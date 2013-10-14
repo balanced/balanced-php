@@ -8,25 +8,13 @@ use \RESTful\URISpec;
 /**
  * Represents an account debit transaction.
  * 
- * You create these using Balanced\Account::debit.
- * 
  * <code>
- * $marketplace = \Balanced\Marketplace::mine();
- * 
- * $account = $marketplace
- *     ->accounts
- *     ->query()
- *     ->filter(Account::f->email_address->eq('buyer@example.com'))
- *     ->one();
- * 
- * $debit = $account->debit(
- *     100,
- *     'how it appears on the statement',
- *     'a description',
- *     array(
- *         'my_id': '443322'
- *         )
- *     );
+ * $customer->debit(
+ *    "5000",
+ *    "Statement text",
+ *    null,
+ *    "Some descriptive text for the debit in the dashboard"
+ * );
  * </code>
  */
 class Debit extends Resource

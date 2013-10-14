@@ -105,7 +105,7 @@ class Customer extends Resource
     }
 
     /**
-     * Retieves the most recently added, active \Balanced\BankAccount or null
+     * Retrieves the most recently added, active \Balanced\BankAccount or null
      * if this customer has no active bank accounts.
      *
      * @return \Balanced\BankAccount

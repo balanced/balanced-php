@@ -6,29 +6,17 @@ use Balanced\Resource;
 use \RESTful\URISpec;
 
 /**
- * Represents an account bank account.
+ * Represents a bank account.
  *
- * You can create these via Balanced\Marketplace::bank_accounts::create or
- * Balanced\Marketplace::createBankAccount. Associate them with a buyer or
- * merchant one creation via Balanced\Marketplace::createBuyer or
- * Balanced\Marketplace::createMerchant and with an existing buyer or merchant
- * use Balanced\Account::addBankAccount.
  *
  * <code>
- * $marketplace = \Balanced\Marketplace::mine();
- *
- * $bank_account = $marketplace->bank_accounts->create(array(
- *     'name' => 'name',
- *     'account_number' => '11223344',
- *     'bank_code' => '1313123',
- *     ));
- *
- * $account = $marketplace
- *     ->accounts
- *     ->query()
- *     ->filter(Account::f->email_address->eq('merchant@example.com'))
- *     ->one();
- * $account->addBankAccount($bank_account->uri);
+ * $bank_account = new \Balanced\BankAccount(array(
+ *   "account_number" => "9900000001",
+ *   "name" => "Johann Bernoulli",
+ *   "routing_number" => "121000358",
+ *   "type" => "checking",
+ * ));
+ * $bank_account->save();
  * </code>
  */
 class BankAccount extends Resource
@@ -52,11 +40,11 @@ class BankAccount extends Resource
      *
      * <code>
      * $bank_account = new \Balanced\BankAccount(array(
-     *     'account_number' => '12341234',
-     *     'name' => 'Fit Finlay',
-     *     'bank_code' => '325182797',
-     *     'type' => 'checking',
-     *     ));
+     *   "account_number" => "9900000001",
+     *   "name" => "Johann Bernoulli",
+     *   "routing_number" => "121000358",
+     *   "type" => "checking",
+     * ));
      *
      * $credit = $bank_account->credit(123, 'something descriptive');
      * </code>
