@@ -6,13 +6,7 @@ use Balanced\Resource;
 use \RESTful\URISpec;
 
 /**
- * Represents an account card.
- *
- * You can create these via Balanced\Marketplace::cards::create or
- * Balanced\Marketplace::createCard. Associate them with a buyer or merchant
- * one creation via Marketplace::createBuyer or
- * Balanced\Marketplace::createMerchant and with an existing buyer or merchant
- * use Balanced\Account::addCard.
+ * Represents an credit card.
  *
  * <code>
  * $marketplace = \Balanced\Marketplace::mine();
@@ -21,12 +15,12 @@ use \RESTful\URISpec;
  *     'name' => 'name',
  *     'account_number' => '11223344',
  *     'bank_code' => '1313123'
- *     ));
+ * ));
  *
  * $account = $marketplace
  *     ->accounts
  *     ->query()
- *     ->filter(Account::f->email_address->eq('buyer@example.com'))
+ *     ->filter(Customer::f->email_address->eq('buyer@example.com'))
  *     ->one();
  * $account->addCard($card->uri);
  * </code>
