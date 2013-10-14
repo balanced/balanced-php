@@ -1,6 +1,6 @@
 <?php
 
-require('vendor/autoload.php');
+require(__DIR__ . '/vendor/autoload.php');
 
 Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
@@ -10,33 +10,43 @@ $API_KEY_SECRET = '5f4db668a5ec11e1b908026ba7e239a9';
 Balanced\Settings::$api_key = $API_KEY_SECRET;
 $marketplace = Balanced\Marketplace::mine();
 
-print "create a card\n";
+// Create a Card
+print "Create a card\n";
 $card = $marketplace->cards->create(array(
       "card_number" => "5105105105105100", 
       "expiration_month" => "12",
       "expiration_year" => "2015"
 ));
-print "our card: " . $card->uri . "\n";
+print "The card: " . $card->uri . "\n";
 
-print "create a **buyer** account with that card\n";
-$buyer = $marketplace->createBuyer(null, $card->uri);
-print "our buyer account: " . $buyer->uri . "\n";
+// Create a Customer
+$customer = new \Balanced\Customer(array(
+  "name" => "William Henry Cavendish III",
+  "email" => "william@example.com"
+));
+$customer->save();
+print "The customer: " . $customer->uri . "\n";
 
-print "debit our buyer, let's say $15\n";
+// Add the Card to the Customer
+print "Add the Card to the Customer\n";
+$customer->addCard($card->uri);
+
+// Debit the Customer
+print "Debit the customer $15\n";
 try {
-    $debit = $buyer->debit(1500);
-    print "our buyer debit: " . $debit->uri . "\n";
+    $debit = $customer->debit(1500);
+    print "The debit: " . $debit->uri . "\n";
+    print "Debited Customer " . $customer->uri . " for " . $debit->amount . " cents.\n";
 }
 catch (Balanced\Errors\Declined $e) {
-    print "oh no, the processor declined the debit!\n";
+    print "Oh no, the processor declined the debit!\n";
 }
 catch (Balanced\Errors\NoFundingSource $e) {
-    print "oh no, the buyer has not active funding sources!\n";
+    print "Oh no, the buyer has not active funding sources!\n";
 }
 catch (Balanced\Errors\CannotDebit $e) {
-    print "oh no, the buyer has no debitable funding sources!\n";
+    print "Oh no, the buyer has no debitable funding sources!\n";
 }
 
-print "and there you have it 8)\n";
 
 ?>

@@ -11,21 +11,8 @@ use \RESTful\URISpec;
  * You create these using Balanced\Account::credit.
  *
  * <code>
- * $marketplace = \Balanced\Marketplace::mine();
- *
- * $account = $marketplace
- *     ->accounts
- *     ->query()
- *     ->filter(Account::f->email_address->eq('merchant@example.com'))
- *     ->one();
- *
- * $credit = $account->credit(
- *     100,
- *     'how it '
- *     array(
- *         'my_id': '112233'
- *         )
- *     );
+ * $customer = Balanced\Customer::get('CUSTOMER_URI');
+ * $customer->credit(100);
  * </code>
  */
 class Credit extends Resource
@@ -48,15 +35,16 @@ class Credit extends Resource
      * @return \Balanced\Credit
      *
      * <code>
-     * $credit = \Balanced\Credit::bankAccount(
-     *     123,
-     *     array(
-     *     'account_number' => '12341234',
-     *     'name' => 'Fit Finlay',
-     *     'bank_code' => '325182797',
-     *     'type' => 'checking',
-     *     ),
-     *     'something descriptive');
+     * $bank_account_info = array(
+     *   "account_number" => "9900000001",
+     *   "name" => "Johann Bernoulli",
+     *   "routing_number" => "121000358",
+     *   "type" => "checking",
+     * );
+     * $credit = Balanced\Credit::bankAccount(
+     *   10000,
+     *   $bank_account_info
+     * );
      * </code>
      */
     public static function bankAccount(
