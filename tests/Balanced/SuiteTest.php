@@ -974,5 +974,6 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $card = $this->_createCard();
         $customer->addCard($card->uri);
         $this->assertNotNull($customer->source->uri);
+        $this->assertInstanceOf('Balanced\Card', $customer->source);
     }
 }
