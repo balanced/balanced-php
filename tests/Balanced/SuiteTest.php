@@ -967,4 +967,13 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($reverse->credit->uri, $credit->uri);
         $this->assertEquals($reverse->amount, 1000);
     }
+
+    function testSourceURI()
+    {
+        $customer = $this->_createPersonCustomer();
+        $card = $this->_createCard();
+        $customer->addCard($card->uri);
+        $this->assertNotNull($customer->source->uri);
+        $this->assertInstanceOf('Balanced\Card', $customer->source);
+    }
 }
