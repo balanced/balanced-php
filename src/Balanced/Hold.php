@@ -19,7 +19,7 @@ use \RESTful\URISpec;
  * $marketplace = \Balanced\Marketplace::mine();
  *  
  * $hold = $marketplace->holds->create(array(
- *   "amount" => "5000",
+ *   "amount" => 5000,
  *   "description" => "Some descriptive text for the debit in the dashboard",
  *   "source_uri" => "/v1/marketplaces/TEST-MP5FKPQwyjvVgTDt7EiRw3Kq/cards/CC15RAm6JJIEIae6bicvlWRw"
  * ));

@@ -1,1 +1,1 @@
-Balanced\Customer()->unstore()
+Balanced\Customer()->delete()

@@ -10,9 +10,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-1p1Tsac7gHeMQowL2seB7ieliuAJAufyq";
+Balanced\Settings::$api_key = "ak-test-2KZfoLyijij3Y6OyhDAvFRF9tXzelBLpD";
 
-$verification = Balanced\BankAccountVerification::get("/v1/bank_accounts/BA6jdVg9pWO5ePNdL8ucclXi/verifications/BZ6lvRngcv6BuAu5m5XZAx8A");
+$verification = Balanced\BankAccountVerification::get("/v1/bank_accounts/BA5nW8SMsXjaU3GVWdhR9d60/verifications/BZ5rcuNvebC49kZyTGAaJu2A");
 
 ?>
 %endif

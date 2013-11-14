@@ -62,7 +62,7 @@ $customer->addCard($card->uri);
 // Hold some funds
 print "Create a Hold for some funds, $15\n";
 $hold = $marketplace->holds->create(array(
-  "amount" => "1500",
+  "amount" => 1500,
   "description" => "Some descriptive text for the debit in the dashboard",
   "source_uri" => $card->uri
 ));
