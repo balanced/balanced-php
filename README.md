@@ -68,7 +68,7 @@ Download [RESTful](https://github.com/bninja/restful) source:
 
 ```bash
 $ curl -s -L -o restful.zip https://github.com/bninja/restful/zipball/master;
-$ unzip restful.zip; mv bninja-restful* restful; rm restful.zips
+$ unzip restful.zip; mv bninja-restful* restful; rm restful.zip
 ```
 
 Download the Balanced source:
