@@ -37,8 +37,6 @@ class Bootstrap
 
     private static function _autoload($base, $classname)
     {
-        if (!strncmp($classname, 'Balanced\Errors\\', strlen('Balanced\Errors\\')))
-            $classname = 'Balanced\Errors';
         $parts = explode(self::NAMESPACE_SEPARATOR, $classname);
         $path = $base . self::DIR_SEPARATOR. implode(self::DIR_SEPARATOR, $parts) . '.php';
         if (file_exists($path)) {
