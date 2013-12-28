@@ -9,7 +9,7 @@ The design of this library was heavily influenced by [Httpful](https://github.co
 ## Requirements
 
 - [PHP](http://www.php.net) >= 5.3 **with** [cURL](http://www.php.net/manual/en/curl.installation.php)
-- [RESTful](https://github.com/bninja/restful) >= 0.1
+- [RESTful](https://github.com/bninja/restful) == 0.2.3
 - [Httpful](https://github.com/nategood/httpful) >= 0.1
 
 ## Issues
@@ -60,7 +60,7 @@ require(__DIR__ . '/vendor/autoload.php');
 Download [Httpful](https://github.com/nategood/httpful) source:
 
 ```bash
-$ curl -s -L -o httpful.zip https://github.com/nategood/httpful/zipball/master;
+$ curl -s -L -o httpful.zip https://github.com/nategood/httpful/zipball/v0.2.3;
 $ unzip httpful.zip; mv nategood-httpful* httpful; rm httpful.zip
 ```
 
