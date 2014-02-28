@@ -67,7 +67,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             '4112344112344113',
             null,
             12,
-            2013);
+            2016);
         if ($account != null) {
             $account->addCard($card);
             $card = Card::get($card->uri);
@@ -523,7 +523,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             '4112344112344113',
             '123',
             12,
-            2013);
+            2016);
         $this->assertEquals($card->last_four, '4113');
         $this->assertFalse(property_exists($card, 'number'));
     }
