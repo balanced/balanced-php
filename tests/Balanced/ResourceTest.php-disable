@@ -22,7 +22,6 @@ use Balanced\Hold;
 
 use \RESTful\Collection;
 
-
 class APIKeyTest extends \PHPUnit_Framework_TestCase
 {
 

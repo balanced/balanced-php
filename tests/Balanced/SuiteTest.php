@@ -228,6 +228,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             self::$marketplace = new Marketplace();
             self::$marketplace->save();
         }
+        die(0);
     }
 
     function testMarketplaceMine()
