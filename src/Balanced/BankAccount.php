@@ -53,33 +53,45 @@ class BankAccount extends Resource
             $amount,
             $description = null,
             $meta = null,
-            $appears_on_statement_as = null)
+            $appears_on_statement_as = null,
+            $order = null)
     {
-        if (!property_exists($this, 'account') || $this->account == null) {
-            $credit = $this->credits->create(array(
-                'amount' => $amount,
-                'description' => $description,
-            ));
-        } else {
-            $credit = $this->account->credit(
-                $amount,
-                $description,
-                $meta,
-                $this->uri,
-                $appears_on_statement_as
-            );
-        }
-        return $credit;
+        /* if (!property_exists($this, 'account') || $this->account == null) { */
+        /*     $credit = $this->credits->create(array( */
+        /*         'amount' => $amount, */
+        /*         'description' => $description, */
+        /*     )); */
+        /* } else { */
+        /*     $credit = $this->account->credit( */
+        /*         $amount, */
+        /*         $description, */
+        /*         $meta, */
+        /*         $this->uri, */
+        /*         $appears_on_statement_as */
+        /*     ); */
+        /* } */
+        /* return $credit; */
+
+        return $this->credits->create(array(
+            'amount' => $amount,
+            'description' => $description,
+            'meta' => $meta,
+            'appears_on_statement_as' => $appears_on_statement_as,
+            'order' => $order
+        ));
+
     }
 
     public function verify()
     {
-        $response = self::getClient()->post(
-            $this->verifications_uri, null
-        );
-        $verification = new BankAccountVerification();
-        $verification->_objectify($response->body);
-        return $verification;
+        /* $response = self::getClient()->post( */
+        /*     $this->verifications_uri, null */
+        /* ); */
+        /* $verification = new BankAccountVerification(); */
+        /* $verification->_objectify($response->body); */
+        /* return $verification; */
+
+        return $this->bank_account_verifications->create();
     }
 
     public function invalidate()

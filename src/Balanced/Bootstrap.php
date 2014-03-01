@@ -59,7 +59,7 @@ class Bootstrap
 
         \Balanced\APIKey::init();
         \Balanced\Marketplace::init();
-        \Balanced\Account::init();
+        //\Balanced\Account::init();
         \Balanced\Credit::init();
         \Balanced\Debit::init();
         \Balanced\Refund::init();

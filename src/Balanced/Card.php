@@ -40,27 +40,40 @@ class Card extends Resource
         $appears_on_statement_as = null,
         $description = null,
         $meta = null,
-        $source = null)
+        $order = null)
     {
-        if ($this->account == null) {
-            throw new \UnexpectedValueException('Card is not associated with an account.');
+        $this->debits->create(array(
+            'amount' => $amount,
+            'appears_on_statement_as' => $appears_on_statement_as,
+            'description' => $description,
+            'meta' => $meta,
+            'order' => $order
+        ));
+
+        /* if ($this->account == null) { */
+        /*     throw new \UnexpectedValueException('Card is not associated with an account.'); */
+        /* } */
+        /* return $this->account->debit( */
+        /*     $amount, */
+        /*     $appears_on_statement_as, */
+        /*     $description, */
+        /*     $meta, */
+        /*     $this->uri); */
+    }
+
+    public function associateToCustomer($customer) {
+        if(is_string($customer)) {
+            $this->links->customer = $customer;
+        } else {
+            $this->links->customer = $customer->href;
         }
-        return $this->account->debit(
-            $amount,
-            $appears_on_statement_as,
-            $description,
-            $meta,
-            $this->uri);
+        $this->save();
     }
 
-    public function invalidate()
-    {
-        $this->is_valid = False;
-        return $this->save();
-    }
+    /* public function invalidate() */
+    /* { */
+    /*     $this->is_valid = False; */
+    /*     return $this->save(); */
+    /* } */
 
-    public function unstore()
-    {
-        return $this->delete();
-    }
 }

@@ -85,13 +85,15 @@ class Marketplace extends Resource
         }
 
         return $this->cards->create(array(
-            'street_address' => $street_address,
-            'city' => $city,
-            'region' => $region,
-            'postal_code' => $postal_code,
+            'address' => array(
+                'street_address' => $street_address,
+                'city' => $city,
+                'state' => $region,
+                'postal_code' => $postal_code,
+            ),
             'name' => $name,
-            'card_number' => $card_number,
-            'security_code' => $security_code,
+            'number' => $card_number,
+            'cvv' => $security_code,
             'expiration_month' => $expiration_month,
             'expiration_year' => $expiration_year
             ));
@@ -176,11 +178,15 @@ class Marketplace extends Resource
      * @param array[string]string meta Optional metadata to associate with the account.
      * @param string name Optional name of the account.
      *
-     * @return \Balanced\Account
+     * @return \Balanced\Customer
      */
-    public function createBuyer($email_address, $card_uri, $meta = null, $name = null)
+    public function createBuyer(
+        $email_address,
+        $card_uri,
+        $meta = null,
+        $name = null)
     {
-        return $this->accounts->create(array(
+        return $this->customers->create(array(
             'email_address' => $email_address,
             'card_uri' => $card_uri,
             'meta' => $meta,

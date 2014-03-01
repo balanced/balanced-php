@@ -50,7 +50,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             $card = self::_createCard();
         return self::$marketplace->createBuyer(
             $email_address,
-            $card->uri,
+            $card->href,
             array('test#' => 'test_d'),
             'Hobo Joe'
         );
@@ -70,7 +70,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             2016);
         if ($account != null) {
             $account->addCard($card);
-            $card = Card::get($card->uri);
+            $card = Card::get($card->href);
         }
         return $card;
     }
@@ -109,7 +109,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         return self::$marketplace->createMerchant(
             $email_address,
             $merchant,
-            $bank_account->uri
+            $bank_account->href
         );
     }
 
@@ -228,7 +228,6 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             self::$marketplace = new Marketplace();
             self::$marketplace->save();
         }
-        die(0);
     }
 
     function testMarketplaceMine()
