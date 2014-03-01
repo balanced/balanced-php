@@ -67,10 +67,11 @@ class Bootstrap
         \Balanced\Card::init();
         \Balanced\BankAccount::init();
         \Balanced\Hold::init();
-        \Balanced\Merchant::init();
+        //\Balanced\Merchant::init();
         \Balanced\Callback::init();
         \Balanced\Event::init();
         \Balanced\Customer::init();
+        \Balanced\Order::init();
 
         self::$initialized = true;
     }

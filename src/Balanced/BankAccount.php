@@ -82,6 +82,16 @@ class BankAccount extends Resource
 
     }
 
+
+    public function associateToCustomer($customer) {
+        if(is_string($customer)) {
+            $this->links->customer = $customer;
+        } else {
+            $this->links->customer = $customer->href;
+        }
+        $this->save();
+    }
+
     public function verify()
     {
         /* $response = self::getClient()->post( */
