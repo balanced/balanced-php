@@ -58,11 +58,13 @@ class Hold extends Resource
      * 
      * @return \Balanced\Debit
      */
-    public function capture($amount = null)
+    public function capture($amount = null,
+        $appears_on_statement_as = null)
     {
         $this->debit = $this->account->debits->create(array(
             'hold_uri' => $this->uri,
             'amount' => $amount,
+            'appears_on_statement_as' => $appears_on_statement_as
             ));
         return $this->debit;
     }
