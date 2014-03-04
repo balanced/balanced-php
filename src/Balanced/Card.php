@@ -31,7 +31,7 @@ class Card extends Resource
 
     public static function init()
     {
-        self::$_uri_spec = new URISpec('cards', 'id', '/v1');
+        self::$_uri_spec = new URISpec('cards', 'id', '/');
         self::$_registry->add(get_called_class());
     }
 

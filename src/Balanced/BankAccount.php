@@ -25,7 +25,7 @@ class BankAccount extends Resource
 
     public static function init()
     {
-        self::$_uri_spec = new URISpec('bank_accounts', 'id', '/v1');
+        self::$_uri_spec = new URISpec('bank_accounts', 'id', '/');
         self::$_registry->add(get_called_class());
     }
 
@@ -82,7 +82,6 @@ class BankAccount extends Resource
 
     }
 
-
     public function associateToCustomer($customer) {
         if(is_string($customer)) {
             $this->links->customer = $customer;
@@ -104,16 +103,23 @@ class BankAccount extends Resource
         return $this->bank_account_verifications->create();
     }
 
-    public function invalidate()
+    public function confirm($amount_1, $amount_2)
     {
-        $this->is_valid = False;
-        return $this->save();
+        return $this->bank_account_verifications
+            ->first()->confirm($amount_1, $amount_2);
     }
 
-    public function unstore()
+    public function invalidate()
     {
-        return $this->delete();
+        return $this->unstore();
+        /* $this->is_valid = False; */
+        /* return $this->save(); */
     }
+
+    /* public function unstore() */
+    /* { */
+    /*     return $this->delete(); */
+    /* } */
 }
 
 /**
@@ -138,6 +144,8 @@ class BankAccount extends Resource
  * </code>
  */
 class BankAccountVerification extends Resource {
+
+    // TODO: init on this class??
 
     public function confirm($amount1, $amount2) {
         $this->amount_1 = $amount1;

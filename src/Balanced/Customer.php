@@ -40,7 +40,7 @@ class Customer extends Resource
 
     public static function init()
     {
-        self::$_uri_spec = new URISpec('customers', 'id', '/v1');
+        self::$_uri_spec = new URISpec('customers', 'id', '/');
         self::$_registry->add(get_called_class());
     }
 
@@ -228,8 +228,8 @@ class Customer extends Resource
     /* } */
 
 
-    public function unstore()
-    {
-        return $this->delete();
-    }
+    /* public function unstore() */
+    /* { */
+    /*     return $this->delete(); */
+    /* } */
 }

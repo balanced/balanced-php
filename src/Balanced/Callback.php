@@ -22,7 +22,7 @@ class Callback extends Resource
 
     public static function init()
     {
-        self::$_uri_spec = new URISpec('callbacks', 'id', '/v1');
+        self::$_uri_spec = new URISpec('callbacks', 'id', '/');
         self::$_registry->add(get_called_class());
     }
 }

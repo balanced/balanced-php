@@ -371,14 +371,17 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
 
 
-        $credit = $card1->debit(
+        $debit = $card1->debit(
             1000,
             'Softie',
             'something i bought'
         );
+
         //$this->assertEquals($credit->source->id, $card2->id);
 
         die(11);
+
+        $buyer->cards->
 
         $credit = $buyer->debit(
             1000,
@@ -645,8 +648,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
      */
     function testAccountWithEmailAddressNotFound()
     {
-        self::$marketplace->accounts->query()
-            ->filter(Account::$f->email_address->eq('unlikely@address.com'))
+        self::$marketplace->customers->query()
+            ->filter(Customer::$f->email->eq('unlikely@address.com'))
             ->one();
     }
 
@@ -659,7 +662,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             'Softie',
             'something i bought',
             array('hi' => 'bye'));
-        $this->assertEquals($debit->source->uri, $card->uri);
+        $this->assertEquals($debit->source->href, $card->href);
     }
 
     /**
@@ -679,7 +682,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $merchant = self::_createPersonMerchant();
         $bank_account = self::_createBankAccount($merchant);
         $credit = $bank_account->credit(55, 'something sour');
-        $this->assertEquals($credit->destination->uri, $bank_account->uri);
+        $this->assertEquals($credit->destination->href, $bank_account->href);
     }
 
     function testQuery()
@@ -751,7 +754,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
                 'type' => 'checking',
             ),
             'something sour');
-        $this->assertFalse(property_exists($credit->bank_account, 'uri'));
+        $this->assertFalse(property_exists($credit->bank_account, 'href'));
         $this->assertFalse(property_exists($credit->bank_account, 'id'));
         $this->assertEquals($credit->bank_account->name, 'Homer Jay');
         $this->assertEquals($credit->bank_account->account_number, 'xxx233a');
@@ -762,7 +765,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     {
         $bank_account = self::_createBankAccount();
         $bank_account->unstore();
-        return $bank_account->uri;
+        return $bank_account->href;
     }
 
     /**
@@ -770,6 +773,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
      */
     function testGetDeletedBankAccount()
     {
+        // getting directly at the uri should still return the item, but it shouldn't be in a page
         $ba_uri = $this->testDeleteBankAccount();
         BankAccount::get($ba_uri);
     }

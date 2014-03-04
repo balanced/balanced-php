@@ -21,7 +21,7 @@ class Credit extends Resource
 
     public static function init()
     {
-        self::$_uri_spec = new URISpec('credits', 'id', '/v1');
+        self::$_uri_spec = new URISpec('credits', 'id', '/');
         self::$_registry->add(get_called_class());
     }
 
@@ -29,8 +29,8 @@ class Credit extends Resource
      * Credit an unstored bank account.
      *
      * @param int amount Amount to credit in USD pennies.
-     * @param string description Optional description of the credit.
      * @param mixed bank_account Associative array describing a bank account to credit. The bank account will *not* be stored.
+     * @param string description Optional description of the credit.
      *
      * @return \Balanced\Credit
      *
@@ -54,7 +54,7 @@ class Credit extends Resource
     {
         $credit = new Credit(array(
            'amount' => $amount,
-           'bank_account' => $bank_account,
+           'destination' => $bank_account,
            'description' => $description
         ));
         $credit->save();

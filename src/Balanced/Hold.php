@@ -31,7 +31,7 @@ class Hold extends Resource
 
     public static function init()
     {
-        self::$_uri_spec = new URISpec('card_holds', 'id');
+        self::$_uri_spec = new URISpec('card_holds', 'id', '/');
         self::$_registry->add(get_called_class());
     }
 
@@ -43,8 +43,9 @@ class Hold extends Resource
      */
     public function void()
     {
-        $this->is_void = true;
-        return $this->save();
+        return $this->unstore();
+        /* $this->is_void = true; */
+        /* return $this->save(); */
     }
 
     /**
@@ -60,10 +61,13 @@ class Hold extends Resource
      */
     public function capture($amount = null)
     {
-        $this->debit = $this->account->debits->create(array(
-            'hold_uri' => $this->uri,
-            'amount' => $amount,
-            ));
-        return $this->debit;
+        return $this->debit = $this->debits->create(array(
+            'amount' => $amount
+        ));
+        /* $this->debit = $this->account->debits->create(array( */
+        /*     'hold_uri' => $this->uri, */
+        /*     'amount' => $amount, */
+        /*     )); */
+        /* return $this->debit; */
     }
 }

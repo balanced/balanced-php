@@ -13,7 +13,14 @@ class Order extends Resource
 
     public static function init()
     {
-        self::$_uri_spec = new URISpec('orders', 'id');
+        self::$_uri_spec = new URISpec('orders', 'id', '/');
         self::$_registry->add(get_called_class());
     }
+
+
+    // TODO:
+    public function creditT0() {}
+
+    public function debitFrom() {}
+
 }
