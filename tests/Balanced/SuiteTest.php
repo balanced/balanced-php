@@ -140,7 +140,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         return self::$marketplace->createMerchant(
             $email_address,
             $merchant,
-            $bank_account->uri
+            $bank_account->href
         );
     }
 
@@ -457,7 +457,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             'something i bought'
         );
         $merchant = self::_createBusinessMerchant();
-        $merchant->credit(0);
+        $merchant->bank_accounts->first()->credit(0);
     }
 
     /**
@@ -509,7 +509,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     {
         $merchant = self::_createPersonMerchant();
         $card = self::_createCard();
-        $merchant->addCard($card->uri);
+        $card->associateToCustomer($merchant);
     }
 
     function testAssociateBankAccount()
@@ -532,7 +532,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             '123',
             12,
             2016);
-        $this->assertEquals($card->last_four, '4113');
+        $this->assertEquals($card->number, 'xxxxxxxxxxxx4113');
         $this->assertFalse(property_exists($card, 'number'));
     }
 
@@ -544,7 +544,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             '121042882',
             'checking'
         );
-        $this->assertEquals($bank_account->last_four, '233a');
+        //$this->assertEquals($bank_account->last_four, '233a');
         $this->assertEquals($bank_account->account_number, 'xxx233a');
     }
 
@@ -814,7 +814,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
      */
     function testInsufficientFunds()
     {
-        $marketplace = Marketplace::get(self::$marketplace->uri);
+        $marketplace = Marketplace::get(self::$marketplace->href);
         $amount = $marketplace->in_escrow + 100;
         $credit = Credit::bankAccount(
             $amount,
@@ -975,7 +975,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     {
         $card = self::_createCard();
         $card->unstore();
-        return $card->uri;
+        return $card->href;
 
     }
 
@@ -984,8 +984,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
      */
     function testGetDeletedCard()
     {
-        $card_uri = $this->testDeleteCard();
-        Card::get($card_uri);
+        $card_href = $this->testDeleteCard();
+        Card::get($card_href);
     }
 
     function testReversal()
@@ -998,9 +998,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             array('hi' => 'bye')
         );
         $merchant = $this->_createPersonMerchant();
-        $credit = $merchant->credit(1000);
+        $credit = $merchant->bank_accounts->first()->credit(1000);
         $reverse = $credit->reverse();
-        $this->assertEquals($reverse->credit->uri, $credit->uri);
+        $this->assertEquals($reverse->credit->href, $credit->href);
         $this->assertEquals($reverse->amount, 1000);
     }
 
@@ -1008,8 +1008,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     {
         $customer = $this->_createPersonCustomer();
         $card = $this->_createCard();
-        $customer->addCard($card->uri);
-        $this->assertNotNull($customer->source->uri);
+        $customer->addCard($card->href);
+        $this->assertNotNull($customer->source->href);
         $this->assertInstanceOf('Balanced\Card', $customer->source);
     }
 }
