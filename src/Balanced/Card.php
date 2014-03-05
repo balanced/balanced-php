@@ -42,7 +42,7 @@ class Card extends Resource
         $meta = null,
         $order = null)
     {
-        $this->debits->create(array(
+        return $this->debits->create(array(
             'amount' => $amount,
             'appears_on_statement_as' => $appears_on_statement_as,
             'description' => $description,
@@ -59,6 +59,18 @@ class Card extends Resource
         /*     $description, */
         /*     $meta, */
         /*     $this->uri); */
+    }
+
+    public function hold(
+        $amount,
+        $description = null,
+        $meta = null)
+    {
+        return $this->card_holds->create(array(
+            'amount' => $amount,
+            'description' => $description,
+            'meta' => $meta
+        ));
     }
 
     public function associateToCustomer($customer) {

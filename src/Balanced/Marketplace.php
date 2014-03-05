@@ -85,7 +85,7 @@ class Marketplace extends Resource
             'address' => array(
                 'street_address' => $street_address,
                 'city' => $city,
-                'state' => $region,
+                'state' => $state,
                 'postal_code' => $postal_code,
             ),
             'name' => $name,
@@ -178,7 +178,7 @@ class Marketplace extends Resource
      * Create a buyer account.
      *
      * @param string email_address Optional email address. There can only be one account with this email address.
-     * @param string card_uri URI referencing a card to associate with the account.
+     * @param string card_href Href referencing a card to associate with the account.
      * @param array[string]string meta Optional metadata to associate with the account.
      * @param string name Optional name of the account.
      *
@@ -191,7 +191,7 @@ class Marketplace extends Resource
         $name = null)
     {
         $customer = $this->customers->create(array(
-            'email_address' => $email_address,
+            'email' => $email_address,
             //'card_uri' => $card_uri,
             'meta' => $meta,
             'name' => $name

@@ -43,7 +43,14 @@ class Hold extends Resource
      */
     public function void()
     {
-        return $this->unstore();
+        $this->unstore();
+
+//print_r($resp);
+        //$this->voided_at = $resp->voided_at;
+    //$this->_objectify($this->unstore());
+        return $this;
+        //$this->is_void = true;
+
         /* $this->is_void = true; */
         /* return $this->save(); */
     }
