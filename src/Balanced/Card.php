@@ -82,10 +82,10 @@ class Card extends Resource
         $this->save();
     }
 
-    /* public function invalidate() */
-    /* { */
-    /*     $this->is_valid = False; */
-    /*     return $this->save(); */
-    /* } */
+    public function invalidate()
+    {
+        $this->unstore();
+        return $this;
+    }
 
 }

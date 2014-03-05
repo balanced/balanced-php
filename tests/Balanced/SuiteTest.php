@@ -910,33 +910,34 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     function testCustomerAddCard()
     {
         $customer = $this->_createPersonCustomer();
-        $active_card = $customer->activeCard();
+        $active_card = $customer->cards->first(); //activeCard();
         $this->assertNull($active_card);
 
         $card = $this->_createCard();
-        $customer->addCard($card);
-        $active_card = $customer->activeCard();
+        $card->associateToCustomer($customer);
+        //$customer->addCard($card);
+        $active_card = $customer->cards->first(); //activeCard();
         $this->assertEquals($active_card->id, $card->id);
 
         $active_card->invalidate();
-        $active_card = $customer->activeCard();
+        $active_card = $customer->cards->first(); //->activeCard();
         $this->assertNull($active_card);
     }
 
     function testCustomerAddBankAccount()
     {
         $customer = $this->_createBusinessCustomer();
-        $active_bank_account = $customer->activeBankAccount();
+        $active_bank_account = $customer->bank_accounts->first(); //activeBankAccount();
         $this->assertNull($active_bank_account);
 
         $bank_account = $this->_createBankAccount();
         $bank_account->associateToCustomer($customer);
 //$customer->addBankAccount($bank_account);
-        $active_bank_account = $customer->activeBankAccount();
+        $active_bank_account = $customer->bank_accounts->first(); //activeBankAccount();
         $this->assertEquals($active_bank_account->id, $bank_account->id);
 
         $active_bank_account->invalidate();
-        $active_bank_account = $customer->activeBankAccount();
+        $active_bank_account = $customer->bank_accounts->first(); //activeBankAccount();
         $this->assertNull($active_bank_account);
     }
 
@@ -944,7 +945,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     {
         $buyer = $this->_createPersonCustomer();
         $card = $this->_createCard();
-        $buyer->addCard($card);
+        $card->associateToCustomer($customer);
+        //$buyer->addCard($card);
 
         $seller = $this->_createBusinessCustomer();
         $bank_account = $this->_createBankAccount();
@@ -1008,7 +1010,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     {
         $customer = $this->_createPersonCustomer();
         $card = $this->_createCard();
-        $customer->addCard($card->href);
+        $card->associateToCustomer($customer);
+        //$customer->addCard($card->href);
         $this->assertNotNull($customer->source->href);
         $this->assertInstanceOf('Balanced\Card', $customer->source);
     }
