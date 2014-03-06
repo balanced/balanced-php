@@ -82,6 +82,22 @@ class BankAccount extends Resource
 
     }
 
+    public function debit(
+        $amount,
+        $appears_on_statement_as = null,
+        $description = null,
+        $meta = null,
+        $order = null)
+    {
+        return $this->debits->create(array(
+            'amount' => $amount,
+            'appears_on_statement_as' => $appears_on_statement_as,
+            'description' => $description,
+            'meta' => $meta,
+            'order' => $order
+        ));
+    }
+
     public function associateToCustomer($customer) {
         if(is_string($customer)) {
             $this->links->customer = $customer;
@@ -93,15 +109,17 @@ class BankAccount extends Resource
 
     public function verify()
     {
-        /* $response = self::getClient()->post( */
-        /*     $this->verifications_uri, null */
-        /* ); */
-        /* $verification = new BankAccountVerification(); */
-        /* $verification->_objectify($response->body); */
-        /* return $verification; */
-        print_r($this);
-        return $this->bank_account_verifications->create();
-        return $this->bank_account_verifications->create();
+        $response = self::getClient()->post(
+            $this->bank_account_verifications->uri, array()
+        );
+        $verification = new BankAccountVerification();
+        $verification->_objectify(
+            $response->body->bank_account_verifications[0],
+            $response->body->links);
+        return $verification;
+        //print_r($this);
+        //return $this->bank_account_verifications->create();
+        //return $this->bank_account_verifications->create();
     }
 
     public function confirm($amount_1, $amount_2)
@@ -145,6 +163,8 @@ class BankAccount extends Resource
  * </code>
  */
 class BankAccountVerification extends Resource {
+
+    protected static $_uri_spec = null;
 
     public static function init()
     {
