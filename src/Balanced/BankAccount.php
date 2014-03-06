@@ -99,7 +99,8 @@ class BankAccount extends Resource
         /* $verification = new BankAccountVerification(); */
         /* $verification->_objectify($response->body); */
         /* return $verification; */
-
+        print_r($this);
+        return $this->bank_account_verifications->create();
         return $this->bank_account_verifications->create();
     }
 
@@ -145,7 +146,11 @@ class BankAccount extends Resource
  */
 class BankAccountVerification extends Resource {
 
-    // TODO: init on this class??
+    public static function init()
+    {
+        self::$_uri_spec = new URISpec('verifications', 'id', '/');
+        self::$_registry->add(get_called_class());
+    }
 
     public function confirm($amount1, $amount2) {
         $this->amount_1 = $amount1;

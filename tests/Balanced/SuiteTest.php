@@ -74,7 +74,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         return $card;
     }
 
-    static function _createBankAccount($account = null)
+    static function _createBankAccount($customer = null)
     {
         $bank_account = self::$marketplace->createBankAccount(
             'Homer Jay',
@@ -82,10 +82,10 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             '121042882',
             'checking'
         );
-        if ($account != null) {
+        if ($customer != null) {
             $bank_account->associateToCustomer($customer);
 //$account->addBankAccount($bank_account);
-            $bank_account = $account->bank_accounts[0];
+            //$bank_account = $account->bank_accounts[0];
         }
         return $bank_account;
     }
@@ -467,14 +467,12 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     {
         $buyer = self::_createBuyer();
         $buyer->cards->first()->debit(
-            1000,
-            'something i bought',
-            null,
-            null,
-            'Softie'
+            1000
         );
+
         $merchant = self::_createBusinessMerchant();
-        $merchant->credit(self::$marketplace->in_escrow + 1);
+        $merchant->bank_accounts->first()->credit(
+            self::$marketplace->in_escrow + 10000000000);
     }
 
     function testCreditDestiation()
@@ -486,7 +484,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $bank_account1 = self::_createBankAccount($merchant);
         $bank_account2 = self::_createBankAccount($merchant);
 
-        $credit = $merchant->credit(
+        $credit = $merchant->bank_accounts->first()->credit(
             1000,
             'something i sold',
             null,
@@ -516,7 +514,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     {
         $merchant = self::_createPersonMerchant();
         $bank_account = self::_createBankAccount();
-        $bank_account->associateToCustomer($customer);
+        $bank_account->associateToCustomer($merchant);
 //$merchant->addBankAccount($bank_account->uri);
     }
 
@@ -533,7 +531,6 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             12,
             2016);
         $this->assertEquals($card->number, 'xxxxxxxxxxxx4113');
-        $this->assertFalse(property_exists($card, 'number'));
     }
 
     function testBankAccountMasking()
@@ -679,13 +676,11 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($debit->source->href, $card->href);
     }
 
-    /**
-     * @expectedException \UnexpectedValueException
-     */
     function testDebitAnUnassociatedCard()
     {
         $card = self::_createCard();
-        $card->debit(1000, 'Softie');
+        $debit = $card->debit(1000, 'Softie');
+        $this->assertEquals($debit->source->id, $card->id);
     }
 
     function testCreditABankAccount()
@@ -742,6 +737,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         //$buyer->promoteToMerchant($merchant);
         $buyer->name = 'William James';
         $buyer->ssn_last4 = '1234';
+        $buyer->dob_month = '10';
+        $buyer->dob_year = '1988';
         $buyer->address->line1 = '167 West 74th Street';
         $buyer->address->postal_code = '10023';
         $buyer->address->country_code = 'USA';
@@ -759,7 +756,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
         $bank_account = self::_createBankAccount();
         $credit = $bank_account->credit(55, 'something sour');
-        $this->assertEquals($credit->bank_account->id, $bank_account->id);
+        $this->assertEquals($credit->destination->id, $bank_account->id);
         $bank_account = $bank_account->get($bank_account->id);
         $this->assertEquals($bank_account->credits->total(), 1);
     }
@@ -778,8 +775,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
                 'type' => 'checking',
             ),
             'something sour');
-        $this->assertFalse(property_exists($credit->bank_account, 'href'));
-        $this->assertFalse(property_exists($credit->bank_account, 'id'));
+        //$this->assertFalse(property_exists($credit->destination, 'href'));
+        //$this->assertFalse(property_exists($credit->destination, 'id'));
         $this->assertEquals($credit->bank_account->name, 'Homer Jay');
         $this->assertEquals($credit->bank_account->account_number, 'xxx233a');
         $this->assertEquals($credit->bank_account->type, 'checking');
@@ -842,7 +839,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     {
         $bank_account = self::_createBankAccount();
         $buyer = self::_createBuyer();
-        $bank_account->associateToCustomer($customer);
+        $bank_account->associateToCustomer($buyer);
         //$buyer->addBankAccount($bank_account);
         $verification = $bank_account->verify();
         $verification->confirm(1, 2);
@@ -855,7 +852,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     {
         $bank_account = self::_createBankAccount();
         $buyer = self::_createBuyer();
-        $bank_account->associateToCustomer($customer);
+        $bank_account->associateToCustomer($buyer);
 //$buyer->addBankAccount($bank_account);
         $bank_account->verify();
         $bank_account->verify();
@@ -865,8 +862,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     {
         $bank_account = self::_createBankAccount();
         $buyer = self::_createBuyer();
-        $bank_account->associateToCustomer($customer);
-//$buyer->addBankAccount($bank_account);
+        $bank_account->associateToCustomer($buyer);
+// $buyer->addBankAccount($bank_account);
         $verification = $bank_account->verify();
         $verification->confirm(1, 1);
 
@@ -945,12 +942,12 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     {
         $buyer = $this->_createPersonCustomer();
         $card = $this->_createCard();
-        $card->associateToCustomer($customer);
+        $card->associateToCustomer($buyer);
         //$buyer->addCard($card);
 
         $seller = $this->_createBusinessCustomer();
         $bank_account = $this->_createBankAccount();
-        $bank_account->associateToCustomer($customer);
+        $bank_account->associateToCustomer($seller);
         //$seller->addBankAccount($bank_account);
 
         $debit = $buyer->cards->first()->debit(
@@ -965,9 +962,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             1200,
             "something tangy",
             array("ship" => "soonish"),
-            null,
-            "TANGY",
-            $debit);
+            null);
 
         $this->assertEquals($debit->source->id, $card->id);
         $this->assertEquals($credit->destination->id, $bank_account->id);
@@ -1006,13 +1001,13 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($reverse->amount, 1000);
     }
 
-    function testSourceURI()
+    function testSourceHREF()
     {
         $customer = $this->_createPersonCustomer();
         $card = $this->_createCard();
         $card->associateToCustomer($customer);
-        //$customer->addCard($card->href);
-        $this->assertNotNull($customer->source->href);
-        $this->assertInstanceOf('Balanced\Card', $customer->source);
+        $this->assertNotNull($card->customer->href);
+        $this->assertInstanceOf('Balanced\Card',
+                                $customer->cards->first());
     }
 }

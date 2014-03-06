@@ -20,7 +20,8 @@ class Resource extends \RESTful\Resource
 
     public static function convertError($response)
     {
-        if (property_exists($response->body, 'category_code'))
+        //if (property_exists($response->body, 'category_code'))
+        if (property_exists($response->body, 'errors'))
             $error = Error::createFromResponse($response);
         else
             $error = new HTTPError($response);
