@@ -6,11 +6,11 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-2KZfoLyijij3Y6OyhDAvFRF9tXzelBLpD";
+Balanced\Settings::$api_key = "ak-test-Hznf9GhTb2Xkj7fGwVD6lZSMH5F1eTRl";
 
 $customer = new \Balanced\Customer(array(
-  "name" => "William Henry Cavendish III",
-  "email" => "william@example.com",
+  "name" => "",
+  "email" => "",
 ));
 $customer->save();
 

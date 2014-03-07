@@ -1,0 +1,1 @@
+Balanced\BankAccount::get("{{request.uri}}")->associateToCustomer("{{request.customer_href}}")
