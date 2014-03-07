@@ -44,4 +44,15 @@ class Customer extends Resource
         self::$_registry->add(get_called_class());
     }
 
+    public function createOrder(
+        $description = null,
+        $meta = null,
+        $delivery_address = null)
+    {
+        return $this->orders->create(array(
+            'description' => $description,
+            'meta' => $meta,
+            'delivery_address' => $delivery_address,
+        ));
+    }
 }

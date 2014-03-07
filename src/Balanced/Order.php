@@ -19,8 +19,36 @@ class Order extends Resource
 
 
     // TODO:
-    public function creditT0() {}
+    public function debitFrom(
+        $source,
+        $amount,
+        $appears_on_statement_as = null,
+        $description = null,
+        $meta = null)
+    {
+        return $source->debit(
+            $amount,
+            $appears_on_statement_as,
+            $description,
+            $meta,
+            $this->href
+        );
+    }
 
-    public function debitFrom() {}
+    public function creditTo(
+        $destination,
+        $amount,
+        $description = null,
+        $meta = null,
+        $appears_on_statement_as = null)
+    {
+        return $destination->credit(
+            $amount,
+            $description,
+            $meta,
+            $appears_on_statement_as,
+            $this->href
+        );
+    }
 
 }
