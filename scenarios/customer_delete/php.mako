@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\Customer()->delete()
+Balanced\Customer()->unstore()
 
 % else:
 <?php

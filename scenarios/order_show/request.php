@@ -1,1 +1,1 @@
-Balanced\Order::get("{{request.uri}}")
+Balanced\Order::get("{{request.uri}}");

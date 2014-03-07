@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\Credit->reverse()
+Balanced\Credit->reverses->create()
 
 % else:
 <?php
@@ -13,7 +13,7 @@ Balanced\Bootstrap::init();
 Balanced\Settings::$api_key = "ak-test-Hznf9GhTb2Xkj7fGwVD6lZSMH5F1eTRl";
 
 $credit = Balanced\Credit::get("/credits/CR40RpXNREGqn5Gl2swLfAQV");
-$credit->reverse();
+$credit->reversals->create();
 
 ?>
 %endif

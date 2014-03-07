@@ -1,1 +1,1 @@
-Balanced\Customer->createOrder()
+Balanced\Customer->orders->create()

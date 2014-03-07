@@ -383,6 +383,21 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($credit->order->id, $order->id);
     }
 
+    function testOrderUpdate()
+    {
+        $merchant = self::_createPersonMerchant();
+        $order = $merchant->orders->create();
+        $this->assertNotNull($order->href);
+        $order->meta = array(
+            'test' => '123'
+        );
+        $order->description = 'hello world';
+        $order->save();
+        $order2 = \Balanced\Order::get($order->href);
+        $this->assertEquals($order2->meta->test, '123');
+        $this->assertEquals($order2->description, 'hello world');
+    }
+
     function testCreateAndVoidHold()
     {
         $buyer = self::_createBuyer();

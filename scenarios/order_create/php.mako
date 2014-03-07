@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\Customer->createOrder()
+Balanced\Customer->orders->create()
 
 % else:
 <?php
@@ -13,7 +13,7 @@ Balanced\Bootstrap::init();
 Balanced\Settings::$api_key = "ak-test-Hznf9GhTb2Xkj7fGwVD6lZSMH5F1eTRl";
 
 $merchant = Balanced\Customer::get("/customers/CU3veCwC1nqk9GV6dfSkRHRS");
-$order = $merchant->createOrder();
+$order = $merchant->orders->create();
 
 ?>
 %endif
