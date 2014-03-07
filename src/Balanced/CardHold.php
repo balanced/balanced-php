@@ -25,7 +25,7 @@ use \RESTful\URISpec;
  * ));
  * </code>
  */
-class Hold extends Resource
+class CardHold extends Resource
 {
     protected static $_uri_spec = null;
 

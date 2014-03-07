@@ -1,2 +1,6 @@
 $card = Balanced\Card::get("{{request.card_href}}");
-$card->hold({{request.payload.amount}});
+$card->card_holds->create(array(
+{% for k, v in request.payload %}
+    "{{ k }}" => "{{ v }}",
+{% endfor %}
+));

@@ -1,2 +1,2 @@
-$hold = Balanced\Hold::get("{{request.card_hold_href}}");
+$hold = Balanced\CardHold::get("{{request.card_hold_href}}");
 $hold->capture();

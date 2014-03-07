@@ -1,1 +1,1 @@
-Balanced\Hold::get("{{request.uri}}");
+Balanced\CardHold::get("{{request.uri}}");

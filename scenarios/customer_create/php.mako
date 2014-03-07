@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\Customer()
+Balanced\Marketplace::mine()->customers->create()
 
 % else:
 <?php
@@ -12,11 +12,13 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "ak-test-Hznf9GhTb2Xkj7fGwVD6lZSMH5F1eTRl";
 
-$customer = new \Balanced\Customer(array(
-  "name" => "",
-  "email" => "",
+$marketplace = Balanced\Marketplace::mine();
+$customer = $marketplace->customers->create(array(
+    "address" => "Array",
+    "dob_month" => "7",
+    "dob_year" => "1963",
+    "name" => "Henry Ford",
 ));
-$customer->save();
 
 ?>
 %endif

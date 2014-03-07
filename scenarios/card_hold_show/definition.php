@@ -1,1 +1,1 @@
-Balanced\Hold::get()
+Balanced\CardHold::get()

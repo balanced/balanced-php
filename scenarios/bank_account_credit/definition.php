@@ -1,1 +1,1 @@
-Balanced\BankAccount->credit()
+Balanced\BankAccount->credits->create()

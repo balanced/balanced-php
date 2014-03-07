@@ -1,1 +1,1 @@
-Balanced\Customer::credit()
+Balanced\Customer->credits->create()

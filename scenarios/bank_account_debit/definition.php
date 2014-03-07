@@ -1,1 +1,1 @@
-Balanced\BankAccount->debit();
+Balanced\BankAccount->debits->create();

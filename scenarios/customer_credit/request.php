@@ -1,2 +1,6 @@
 $customer = Balanced\Customer::get("{{ request.customer_uri }}");
-$customer->credit({{ request.payload.amount }});
+$cusotmer->credits->create(array(
+{% for k, v in request.payload %}
+    "{{ k }}" => "{{ v }}",
+{% endfor %}
+));

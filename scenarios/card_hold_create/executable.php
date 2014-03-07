@@ -9,6 +9,9 @@ Balanced\Bootstrap::init();
 Balanced\Settings::$api_key = "ak-test-Hznf9GhTb2Xkj7fGwVD6lZSMH5F1eTRl";
 
 $card = Balanced\Card::get("/cards/CC2Xqq2tBl0B3AJgrHVngPQO");
-$card->hold(5000);
+$card->card_holds->create(array(
+    "amount" => "5000",
+    "description" => "Some descriptive text for the debit in the dashboard",
+));
 
 ?>

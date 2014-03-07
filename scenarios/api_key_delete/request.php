@@ -1,1 +1,2 @@
-Balanced\APIKey::get("{{ request.uri }}")->unstore();
+$api_key = Balanced\APIKey::get("{{ request.uri }}");
+$api_key->unstore();

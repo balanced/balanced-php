@@ -66,7 +66,7 @@ class Bootstrap
         \Balanced\Card::init();
         \Balanced\BankAccount::init();
         \Balanced\BankAccountVerification::init();
-        \Balanced\Hold::init();
+        \Balanced\CardHold::init();
         \Balanced\Callback::init();
         \Balanced\Event::init();
         \Balanced\Customer::init();

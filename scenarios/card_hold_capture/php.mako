@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\Hold->capture();
+Balanced\CardHold->capture();
 
 % else:
 <?php
@@ -12,7 +12,7 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "ak-test-Hznf9GhTb2Xkj7fGwVD6lZSMH5F1eTRl";
 
-$hold = Balanced\Hold::get("/card_holds/HL2ZjCXw7QFFwhZFEzku161c");
+$hold = Balanced\CardHold::get("/card_holds/HL2ZjCXw7QFFwhZFEzku161c");
 $hold->capture();
 
 ?>

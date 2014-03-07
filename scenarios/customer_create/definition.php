@@ -1,1 +1,1 @@
-Balanced\Customer()
+Balanced\Marketplace::mine()->customers->create()

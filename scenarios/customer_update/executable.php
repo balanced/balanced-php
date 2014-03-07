@@ -10,6 +10,9 @@ Balanced\Settings::$api_key = "ak-test-Hznf9GhTb2Xkj7fGwVD6lZSMH5F1eTRl";
 
 $customer = Balanced\Customer::get("/customers/CU3pCvOdgy2r0TIQ67xuSREr");
 $cusotmer->email = 'email@newdomain.com';
+$customer->meta = array(
+    "shipping-preference" => "ground",
+);
 $customer->save();
 
 ?>

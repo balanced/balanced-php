@@ -1,1 +1,1 @@
-Balanced\Card->debit();
+Balanced\Card->debits->create()
