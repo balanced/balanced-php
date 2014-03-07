@@ -9,6 +9,6 @@ Balanced\Bootstrap::init();
 Balanced\Settings::$api_key = "ak-test-Hznf9GhTb2Xkj7fGwVD6lZSMH5F1eTRl";
 
 $marketplace = Balanced\Marketplace::mine();
-$holds = $marketplace->holds->query()->all();
+$orders = $marketplace->orders->query()->all();
 
 ?>

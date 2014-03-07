@@ -1,4 +1,4 @@
-$debit = Balanced\Debit::get("{{ request.debit_uri }}");
+$debit = Balanced\Debit::get("{{ request.debit_href }}");
 $debit->refund(
     null,
     "{{ request.payload.description }}",

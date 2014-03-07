@@ -1,2 +1,2 @@
-$credit = Balanced\Credit::get("{{request.uri}}");
-$credit->reverse()
+$credit = Balanced\Credit::get("{{request.credit_href}}");
+$credit->reverse();

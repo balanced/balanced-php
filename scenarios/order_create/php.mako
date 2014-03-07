@@ -12,8 +12,8 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "ak-test-Hznf9GhTb2Xkj7fGwVD6lZSMH5F1eTRl";
 
-$customer = Balanced\Customer::get("/customers/CU3veCwC1nqk9GV6dfSkRHRS");
-$order = $customer->orderCreate();
+$merchant = Balanced\Customer::get("/customers/CU3veCwC1nqk9GV6dfSkRHRS");
+$order = $merchant->createOrder();
 
 ?>
 %endif

@@ -12,8 +12,8 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "ak-test-Hznf9GhTb2Xkj7fGwVD6lZSMH5F1eTRl";
 
-$credit = Balanced\Credit::get("/credits/CR40RpXNREGqn5Gl2swLfAQV/reversals");
-$credit->reverse()
+$credit = Balanced\Credit::get("/credits/CR40RpXNREGqn5Gl2swLfAQV");
+$credit->reverse();
 
 ?>
 %endif

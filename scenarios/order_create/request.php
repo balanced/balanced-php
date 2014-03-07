@@ -1,2 +1,2 @@
-$customer = Balanced\Customer::get("{{request.customer_href}}");
-$order = $customer->orderCreate();
+$merchant = Balanced\Customer::get("{{request.customer_href}}");
+$order = $merchant->createOrder();

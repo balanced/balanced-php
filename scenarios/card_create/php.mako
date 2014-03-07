@@ -14,8 +14,8 @@ Balanced\Settings::$api_key = "ak-test-Hznf9GhTb2Xkj7fGwVD6lZSMH5F1eTRl";
 
 $card = Balanced\Marketplace::mine()->createCard(
     null, null, null, null, null,
+    "5105105105105100",
     "",
-    "123",
     "12",
     "2020"
 );
