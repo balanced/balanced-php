@@ -45,14 +45,7 @@ class Hold extends Resource
     {
         $this->unstore();
 
-//print_r($resp);
-        //$this->voided_at = $resp->voided_at;
-    //$this->_objectify($this->unstore());
         return $this;
-        //$this->is_void = true;
-
-        /* $this->is_void = true; */
-        /* return $this->save(); */
     }
 
     /**
@@ -71,10 +64,5 @@ class Hold extends Resource
         return $this->debit = $this->debits->create(array(
             'amount' => $amount
         ));
-        /* $this->debit = $this->account->debits->create(array( */
-        /*     'hold_uri' => $this->uri, */
-        /*     'amount' => $amount, */
-        /*     )); */
-        /* return $this->debit; */
     }
 }

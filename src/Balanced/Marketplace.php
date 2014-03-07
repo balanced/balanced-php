@@ -163,15 +163,6 @@ class Marketplace extends Resource
             return $customer;
         }
         return $this->createCustomer($email_address);
-/* try { */
-    	/* 	$account = $this->accounts->create(array( */
-    	/* 	        'email_address' => $email_address */
-    	/* 	        )); */
-    	/* } */
-    	/* catch (Errors\DuplicateAccountEmailAddress $e) { */
-    	/* 	$account = Account::get($e->extras->account_uri); */
-    	/* } */
-    	/* return $account; */
     }
 
     /**
@@ -192,7 +183,6 @@ class Marketplace extends Resource
     {
         $customer = $this->customers->create(array(
             'email' => $email_address,
-            //'card_uri' => $card_uri,
             'meta' => $meta,
             'name' => $name
             ));
@@ -309,15 +299,11 @@ class Marketplace extends Resource
         $email_address = null,
         $merchant = null,
         $bank_account_href = null,
-        //$merchant_uri = null,
         $name = null,
         $meta = null)
     {
         $params = array(
             'email_address' => $email_address,
-            //'merchant' => $merchant,
-            //'merchant_uri' => $merchant_uri,
-            //'bank_account_uri' => $bank_account_uri,
             'name' => $name,
             'meta' => $meta,
         );

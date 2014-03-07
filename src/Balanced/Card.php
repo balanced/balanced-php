@@ -49,16 +49,6 @@ class Card extends Resource
             'meta' => $meta,
             'order' => $order
         ));
-
-        /* if ($this->account == null) { */
-        /*     throw new \UnexpectedValueException('Card is not associated with an account.'); */
-        /* } */
-        /* return $this->account->debit( */
-        /*     $amount, */
-        /*     $appears_on_statement_as, */
-        /*     $description, */
-        /*     $meta, */
-        /*     $this->uri); */
     }
 
     public function hold(

@@ -59,7 +59,6 @@ class Bootstrap
 
         \Balanced\APIKey::init();
         \Balanced\Marketplace::init();
-        //\Balanced\Account::init();
         \Balanced\Credit::init();
         \Balanced\Debit::init();
         \Balanced\Refund::init();
@@ -68,7 +67,6 @@ class Bootstrap
         \Balanced\BankAccount::init();
         \Balanced\BankAccountVerification::init();
         \Balanced\Hold::init();
-        //\Balanced\Merchant::init();
         \Balanced\Callback::init();
         \Balanced\Event::init();
         \Balanced\Customer::init();

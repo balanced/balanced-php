@@ -9,7 +9,7 @@ use \RESTful\URISpec;
  * Represents an account debit transaction.
  *
  * <code>
- * $customer->debit(
+ * $card->debit(
  *    "5000",
  *    "Statement text",
  *    null,

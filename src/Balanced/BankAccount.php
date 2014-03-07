@@ -56,22 +56,6 @@ class BankAccount extends Resource
             $appears_on_statement_as = null,
             $order = null)
     {
-        /* if (!property_exists($this, 'account') || $this->account == null) { */
-        /*     $credit = $this->credits->create(array( */
-        /*         'amount' => $amount, */
-        /*         'description' => $description, */
-        /*     )); */
-        /* } else { */
-        /*     $credit = $this->account->credit( */
-        /*         $amount, */
-        /*         $description, */
-        /*         $meta, */
-        /*         $this->uri, */
-        /*         $appears_on_statement_as */
-        /*     ); */
-        /* } */
-        /* return $credit; */
-
         return $this->credits->create(array(
             'amount' => $amount,
             'description' => $description,
@@ -117,9 +101,6 @@ class BankAccount extends Resource
             $response->body->bank_account_verifications[0],
             $response->body->links);
         return $verification;
-        //print_r($this);
-        //return $this->bank_account_verifications->create();
-        //return $this->bank_account_verifications->create();
     }
 
     public function confirm($amount_1, $amount_2)
@@ -131,14 +112,7 @@ class BankAccount extends Resource
     public function invalidate()
     {
         return $this->unstore();
-        /* $this->is_valid = False; */
-        /* return $this->save(); */
     }
-
-    /* public function unstore() */
-    /* { */
-    /*     return $this->delete(); */
-    /* } */
 }
 
 /**
