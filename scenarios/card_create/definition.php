@@ -1,1 +1,1 @@
-Balanced\Marketplace::mine()->createCard()
+Balanced\Marketplace::mine()->cards->create()

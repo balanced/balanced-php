@@ -59,18 +59,18 @@ class Bootstrap
 
         \Balanced\APIKey::init();
         \Balanced\Marketplace::init();
-        \Balanced\Account::init();
         \Balanced\Credit::init();
         \Balanced\Debit::init();
         \Balanced\Refund::init();
         \Balanced\Reversal::init();
         \Balanced\Card::init();
         \Balanced\BankAccount::init();
-        \Balanced\Hold::init();
-        \Balanced\Merchant::init();
+        \Balanced\BankAccountVerification::init();
+        \Balanced\CardHold::init();
         \Balanced\Callback::init();
         \Balanced\Event::init();
         \Balanced\Customer::init();
+        \Balanced\Order::init();
 
         self::$initialized = true;
     }

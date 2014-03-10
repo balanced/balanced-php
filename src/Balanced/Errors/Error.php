@@ -29,7 +29,10 @@ class Error extends HTTPError
         if (empty(self::$codes))
             self::init();
 
-        $code = $response->body->category_code;
+        //die(88);
+        $err = $response->body->errors[0];
+
+        $code = $err->category_code;
 
         if (isset(self::$codes[$code]))
             $cn = self::$codes[$code];

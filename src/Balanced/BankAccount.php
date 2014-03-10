@@ -25,7 +25,7 @@ class BankAccount extends Resource
 
     public static function init()
     {
-        self::$_uri_spec = new URISpec('bank_accounts', 'id', '/v1');
+        self::$_uri_spec = new URISpec('bank_accounts', 'id', '/');
         self::$_registry->add(get_called_class());
     }
 
@@ -53,44 +53,65 @@ class BankAccount extends Resource
             $amount,
             $description = null,
             $meta = null,
-            $appears_on_statement_as = null)
+            $appears_on_statement_as = null,
+            $order = null)
     {
-        if (!property_exists($this, 'account') || $this->account == null) {
-            $credit = $this->credits->create(array(
-                'amount' => $amount,
-                'description' => $description,
-            ));
+        return $this->credits->create(array(
+            'amount' => $amount,
+            'description' => $description,
+            'meta' => $meta,
+            'appears_on_statement_as' => $appears_on_statement_as,
+            'order' => $order
+        ));
+
+    }
+
+    public function debit(
+        $amount,
+        $appears_on_statement_as = null,
+        $description = null,
+        $meta = null,
+        $order = null)
+    {
+        return $this->debits->create(array(
+            'amount' => $amount,
+            'appears_on_statement_as' => $appears_on_statement_as,
+            'description' => $description,
+            'meta' => $meta,
+            'order' => $order
+        ));
+    }
+
+    public function associateToCustomer($customer) {
+        if(is_string($customer)) {
+            $this->links->customer = $customer;
         } else {
-            $credit = $this->account->credit(
-                $amount,
-                $description,
-                $meta,
-                $this->uri,
-                $appears_on_statement_as
-            );
+            $this->links->customer = $customer->href;
         }
-        return $credit;
+        $this->save();
     }
 
     public function verify()
     {
         $response = self::getClient()->post(
-            $this->verifications_uri, null
+            $this->bank_account_verifications->uri, array()
         );
         $verification = new BankAccountVerification();
-        $verification->_objectify($response->body);
+        $verification->_objectify(
+            $response->body->bank_account_verifications[0],
+            $response->body->links);
         return $verification;
+    }
+
+    public function confirm($amount_1, $amount_2)
+    {
+        return $this->bank_account_verifications
+            ->first()->confirm($amount_1, $amount_2);
     }
 
     public function invalidate()
     {
-        $this->is_valid = False;
-        return $this->save();
-    }
-
-    public function unstore()
-    {
-        return $this->delete();
+        return $this->unstore();
     }
 }
 
@@ -116,6 +137,14 @@ class BankAccount extends Resource
  * </code>
  */
 class BankAccountVerification extends Resource {
+
+    protected static $_uri_spec = null;
+
+    public static function init()
+    {
+        self::$_uri_spec = new URISpec('verifications', 'id', '/');
+        self::$_registry->add(get_called_class());
+    }
 
     public function confirm($amount1, $amount2) {
         $this->amount_1 = $amount1;

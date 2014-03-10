@@ -6,8 +6,8 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-2KZfoLyijij3Y6OyhDAvFRF9tXzelBLpD";
+Balanced\Settings::$api_key = "ak-test-Hznf9GhTb2Xkj7fGwVD6lZSMH5F1eTRl";
 
-$debit = Balanced\Debit::get("/v1/marketplaces/TEST-MP4K6K0PWGyPtXL4LZ42sQSb/debits/WD6Ca1z3nrRRCdiYT1evN19S");
+$debit = Balanced\Debit::get("/debits/WD3dkNPNQtHiYcvFLWUkotAJ");
 
 ?>

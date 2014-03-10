@@ -31,7 +31,7 @@ class Card extends Resource
 
     public static function init()
     {
-        self::$_uri_spec = new URISpec('cards', 'id', '/v1');
+        self::$_uri_spec = new URISpec('cards', 'id', '/');
         self::$_registry->add(get_called_class());
     }
 
@@ -40,27 +40,42 @@ class Card extends Resource
         $appears_on_statement_as = null,
         $description = null,
         $meta = null,
-        $source = null)
+        $order = null)
     {
-        if ($this->account == null) {
-            throw new \UnexpectedValueException('Card is not associated with an account.');
+        return $this->debits->create(array(
+            'amount' => $amount,
+            'appears_on_statement_as' => $appears_on_statement_as,
+            'description' => $description,
+            'meta' => $meta,
+            'order' => $order
+        ));
+    }
+
+    public function hold(
+        $amount,
+        $description = null,
+        $meta = null)
+    {
+        return $this->card_holds->create(array(
+            'amount' => $amount,
+            'description' => $description,
+            'meta' => $meta
+        ));
+    }
+
+    public function associateToCustomer($customer) {
+        if(is_string($customer)) {
+            $this->links->customer = $customer;
+        } else {
+            $this->links->customer = $customer->href;
         }
-        return $this->account->debit(
-            $amount,
-            $appears_on_statement_as,
-            $description,
-            $meta,
-            $this->uri);
+        $this->save();
     }
 
     public function invalidate()
     {
-        $this->is_valid = False;
-        return $this->save();
+        $this->unstore();
+        return $this;
     }
 
-    public function unstore()
-    {
-        return $this->delete();
-    }
 }

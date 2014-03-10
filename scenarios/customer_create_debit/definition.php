@@ -1,1 +1,1 @@
-\Balanced\Customer->debit();
+\Balanced\Customer->debits->create()

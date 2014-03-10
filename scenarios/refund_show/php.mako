@@ -10,9 +10,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-2KZfoLyijij3Y6OyhDAvFRF9tXzelBLpD";
+Balanced\Settings::$api_key = "ak-test-Hznf9GhTb2Xkj7fGwVD6lZSMH5F1eTRl";
 
-$refund = Balanced\Refund::get("/v1/customers/CU7gMTGKh2yGHYn1lUxH9STS/refunds/RF7qwuLxprQJuVGf7sTAdwKc");
+$refund = Balanced\Refund::get("/refunds/RF3UTt4BVxr5EOrKJWr2jq1b");
 
 ?>
 %endif

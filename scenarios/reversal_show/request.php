@@ -1,0 +1,1 @@
+Balanced\Reversal::get("{{request.uri}}");

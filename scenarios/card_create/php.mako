@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\Marketplace::mine()->createCard()
+Balanced\Marketplace::mine()->cards->create()
 
 % else:
 <?php
@@ -10,15 +10,14 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-2KZfoLyijij3Y6OyhDAvFRF9tXzelBLpD";
+Balanced\Settings::$api_key = "ak-test-Hznf9GhTb2Xkj7fGwVD6lZSMH5F1eTRl";
 
-$card = Balanced\Marketplace::mine()->createCard(
-    null, null, null, null, null,
-    "5105105105105100",
-    "123",
-    "12",
-    "2020"
-);
+$card = Balanced\Marketplace::mine()->cards->create(array(
+    "expiration_month" => "12",
+    "expiration_year" => "2020",
+    "number" => "5105105105105100",
+    "security_code" => "123",
+));
 
 ?>
 %endif

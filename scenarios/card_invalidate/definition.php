@@ -1,1 +1,1 @@
-Balanced\Card->save()
+Balanced\Card->invalidate()

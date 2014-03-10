@@ -6,9 +6,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-2KZfoLyijij3Y6OyhDAvFRF9tXzelBLpD";
+Balanced\Settings::$api_key = "ak-test-Hznf9GhTb2Xkj7fGwVD6lZSMH5F1eTRl";
 
-$card = Balanced\Card::get("/v1/marketplaces/TEST-MP4K6K0PWGyPtXL4LZ42sQSb/cards/CC5N3HHUDrAyvhNwQOoUd3UX");
+$card = Balanced\Card::get("/cards/CC37GCk6lm0X5OdtBmkLy6qc");
 $card->unstore();
 
 
