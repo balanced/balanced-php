@@ -732,9 +732,6 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         return $bank_account->href;
     }
 
-    /**
-     * @expectedException \Balanced\Errors\Error
-     */
     function testGetDeletedBankAccount()
     {
         // getting directly at the uri should still return the item, but it shouldn't be in a page
@@ -913,9 +910,6 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    /**
-     * @expectedException \Balanced\Errors\Error
-     */
     function testGetDeletedCard()
     {
         $card_href = $this->testDeleteCard();
