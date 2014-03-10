@@ -12,7 +12,6 @@ use Balanced\Marketplace;
 use Balanced\Credit;
 use Balanced\Debit;
 use Balanced\Refund;
-use Balanced\Account;
 use Balanced\Merchant;
 use Balanced\BankAccount;
 use Balanced\Card;
@@ -254,12 +253,12 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         self::_createBuyer();
     }
 
-    function testCreateAccountWithoutEmailAddress()
+    function testCreateCusotmerWithoutEmailAddress()
     {
         self::$marketplace->createCustomer();
     }
 
-    function testFindOrCreateAccountByEmailAddress()
+    function testFindOrCreateCusotmerByEmailAddress()
     {
         $account1 = self::$marketplace->createCustomer('foc@example.com');
         $account2 = self::$marketplace->findOrCreateCustomerByEmailAddress('foc@example.com');
@@ -610,7 +609,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \RESTful\Exceptions\NoResultFound
      */
-    function testAccountWithEmailAddressNotFound()
+    function testCustomerWithEmailAddressNotFound()
     {
         self::$marketplace->customers->query()
             ->filter(Customer::$f->email->eq('unlikely@address.com'))
@@ -691,7 +690,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($buyer->merchant_status, "underwritten");
     }
 
-    function testCreditAccountlessBankAccount()
+    function testCreditCustomerlessBankAccount()
     {
         $buyer = self::_createBuyer();
         $buyer->cards->first()->debit(101); # NOTE: build up escrow balance to credit
@@ -717,12 +716,10 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
                 'account_type' => 'checking',
             ),
             'something sour');
-        //$credit = Credit::get($credit->href);
-        // TODO: bug in api, where the deleted bank accounts can't be referenced any more
-        /* print_r($credit->destination); */
-        /* $this->assertEquals($credit->destination->name, 'Homer Jay'); */
-        /* $this->assertEquals($credit->destination->account_number, 'xxx233a'); */
-        /* $this->assertEquals($credit->destination->account_type, 'checking'); */
+        $credit = Credit::get($credit->href);
+        $this->assertEquals($credit->destination->name, 'Homer Jay');
+        $this->assertEquals($credit->destination->account_number, 'xxx233a');
+        $this->assertEquals($credit->destination->account_type, 'checking');
     }
 
     function testDeleteBankAccount()
@@ -792,7 +789,6 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $bank_account = self::_createBankAccount();
         $buyer = self::_createBuyer();
         $bank_account->associateToCustomer($buyer);
-//$buyer->addBankAccount($bank_account);
         $bank_account->verify();
         $bank_account->verify();
     }
@@ -844,17 +840,16 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     function testCustomerAddCard()
     {
         $customer = $this->_createPersonCustomer();
-        $active_card = $customer->cards->first(); //activeCard();
+        $active_card = $customer->cards->first();
         $this->assertNull($active_card);
 
         $card = $this->_createCard();
         $card->associateToCustomer($customer);
-        //$customer->addCard($card);
-        $active_card = $customer->cards->first(); //activeCard();
+        $active_card = $customer->cards->first();
         $this->assertEquals($active_card->id, $card->id);
 
         $active_card->invalidate();
-        $active_card = $customer->cards->first(); //->activeCard();
+        $active_card = $customer->cards->first();
         $this->assertNull($active_card);
     }
 
