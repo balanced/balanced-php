@@ -33,7 +33,7 @@ If you don't have Composer [install](http://getcomposer.org/doc/00-intro.md#inst
 
     $ curl -s https://getcomposer.org/installer | php
 
-Add this to your `composer.json`:
+Require balanced in your `composer.json`:
 
 ```javascript
 {
@@ -42,6 +42,9 @@ Add this to your `composer.json`:
     }
 }
 ```
+
+NOTE: You may also define a more specific version if desired, e.g. 1.0.1
+
 
 Refresh your dependencies:
 
