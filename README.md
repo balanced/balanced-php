@@ -16,7 +16,7 @@ The design of this library was heavily influenced by [Httpful](https://github.co
 ## Requirements
 
 - [PHP](http://www.php.net) >= 5.3 **with** [cURL](http://www.php.net/manual/en/curl.installation.php)
-- [RESTful](https://github.com/bninja/restful) == 0.2.3
+- [RESTful](https://github.com/matthewfl/restful) == 1.0.0
 - [Httpful](https://github.com/nategood/httpful) >= 0.1
 
 ## Issues
@@ -38,7 +38,7 @@ Add this to your `composer.json`:
 ```javascript
 {
     "require": {
-        "balanced/balanced": "*"
+        "balanced/balanced": "1.*"
     }
 }
 ```
@@ -71,11 +71,11 @@ $ curl -s -L -o httpful.zip https://github.com/nategood/httpful/zipball/v0.2.3;
 $ unzip httpful.zip; mv nategood-httpful* httpful; rm httpful.zip
 ```
 
-Download [RESTful](https://github.com/bninja/restful) source:
+Download [RESTful](https://github.com/matthewfl/restful) source:
 
 ```bash
-$ curl -s -L -o restful.zip https://github.com/bninja/restful/zipball/master;
-$ unzip restful.zip; mv bninja-restful* restful; rm restful.zip
+$ curl -s -L -o restful.zip https://github.com/matthewfl/restful/zipball/master;
+$ unzip restful.zip; mv matthewfl-restful* restful; rm restful.zip
 ```
 
 Download the Balanced source:
@@ -108,7 +108,7 @@ curl -s http://getcomposer.org/installer | php
 echo '
 {
     "require": {
-        "balanced/balanced": "*"
+        "balanced/balanced": "1.*"
     }
 }
 ' > composer.json
