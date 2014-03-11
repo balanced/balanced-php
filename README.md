@@ -4,6 +4,8 @@ Online Marketplace Payments
 
 [![Build Status](https://secure.travis-ci.org/balanced/balanced-php.png)](http://travis-ci.org/balanced/balanced-php)
 
+**v1.x requires Balanced API 1.1. Use [v0.x](https://github.com/balanced/balanced-php/tree/rev0) for Balanced API 1.0.**
+
 The design of this library was heavily influenced by [Httpful](https://github.com/nategood/httpful).
 
 ## Requirements
