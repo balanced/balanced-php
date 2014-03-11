@@ -4,9 +4,14 @@ Online Marketplace Payments
 
 [![Build Status](https://secure.travis-ci.org/balanced/balanced-php.png)](http://travis-ci.org/balanced/balanced-php)
 
+The design of this library was heavily influenced by [Httpful](https://github.com/nategood/httpful).
+
 **v1.x requires Balanced API 1.1. Use [v0.x](https://github.com/balanced/balanced-php/tree/rev0) for Balanced API 1.0.**
 
-The design of this library was heavily influenced by [Httpful](https://github.com/nategood/httpful).
+**[v0.x](https://github.com/balanced/balanced-php/tree/rev0) requires Balanced API 1.0.**
+
+### ATTN COMPOSER USERS
+**In the past this README incorrectly communicated specifying ```*``` for the version of balanced. master, 1.x, requires Balanced API v1.1 and will require updates to your application. Applications using * to specify the balanced version obtained via Composer will automatically pick up the latest version and will cause issues for applications that have not been updated to use balanced-php 1.x. If your application is configured in the manner, we advise you to pin your balanced version at ```0.*```, or something more specific such as ```0.7.5.0```, to ensure your application continues to function normally using Balanced API v1.0 until you're able to upgrade to the latest version.**
 
 ## Requirements
 
