@@ -31,7 +31,7 @@ Add this to your `composer.json`:
 ```javascript
 {
     "require": {
-        "balanced/balanced": "*"
+        "balanced/balanced": "0.*"
     }
 }
 ```
@@ -101,7 +101,7 @@ curl -s http://getcomposer.org/installer | php
 echo '
 {
     "require": {
-        "balanced/balanced": "*"
+        "balanced/balanced": "0.*"
     }
 }
 ' > composer.json
