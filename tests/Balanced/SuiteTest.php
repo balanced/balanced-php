@@ -253,18 +253,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         self::_createBuyer();
     }
 
-    function testCreateCusotmerWithoutEmailAddress()
+    function testCreateCustomerWithoutEmailAddress()
     {
         self::$marketplace->createCustomer();
-    }
-
-    function testFindOrCreateCusotmerByEmailAddress()
-    {
-        $account1 = self::$marketplace->createCustomer('foc@example.com');
-        $account2 = self::$marketplace->findOrCreateCustomerByEmailAddress('foc@example.com');
-        $this->assertEquals($account2->id, $account2->id);
-        $account3 = self::$marketplace->findOrCreateCustomerByEmailAddress('foc2@example.com');
-        $this->assertNotEquals($account3->id, $account1->id);
     }
 
     function testGetBuyer()
