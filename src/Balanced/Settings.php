@@ -8,7 +8,7 @@ namespace Balanced;
  *  You can either set these settings individually:
  *
  *  <code>
- *  \Balanced\Settngs::api_key = 'my-api-key-secret';
+ *  \Balanced\Settings::$api_key = 'my-api-key-secret';
  *  </code>
  *
  *  or all at once:
