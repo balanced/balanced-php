@@ -794,6 +794,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $requested_verification = BankAccountVerification::get($verification->href);
         $requested_verification->confirm(1, 1);
 
+
         //  this will fail if the bank account is not verified
         $debit = $buyer->bank_accounts->first()->debit(
             1000,
