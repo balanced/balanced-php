@@ -19,6 +19,7 @@ use \RESTful\URISpec;
 class Callback extends Resource
 {
     protected static $_uri_spec = null;
+    protected static $_override__uri_spec = null;
 
     public static function init()
     {

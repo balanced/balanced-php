@@ -4,6 +4,7 @@ namespace Balanced;
 
 use Balanced\Resource;
 use \RESTful\URISpec;
+use \RESTful\URIOverrideSpec;
 
 /**
  * Represents a bank account.
@@ -22,6 +23,7 @@ use \RESTful\URISpec;
 class BankAccount extends Resource
 {
     protected static $_uri_spec = null;
+    protected static $_override__uri_spec = null;
 
     public static function init()
     {
@@ -139,10 +141,12 @@ class BankAccount extends Resource
 class BankAccountVerification extends Resource {
 
     protected static $_uri_spec = null;
+    protected static $_override__uri_spec = null;
 
     public static function init()
     {
         self::$_uri_spec = new URISpec('verifications', 'id', '/');
+        self::$_override__uri_spec = new URIOverrideSpec('bank_account_verifications', 'id', '/');
         self::$_registry->add(get_called_class());
     }
 
