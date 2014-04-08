@@ -770,8 +770,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 //            $dispute =  Marketplace::mine()->disputes->all();
 //            $dispute =  \Balanced\Event::g  et($dispute->href);
 //            $dispute = $debit->disputes;
-            $dispute_href = $this->testGetDispute();
-            $dispute = Dispute::get($dispute_href);
+
 
             if ($dispute) {
                 break;
