@@ -8,13 +8,13 @@
     "authors": [
         {
             "name": "Balanced",
-            "email": "dev@balancedpayments.com",
+            "email": "dev@http://balancedpayments.com",
             "homepage": "http://www.balancedpayments.com"
         }
     ],
     "require": {
         "nategood/httpful": "0.2.3",
-        "matthewfl/restful": "~1.0.1"
+        "matthewfl/restful": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*",
