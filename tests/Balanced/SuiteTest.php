@@ -16,6 +16,7 @@ use Balanced\Merchant;
 use Balanced\BankAccount;
 use Balanced\Card;
 use Balanced\Customer;
+use Balanced\Dispute;
 
 
 /**
@@ -67,6 +68,20 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             null,
             12,
             2016);
+        if ($customer != null) {
+            $card->associateToCustomer($customer);
+        }
+        return $card;
+    }
+
+    static function _createCardwithDispute($customer= null)
+    {
+        $card = self::$marketplace->cards->create(array(
+        "expiration_month" => "12",
+        "expiration_year" => "2020",
+        "number" => "6500000000000002",
+        "security_code" => "123",
+        ));
         if ($customer != null) {
             $card->associateToCustomer($customer);
         }
@@ -732,6 +747,41 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $bank_account = self::_createBankAccount();
         $bank_account_2 = BankAccount::get($bank_account->id);
         $this->assertEquals($bank_account_2->id, $bank_account->id);
+    }
+
+
+    function testGetDispute()
+    {
+        $card = self::_createCardwithDispute();
+        $timeout = 12 * 60;
+        $interval = 10;
+        $begin_time = time();
+
+        $debit = $card->debit(
+            1234,
+            null,
+            null,
+            null,
+            null,
+            null);
+
+        while (true) {
+//            $marketplace = Marketplace::get(self::$marketplace->href);
+//            $dispute =  Marketplace::mine()->disputes->all();
+//            $dispute =  \Balanced\Event::get($dispute->href);
+              $dispute = $debit->disputes;
+            if ($dispute) {
+                break;
+            }
+            $elapsed_time = time() - $begin_time;
+            if ($elapsed_time > $timeout){
+                throw new RoutingException('Timeout');
+            }
+            echo "Polling disputes..., elapsed $elapsed_time ".PHP_EOL;
+            sleep(10);
+        }
+//        $dispute_href = $this->testGetDispute();
+//        $dispute = Dispute::get($dispute_href);
     }
 
     /**
