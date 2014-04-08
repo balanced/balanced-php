@@ -753,9 +753,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     function testGetDispute()
     {
         $card = self::_createCardwithDispute();
-
         $debit = $card->debit(
-            1234,
+            5566,
             null,
             null,
             null,
@@ -767,10 +766,12 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $begin_time = microtime(true);
 
         while (true) {
-            $marketplace = Marketplace::get(self::$marketplace->href);
-            $dispute =  Marketplace::mine()->disputes->all();
-            $dispute =  \Balanced\Event::g  et($dispute->href);
+//            $marketplace = Marketplace::get(self::$marketplace->href);
+//            $dispute =  Marketplace::mine()->disputes->all();
+//            $dispute =  \Balanced\Event::g  et($dispute->href);
 //            $dispute = $debit->disputes;
+            $dispute_href = $this->testGetDispute();
+            $dispute = Dispute::get($dispute_href);
 
             if ($dispute) {
                 break;
@@ -785,8 +786,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             sleep(10);
         }
 
-//        $dispute_href = $this->testGetDispute();
-//        $dispute = Dispute::get($dispute_href);
+
     }
 
     /**
