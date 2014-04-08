@@ -4,7 +4,6 @@ namespace Balanced;
 
 use Balanced\Resource;
 use \RESTful\URISpec;
-use \RESTful\URIOverrideSpec;
 
 /**
  * Represents a bank account.
