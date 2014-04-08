@@ -753,9 +753,6 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     function testGetDispute()
     {
         $card = self::_createCardwithDispute();
-        $timeout = 12 * 60;
-        $interval = 10;
-        $begin_time = time();
 
         $debit = $card->debit(
             1234,
@@ -765,21 +762,29 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             null,
             null);
 
+        $timeout = 12 * 60;
+        $interval = 10;
+        $begin_time = microtime(true);
+
         while (true) {
-//            $marketplace = Marketplace::get(self::$marketplace->href);
-//            $dispute =  Marketplace::mine()->disputes->all();
-//            $dispute =  \Balanced\Event::get($dispute->href);
-              $dispute = $debit->disputes;
+            $marketplace = Marketplace::get(self::$marketplace->href);
+            $dispute =  Marketplace::mine()->disputes->all();
+            $dispute =  \Balanced\Event::g  et($dispute->href);
+//            $dispute = $debit->disputes;
+
             if ($dispute) {
                 break;
             }
-            $elapsed_time = time() - $begin_time;
-            if ($elapsed_time > $timeout){
+            $elapsed_time = microtime(true) - $begin_time;
+            echo time().PHP_EOL;
+            echo $begin_time.PHP_EOL;
+            if ($elapsed_time > 10){
                 throw new RoutingException('Timeout');
             }
-            echo "Polling disputes..., elapsed $elapsed_time ".PHP_EOL;
+            echo "Polling disputes... elapsed $elapsed_time ".PHP_EOL;
             sleep(10);
         }
+
 //        $dispute_href = $this->testGetDispute();
 //        $dispute = Dispute::get($dispute_href);
     }
