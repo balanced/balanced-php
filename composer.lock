@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "387a9037197ae70a94793f05fbab729d",
+    "hash": "484212913935da84e4a8c84f1c8137e3",
     "packages": [
         {
             "name": "matthewfl/restful",
@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/matthewfl/restful.git",
-                "reference": "b9d846cd253a0da45c2cca960ab1d2c269e187f6"
+                "reference": "a54ce25140f95a87525264f7e3d803f842597217"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matthewfl/restful/zipball/b9d846cd253a0da45c2cca960ab1d2c269e187f6",
-                "reference": "b9d846cd253a0da45c2cca960ab1d2c269e187f6",
+                "url": "https://api.github.com/repos/matthewfl/restful/zipball/a54ce25140f95a87525264f7e3d803f842597217",
+                "reference": "a54ce25140f95a87525264f7e3d803f842597217",
                 "shasum": ""
             },
             "require": {
@@ -52,7 +52,7 @@
                 "http",
                 "rest"
             ],
-            "time": "2014-04-08 01:28:32"
+            "time": "2014-04-08 19:43:38"
         },
         {
             "name": "nategood/httpful",
