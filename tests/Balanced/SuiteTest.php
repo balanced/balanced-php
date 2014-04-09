@@ -766,26 +766,27 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $begin_time = microtime(true);
 
         while (true) {
-//            $marketplace = Marketplace::get(self::$marketplace->href);
-//            $dispute =  Marketplace::mine()->disputes->all();
-//            $dispute =  \Balanced\Event::g  et($dispute->href);
-//            $dispute = $debit->disputes;
+            $polled_debit = Debit::get($debit->href);
+            $polled_dispute = $polled_debit->dispute;
+            if (get_class($polled_dispute) == 'Balanced\Dispute') {
+                $dispute = $polled_dispute;
+            }
 
-
-            if ($dispute) {
+            if (isset($dispute)) {
                 break;
             }
             $elapsed_time = microtime(true) - $begin_time;
-            echo time().PHP_EOL;
-            echo $begin_time.PHP_EOL;
-            if ($elapsed_time > 10){
+            if ($elapsed_time > $timeout){
                 throw new RoutingException('Timeout');
             }
-            echo "Polling disputes... elapsed $elapsed_time ".PHP_EOL;
-            sleep(10);
+            error_log("Polling disputes... elapsed $elapsed_time ", 0);
+            sleep($interval);
         }
 
-
+        $this->assertInstanceOf('Balanced\Dispute', $dispute);
+        $this->assertEquals($dispute->status, "pending");
+        $this->assertEquals($dispute->reason, "fraud");
+        $this->assertEquals($dispute->amount, $debit->amount);
     }
 
     /**
