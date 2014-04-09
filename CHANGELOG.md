@@ -1,3 +1,8 @@
+## 1.1.0
+
+* Support for new Dispute resource
+
+
 ## 1.0.1
 
 * Correct malformed bank verification objects balanced/balanced-php#86
