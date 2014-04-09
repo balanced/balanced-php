@@ -142,7 +142,7 @@ class BankAccountVerification extends Resource {
 
     public static function init()
     {
-        self::$_uri_spec = new URISpec('verifications', 'id', '/');
+        self::$_uri_spec = new URISpec('verifications', 'id', '/', 'bank_account_verifications');
         self::$_registry->add(get_called_class());
     }
 

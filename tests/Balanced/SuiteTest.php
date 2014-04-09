@@ -17,6 +17,7 @@ use Balanced\BankAccount;
 use Balanced\Card;
 use Balanced\Customer;
 use Balanced\Dispute;
+use Balanced\BankAccountVerification;
 
 
 /**
@@ -845,7 +846,8 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $buyer = self::_createBuyer();
         $bank_account->associateToCustomer($buyer);
         $verification = $bank_account->verify();
-        $verification->confirm(1, 1);
+        $requested_verification = BankAccountVerification::get($verification->href);
+        $requested_verification->confirm(1, 1);
 
         //  this will fail if the bank account is not verified
         $debit = $buyer->bank_accounts->first()->debit(
