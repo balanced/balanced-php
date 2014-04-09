@@ -16,6 +16,7 @@ use Balanced\Merchant;
 use Balanced\BankAccount;
 use Balanced\Card;
 use Balanced\Customer;
+use Balanced\Dispute;
 use Balanced\BankAccountVerification;
 
 
@@ -68,6 +69,20 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             null,
             12,
             2016);
+        if ($customer != null) {
+            $card->associateToCustomer($customer);
+        }
+        return $card;
+    }
+
+    static function _createCardwithDispute($customer= null)
+    {
+        $card = self::$marketplace->cards->create(array(
+        "expiration_month" => "12",
+        "expiration_year" => "2020",
+        "number" => "6500000000000002",
+        "security_code" => "123",
+        ));
         if ($customer != null) {
             $card->associateToCustomer($customer);
         }
@@ -733,6 +748,46 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $bank_account = self::_createBankAccount();
         $bank_account_2 = BankAccount::get($bank_account->id);
         $this->assertEquals($bank_account_2->id, $bank_account->id);
+    }
+
+
+    function testGetDispute()
+    {
+        $card = self::_createCardwithDispute();
+        $debit = $card->debit(
+            5566,
+            null,
+            null,
+            null,
+            null,
+            null);
+
+        $timeout = 12 * 60;
+        $interval = 10;
+        $begin_time = microtime(true);
+
+        while (true) {
+            $polled_debit = Debit::get($debit->href);
+            $polled_dispute = $polled_debit->dispute;
+            if (get_class($polled_dispute) == 'Balanced\Dispute') {
+                $dispute = $polled_dispute;
+            }
+
+            if (isset($dispute)) {
+                break;
+            }
+            $elapsed_time = microtime(true) - $begin_time;
+            if ($elapsed_time > $timeout){
+                throw new RoutingException('Timeout');
+            }
+            error_log("Polling disputes... elapsed $elapsed_time ", 0);
+            sleep($interval);
+        }
+
+        $this->assertInstanceOf('Balanced\Dispute', $dispute);
+        $this->assertEquals($dispute->status, "pending");
+        $this->assertEquals($dispute->reason, "fraud");
+        $this->assertEquals($dispute->amount, $debit->amount);
     }
 
     /**
