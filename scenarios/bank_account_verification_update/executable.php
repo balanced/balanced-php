@@ -6,9 +6,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-Hznf9GhTb2Xkj7fGwVD6lZSMH5F1eTRl";
+Balanced\Settings::$api_key = "ak-test-1ByQgRpcQLTwmOhCBUofyIHm0r96qPm8s";
 
-$verification = Balanced\BankAccountVerification::get("/verifications/BZ2IwbiCLnZS40mbTVd1F3Rf");
+$verification = Balanced\BankAccountVerification::get("/verifications/BZ2AZ05mk2SQsEcicjSh3UN");
 $verification->amount_1 = 1;
 $verification->amount_2 = 1;
 $verification->save();

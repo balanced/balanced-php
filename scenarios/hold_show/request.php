@@ -1,1 +1,0 @@
-$hold = Balanced\Hold::get("{{ request.uri }}");

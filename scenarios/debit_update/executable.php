@@ -6,9 +6,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-Hznf9GhTb2Xkj7fGwVD6lZSMH5F1eTRl";
+Balanced\Settings::$api_key = "ak-test-1ByQgRpcQLTwmOhCBUofyIHm0r96qPm8s";
 
-$debit = Balanced\Debit::get("/debits/WD3dkNPNQtHiYcvFLWUkotAJ");
+$debit = Balanced\Debit::get("/debits/WDLlpoutDUH8fGfp28GeT0V");
 $debit->description = "New description for debit";
 $debit->meta = array(
     "anykey" => "valuegoeshere",
