@@ -4,28 +4,36 @@
     
     $dir = "*/request.php";
     
+    define("SCENARIO_CACHE_URL", "https://raw.githubusercontent.com/balanced/balanced-docs/master/scenario.cache");
+    
+    getScenarioCache();
+    
     foreach(glob($dir) as $file) {
-      $scenario_name = dirname($file);
-      $scenario_func = new Scenario($scenario_name);
-      $rendered = $scenario_func->render();
-      if($rendered) {
-        $request = $scenario_func->write_executable($rendered);
-        $scenario_func->write_mako();
-      }
-      else {
-        @unlink($scenario_name . "/executable.php");
-        echo "Error rendering $scenario_name\n";
-      }
+        $scenario_name = dirname($file);
+        $scenario_func = new Scenario($scenario_name);
+        $rendered = $scenario_func->render();
+        if ($rendered) {
+            $request = $scenario_func->write_executable($rendered);
+            $scenario_func->write_mako();
+        }
+        else {
+            @unlink($scenario_name . "/executable.php");
+            echo "Error rendering $scenario_name\n";
+        }
+    }
+
+    function getScenarioCache() {
+        if (file_exists("../scenario.cache")) { unlink ("../scenario.cache"); }
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_URL, SCENARIO_CACHE_URL);
+        curl_setopt($ch, CURLOPT_SSLVERSION,3);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        file_put_contents("../scenario.cache", $result);
     }
     
-    /*$scenario_func = new Scenario("refund_update");
-    echo "Rendering template...\n";
-    $rendered = $scenario_func->render();
-    echo "Rendering executable...\n";
-    $request = $scenario_func->write_executable($rendered);
-    echo "Rendering mako...\n";
-    $scenario_func->write_mako();
-    */
     class Scenario {
         private $scenario;
         private $scenarios_cache;
@@ -51,7 +59,7 @@ EOT;
         }
 
         public function write_executable($rendered) {
-            if(empty($rendered)) {
+            if (empty($rendered)) {
                 return false;
             }
             return file_put_contents($this->scenario . '/executable.php',
@@ -68,7 +76,7 @@ EOT;
         }
 
         public function render() {
-            if(isset($this->scenarios_cache[$this->scenario])) {
+            if (isset($this->scenarios_cache[$this->scenario])) {
                 $scenario_cache = $this->scenarios_cache[$this->scenario];
                 $loader = new Twig_Loader_Filesystem(__dir__ . "/" . $this->scenario);
                 $twig = new Twig_Environment($loader);
