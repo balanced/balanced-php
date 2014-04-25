@@ -13,3 +13,5 @@ vendor
 .project
 *.iml
 .idea
+
+scenario.cache
