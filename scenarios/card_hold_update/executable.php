@@ -6,9 +6,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-1ByQgRpcQLTwmOhCBUofyIHm0r96qPm8s";
+Balanced\Settings::$api_key = "ak-test-22IOkhevjZlmRP2do6CZixkkDshTiOjTV";
 
-$hold = Balanced\Hold::get("/card_holds/HLqY5FcrUWcnBzMkHpKK1WB");
+$hold = Balanced\Hold::get("/card_holds/HL4bdnO7ELS2JfyJ2T8elYOl");
 $hold->description = 'update this description';
 $hold->meta = array(
     "holding.for" => "user1",

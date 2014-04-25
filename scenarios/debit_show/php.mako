@@ -10,9 +10,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-1ByQgRpcQLTwmOhCBUofyIHm0r96qPm8s";
+Balanced\Settings::$api_key = "ak-test-22IOkhevjZlmRP2do6CZixkkDshTiOjTV";
 
-$debit = Balanced\Debit::get("/debits/WDLlpoutDUH8fGfp28GeT0V");
+$debit = Balanced\Debit::get("/debits/WD4vEUJj36IpPHTnLKMYzHgh");
 
 ?>
 %endif

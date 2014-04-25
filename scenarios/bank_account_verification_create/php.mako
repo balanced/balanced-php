@@ -10,11 +10,11 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-1ByQgRpcQLTwmOhCBUofyIHm0r96qPm8s";
+Balanced\Settings::$api_key = "ak-test-22IOkhevjZlmRP2do6CZixkkDshTiOjTV";
 
 // NOTE: Bank account must be associated with a customer before initiating a verification
 
-$bank_account = Balanced\BankAccount::get("/bank_accounts/BAcRGk40xmI8meZpNLB3oYp");
+$bank_account = Balanced\BankAccount::get("/bank_accounts/BA3IhKG3bIN22cLHbaOIGtHb");
 $verification = $bank_account->verify();
 
 ?>

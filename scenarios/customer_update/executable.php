@@ -6,9 +6,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-1ByQgRpcQLTwmOhCBUofyIHm0r96qPm8s";
+Balanced\Settings::$api_key = "ak-test-22IOkhevjZlmRP2do6CZixkkDshTiOjTV";
 
-$customer = Balanced\Customer::get("/customers/CU194sQ52I1idiwicbg0mOOB");
+$customer = Balanced\Customer::get("/customers/CU4GAx8tZTDNIgAmwfV35e53");
 $cusotmer->email = 'email@newdomain.com';
 $customer->meta = array(
     "shipping-preference" => "ground",
