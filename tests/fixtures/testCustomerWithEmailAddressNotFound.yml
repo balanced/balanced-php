@@ -1,0 +1,26 @@
+
+-
+    request:
+        method: GET
+        url: 'https://api.balancedpayments.com/customers?email=unlikely%40address.com&limit=2&offset=0'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: ''
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '0'
+    response:
+        status: 200
+        headers:
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:42:36 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM763fdc50cc7f11e39ae806429171ffad
+            X-Balanced-Host: bapi-integration-prod-8u30f7-10-3-4-8
+            X-Balanced-Marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            X-Balanced-Merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            X-Balanced-Revision: '1.1'
+            X-Balanced-Software-Build: 1.0.132
+            Content-Length: '339'
+            Connection: keep-alive
+        body: "{\n  \"meta\": {\n    \"last\": \"/customers?limit=2&email=unlikely%40address.com&offset=0\",\n    \"next\": null,\n    \"href\": \"/customers?limit=2&email=unlikely%40address.com&offset=0\",\n    \"limit\": 2,\n    \"offset\": 0,\n    \"previous\": null,\n    \"total\": 0,\n    \"first\": \"/customers?limit=2&email=unlikely%40address.com&offset=0\"\n  },\n  \"links\": {}\n}"

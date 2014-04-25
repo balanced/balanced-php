@@ -1,0 +1,29 @@
+
+-
+    request:
+        method: POST
+        url: 'https://api.balancedpayments.com/customers'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: application/json
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '38'
+        body: '{"email":null,"meta":null,"name":null}'
+    response:
+        status: 201
+        headers:
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 10:50:21 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM65821c74cc6711e390b902a1fe53e539
+            x-balanced-host: bapi-integration-prod-8u30f7-10-3-5-201
+            x-balanced-marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            x-balanced-merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            x-balanced-revision: '1.1'
+            x-balanced-software-build: 1.0.132
+            X-Midlr-Version: '2'
+            x-newrelic-app-data: PxQFWFNXCQYTVVhWAwQDVUYdFhE1AwE2QgNWEVlbQFtcCxYxSBVbDQoZVA4IF0pcXAgEEBhSQhUQXltWEBVNAUIHWRZdGhgSA0kZUR9SAVdUBwNQV1cLBAlcWVAPHRdVXB0WEVoFB1IDWgBbXl1VBgADX1ETTRMEBVpEBDs=
+            Content-Length: '1529'
+            Connection: Keep-alive
+        body: "{\n  \"customers\": [\n    {\n      \"name\": null,\n      \"links\": {\n        \"source\": null,\n        \"destination\": null\n      },\n      \"updated_at\": \"2014-04-25T10:50:20.953068Z\",\n      \"created_at\": \"2014-04-25T10:50:20.836485Z\",\n      \"dob_month\": null,\n      \"id\": \"CU35Al3YC0eJLrTphYesbkYp\",\n      \"phone\": null,\n      \"href\": \"/customers/CU35Al3YC0eJLrTphYesbkYp\",\n      \"merchant_status\": \"no-match\",\n      \"meta\": {},\n      \"dob_year\": null,\n      \"address\": {\n        \"city\": null,\n        \"line2\": null,\n        \"line1\": null,\n        \"state\": null,\n        \"postal_code\": null,\n        \"country_code\": null\n      },\n      \"business_name\": null,\n      \"ssn_last4\": null,\n      \"email\": null,\n      \"ein\": null\n    }\n  ],\n  \"links\": {\n    \"customers.source\": \"/resources/{customers.source}\",\n    \"customers.card_holds\": \"/customers/{customers.id}/card_holds\",\n    \"customers.bank_accounts\": \"/customers/{customers.id}/bank_accounts\",\n    \"customers.debits\": \"/customers/{customers.id}/debits\",\n    \"customers.destination\": \"/resources/{customers.destination}\",\n    \"customers.external_accounts\": \"/customers/{customers.id}/external_accounts\",\n    \"customers.cards\": \"/customers/{customers.id}/cards\",\n    \"customers.transactions\": \"/customers/{customers.id}/transactions\",\n    \"customers.refunds\": \"/customers/{customers.id}/refunds\",\n    \"customers.reversals\": \"/customers/{customers.id}/reversals\",\n    \"customers.orders\": \"/customers/{customers.id}/orders\",\n    \"customers.credits\": \"/customers/{customers.id}/credits\"\n  }\n}"

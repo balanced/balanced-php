@@ -1,0 +1,26 @@
+
+-
+    request:
+        method: GET
+        url: 'https://api.balancedpayments.com/marketplaces?limit=25&offset=0'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: ''
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '0'
+    response:
+        status: 200
+        headers:
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 10:49:47 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM5190f58ccc6711e3b0f902b12035401b
+            X-Balanced-Host: bapi-integration-prod-8u30f7-10-3-5-201
+            X-Balanced-Marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            X-Balanced-Merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            X-Balanced-Revision: '1.1'
+            X-Balanced-Software-Build: 1.0.132
+            Content-Length: '1404'
+            Connection: Keep-alive
+        body: "{\n  \"meta\": {\n    \"last\": \"/marketplaces?limit=25&offset=0\",\n    \"next\": null,\n    \"href\": \"/marketplaces?limit=25&offset=0\",\n    \"limit\": 25,\n    \"offset\": 0,\n    \"previous\": null,\n    \"total\": 1,\n    \"first\": \"/marketplaces?limit=25&offset=0\"\n  },\n  \"marketplaces\": [\n    {\n      \"in_escrow\": 0,\n      \"domain_url\": \"example.com\",\n      \"name\": \"Test Marketplace\",\n      \"links\": {\n        \"owner_customer\": \"CU6hog7YXp1udJ6jldLJRHCN\"\n      },\n      \"href\": \"/marketplaces/TEST-MP6hnN89mcBZlNDXOhLIUr1f\",\n      \"created_at\": \"2014-04-25T10:31:48.212581Z\",\n      \"support_email_address\": \"support@example.com\",\n      \"updated_at\": \"2014-04-25T10:31:48.505709Z\",\n      \"support_phone_number\": \"+16505551234\",\n      \"production\": false,\n      \"meta\": {},\n      \"unsettled_fees\": 0,\n      \"id\": \"TEST-MP6hnN89mcBZlNDXOhLIUr1f\"\n    }\n  ],\n  \"links\": {\n    \"marketplaces.debits\": \"/debits\",\n    \"marketplaces.reversals\": \"/reversals\",\n    \"marketplaces.customers\": \"/customers\",\n    \"marketplaces.credits\": \"/credits\",\n    \"marketplaces.cards\": \"/cards\",\n    \"marketplaces.card_holds\": \"/card_holds\",\n    \"marketplaces.refunds\": \"/refunds\",\n    \"marketplaces.owner_customer\": \"/customers/{marketplaces.owner_customer}\",\n    \"marketplaces.transactions\": \"/transactions\",\n    \"marketplaces.bank_accounts\": \"/bank_accounts\",\n    \"marketplaces.callbacks\": \"/callbacks\",\n    \"marketplaces.events\": \"/events\"\n  }\n}"

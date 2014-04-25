@@ -1,0 +1,25 @@
+
+-
+    request:
+        method: POST
+        url: 'https://api.balancedpayments.com/marketplaces'
+        headers:
+            Host: api.balancedpayments.com
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '0'
+    response:
+        status: 409
+        headers:
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 10:49:46 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM50be11c6cc6711e38d4506429171ffad
+            X-Balanced-Host: bapi-integration-prod-8u30f7-10-3-4-8
+            X-Balanced-Marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            X-Balanced-Merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            X-Balanced-Revision: '1.1'
+            X-Balanced-Software-Build: 1.0.132
+            Content-Length: '388'
+            Connection: Keep-alive
+        body: "{\n  \"errors\": [\n    {\n      \"status\": \"Conflict\",\n      \"category_code\": \"marketplace-already-created\",\n      \"additional\": null,\n      \"status_code\": 409,\n      \"category_type\": \"logical\",\n      \"extras\": {},\n      \"request_id\": \"OHM50be11c6cc6711e38d4506429171ffad\",\n      \"description\": \"Marketplace already created. Your request id is OHM50be11c6cc6711e38d4506429171ffad.\"\n    }\n  ]\n}"

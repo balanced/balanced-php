@@ -1,0 +1,32 @@
+
+-
+    request:
+        method: POST
+        url: 'https://api.balancedpayments.com/cards'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: application/json
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '208'
+        body: '{"address":{"street_address":"123 Fake Street","city":"Jollywood","state":null,"postal_code":"90210"},"name":"khalkhalash","number":"4112344112344113","cvv":"123","expiration_month":12,"expiration_year":2016}'
+    response:
+        status: 201
+        headers:
+            access-control-allow-headers: Content-Type
+            access-control-allow-methods: 'POST, OPTIONS'
+            access-control-allow-origin: '*'
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:42:23 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM6e0cd7e0cc7f11e3a82802a1fe52a36c
+            x-balanced-host: bapi-integration-prod-8u30f7-10-3-4-8
+            x-balanced-marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            x-balanced-merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            x-balanced-revision: '1.1'
+            x-balanced-software-build: 1.0.132
+            X-Midlr-Version: '2'
+            x-newrelic-app-data: PxQFWFNXCQYTVVhWAwQDVUYdFhE1AwE2QgNWEVlbQFtcCxYxSBVbDQoZVA4IF0pcXAgEEBhSVhQAQhhQEAMCFlVAFEIIFBQCHVcOUQlXAVNUBAJRXlYMBwlIQVYCBhtGRlQEAVJSU1YAA15SDQEAAAZHFUFXAF8RAWs=
+            Content-Length: '1125'
+            Connection: keep-alive
+        body: "{\n  \"cards\": [\n    {\n      \"cvv_match\": \"yes\",\n      \"links\": {\n        \"customer\": null\n      },\n      \"name\": \"khalkhalash\",\n      \"expiration_year\": 2016,\n      \"avs_street_match\": \"yes\",\n      \"is_verified\": true,\n      \"created_at\": \"2014-04-25T13:42:23.273836Z\",\n      \"cvv_result\": \"Match\",\n      \"brand\": \"Visa\",\n      \"number\": \"xxxxxxxxxxxx4113\",\n      \"updated_at\": \"2014-04-25T13:42:23.273838Z\",\n      \"id\": \"CC3lUiwTrW3KQ5inskTHdHpz\",\n      \"expiration_month\": 12,\n      \"cvv\": \"xxx\",\n      \"meta\": {},\n      \"href\": \"/cards/CC3lUiwTrW3KQ5inskTHdHpz\",\n      \"address\": {\n        \"city\": \"Jollywood\",\n        \"line2\": null,\n        \"line1\": null,\n        \"state\": \"CA\",\n        \"postal_code\": \"90210\",\n        \"country_code\": null\n      },\n      \"fingerprint\": \"7ea7f07c8abf97e87b97907497915e6494624869158ccd423eda998279c17ea8\",\n      \"avs_postal_match\": \"no\",\n      \"avs_result\": \"Street address and postal code do not match.\"\n    }\n  ],\n  \"links\": {\n    \"cards.card_holds\": \"/cards/{cards.id}/card_holds\",\n    \"cards.customer\": \"/customers/{cards.customer}\",\n    \"cards.debits\": \"/cards/{cards.id}/debits\"\n  }\n}"

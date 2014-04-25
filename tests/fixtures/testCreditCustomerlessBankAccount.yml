@@ -1,0 +1,294 @@
+
+-
+    request:
+        method: POST
+        url: 'https://api.balancedpayments.com/cards'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: application/json
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '207'
+        body: '{"address":{"street_address":"123 Fake Street","city":"Jollywood","state":null,"postal_code":"90210"},"name":"khalkhalash","number":"4112344112344113","cvv":null,"expiration_month":12,"expiration_year":2016}'
+    response:
+        status: 201
+        headers:
+            access-control-allow-headers: Content-Type
+            access-control-allow-methods: 'POST, OPTIONS'
+            access-control-allow-origin: '*'
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:43:19 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM8f6d6b66cc7f11e38ab902a1fe53e539
+            x-balanced-host: bapi-integration-prod-8u30f7-10-3-5-201
+            x-balanced-marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            x-balanced-merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            x-balanced-revision: '1.1'
+            x-balanced-software-build: 1.0.132
+            X-Midlr-Version: '2'
+            x-newrelic-app-data: PxQFWFNXCQYTVVhWAwQDVUYdFhE1AwE2QgNWEVlbQFtcCxYxSBVbDQoZVA4IF0pcXAgEEBhSVhQAQhhQEAMCFlVAFEIIFBQCHVYBVwFTAFtdDgVXVlcBCwBRTUIEBAJKRBMEUFReW1IIVFlSAA8NA1UDG00RB1IOF1Nq
+            Content-Length: '1120'
+            Connection: keep-alive
+        body: "{\n  \"cards\": [\n    {\n      \"cvv_match\": null,\n      \"links\": {\n        \"customer\": null\n      },\n      \"name\": \"khalkhalash\",\n      \"expiration_year\": 2016,\n      \"avs_street_match\": \"yes\",\n      \"is_verified\": true,\n      \"created_at\": \"2014-04-25T13:43:19.616037Z\",\n      \"cvv_result\": null,\n      \"brand\": \"Visa\",\n      \"number\": \"xxxxxxxxxxxx4113\",\n      \"updated_at\": \"2014-04-25T13:43:19.616039Z\",\n      \"id\": \"CC4nhmntxmImeP1JEjnNopXX\",\n      \"expiration_month\": 12,\n      \"cvv\": null,\n      \"meta\": {},\n      \"href\": \"/cards/CC4nhmntxmImeP1JEjnNopXX\",\n      \"address\": {\n        \"city\": \"Jollywood\",\n        \"line2\": null,\n        \"line1\": null,\n        \"state\": \"CA\",\n        \"postal_code\": \"90210\",\n        \"country_code\": null\n      },\n      \"fingerprint\": \"7ea7f07c8abf97e87b97907497915e6494624869158ccd423eda998279c17ea8\",\n      \"avs_postal_match\": \"no\",\n      \"avs_result\": \"Street address and postal code do not match.\"\n    }\n  ],\n  \"links\": {\n    \"cards.card_holds\": \"/cards/{cards.id}/card_holds\",\n    \"cards.customer\": \"/customers/{cards.customer}\",\n    \"cards.debits\": \"/cards/{cards.id}/debits\"\n  }\n}"
+-
+    request:
+        method: POST
+        url: 'https://api.balancedpayments.com/customers'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: application/json
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '73'
+        body: '{"email":"m+27@poundpay.com","meta":{"test#":"test_d"},"name":"Hobo Joe"}'
+    response:
+        status: 201
+        headers:
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:43:20 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM901e657ecc7f11e3ba9202a1fe52a36c
+            x-balanced-host: bapi-integration-prod-8u30f7-10-3-4-8
+            x-balanced-marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            x-balanced-merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            x-balanced-revision: '1.1'
+            x-balanced-software-build: 1.0.132
+            X-Midlr-Version: '2'
+            x-newrelic-app-data: PxQFWFNXCQYTVVhWAwQDVUYdFhE1AwE2QgNWEVlbQFtcCxYxSBVbDQoZVA4IF0pcXAgEEBhSQhUQXltWEBVNAUIHWRZdGhgSA0kZUR9TAFtQDw9ZU1AOCwNQVlMBCRtGUwIaE0BRU1YAA1xQWV1WC1dQAFYBQx9CAldbEgM+
+            Content-Length: '1583'
+            Connection: keep-alive
+        body: "{\n  \"customers\": [\n    {\n      \"name\": \"Hobo Joe\",\n      \"links\": {\n        \"source\": null,\n        \"destination\": null\n      },\n      \"updated_at\": \"2014-04-25T13:43:20.361382Z\",\n      \"created_at\": \"2014-04-25T13:43:20.251087Z\",\n      \"dob_month\": null,\n      \"id\": \"CU4nZJ4UuX33SrSUeTtw3pZj\",\n      \"phone\": null,\n      \"href\": \"/customers/CU4nZJ4UuX33SrSUeTtw3pZj\",\n      \"merchant_status\": \"no-match\",\n      \"meta\": {\n        \"test#\": \"test_d\"\n      },\n      \"dob_year\": null,\n      \"address\": {\n        \"city\": null,\n        \"line2\": null,\n        \"line1\": null,\n        \"state\": null,\n        \"postal_code\": null,\n        \"country_code\": null\n      },\n      \"business_name\": null,\n      \"ssn_last4\": null,\n      \"email\": \"m+27@poundpay.com\",\n      \"ein\": null\n    }\n  ],\n  \"links\": {\n    \"customers.source\": \"/resources/{customers.source}\",\n    \"customers.card_holds\": \"/customers/{customers.id}/card_holds\",\n    \"customers.bank_accounts\": \"/customers/{customers.id}/bank_accounts\",\n    \"customers.debits\": \"/customers/{customers.id}/debits\",\n    \"customers.destination\": \"/resources/{customers.destination}\",\n    \"customers.external_accounts\": \"/customers/{customers.id}/external_accounts\",\n    \"customers.cards\": \"/customers/{customers.id}/cards\",\n    \"customers.transactions\": \"/customers/{customers.id}/transactions\",\n    \"customers.refunds\": \"/customers/{customers.id}/refunds\",\n    \"customers.reversals\": \"/customers/{customers.id}/reversals\",\n    \"customers.orders\": \"/customers/{customers.id}/orders\",\n    \"customers.credits\": \"/customers/{customers.id}/credits\"\n  }\n}"
+-
+    request:
+        method: GET
+        url: 'https://api.balancedpayments.com/cards/CC4nhmntxmImeP1JEjnNopXX'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: ''
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '0'
+    response:
+        status: 200
+        headers:
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:43:21 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM90b0efaccc7f11e39cf202b12035401b
+            X-Balanced-Host: bapi-integration-prod-8u30f7-10-3-4-8
+            X-Balanced-Marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            X-Balanced-Merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            X-Balanced-Revision: '1.1'
+            X-Balanced-Software-Build: 1.0.132
+            Content-Length: '1120'
+            Connection: keep-alive
+        body: "{\n  \"cards\": [\n    {\n      \"cvv_match\": null,\n      \"links\": {\n        \"customer\": null\n      },\n      \"name\": \"khalkhalash\",\n      \"expiration_year\": 2016,\n      \"avs_street_match\": \"yes\",\n      \"is_verified\": true,\n      \"created_at\": \"2014-04-25T13:43:19.616037Z\",\n      \"cvv_result\": null,\n      \"brand\": \"Visa\",\n      \"number\": \"xxxxxxxxxxxx4113\",\n      \"updated_at\": \"2014-04-25T13:43:19.616039Z\",\n      \"id\": \"CC4nhmntxmImeP1JEjnNopXX\",\n      \"expiration_month\": 12,\n      \"cvv\": null,\n      \"meta\": {},\n      \"href\": \"/cards/CC4nhmntxmImeP1JEjnNopXX\",\n      \"address\": {\n        \"city\": \"Jollywood\",\n        \"line2\": null,\n        \"line1\": null,\n        \"state\": \"CA\",\n        \"postal_code\": \"90210\",\n        \"country_code\": null\n      },\n      \"fingerprint\": \"7ea7f07c8abf97e87b97907497915e6494624869158ccd423eda998279c17ea8\",\n      \"avs_postal_match\": \"no\",\n      \"avs_result\": \"Street address and postal code do not match.\"\n    }\n  ],\n  \"links\": {\n    \"cards.card_holds\": \"/cards/{cards.id}/card_holds\",\n    \"cards.customer\": \"/customers/{cards.customer}\",\n    \"cards.debits\": \"/cards/{cards.id}/debits\"\n  }\n}"
+-
+    request:
+        method: PUT
+        url: 'https://api.balancedpayments.com/cards/CC4nhmntxmImeP1JEjnNopXX'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: application/json
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '709'
+        body: '{"cvv_match":null,"links":{"customer":"\/customers\/CU4nZJ4UuX33SrSUeTtw3pZj"},"name":"khalkhalash","expiration_year":2016,"avs_street_match":"yes","is_verified":true,"created_at":"2014-04-25T13:43:19.616037Z","cvv_result":null,"brand":"Visa","number":"xxxxxxxxxxxx4113","updated_at":"2014-04-25T13:43:19.616039Z","id":"CC4nhmntxmImeP1JEjnNopXX","expiration_month":12,"cvv":null,"meta":{},"href":"\/cards\/CC4nhmntxmImeP1JEjnNopXX","address":{"city":"Jollywood","line2":null,"line1":null,"state":"CA","postal_code":"90210","country_code":null},"fingerprint":"7ea7f07c8abf97e87b97907497915e6494624869158ccd423eda998279c17ea8","avs_postal_match":"no","avs_result":"Street address and postal code do not match."}'
+    response:
+        status: 200
+        headers:
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:43:22 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM912b928ecc7f11e3be3f02b12035401b
+            X-Balanced-Host: bapi-integration-prod-8u30f7-10-3-4-8
+            X-Balanced-Marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            X-Balanced-Merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            X-Balanced-Revision: '1.1'
+            X-Balanced-Software-Build: 1.0.132
+            Content-Length: '1142'
+            Connection: keep-alive
+        body: "{\n  \"cards\": [\n    {\n      \"cvv_match\": null,\n      \"links\": {\n        \"customer\": \"CU4nZJ4UuX33SrSUeTtw3pZj\"\n      },\n      \"name\": \"khalkhalash\",\n      \"expiration_year\": 2016,\n      \"avs_street_match\": \"yes\",\n      \"is_verified\": true,\n      \"created_at\": \"2014-04-25T13:43:19.616037Z\",\n      \"cvv_result\": null,\n      \"brand\": \"Visa\",\n      \"number\": \"xxxxxxxxxxxx4113\",\n      \"updated_at\": \"2014-04-25T13:43:22.009927Z\",\n      \"id\": \"CC4nhmntxmImeP1JEjnNopXX\",\n      \"expiration_month\": 12,\n      \"cvv\": null,\n      \"meta\": {},\n      \"href\": \"/cards/CC4nhmntxmImeP1JEjnNopXX\",\n      \"address\": {\n        \"city\": \"Jollywood\",\n        \"line2\": null,\n        \"line1\": null,\n        \"state\": \"CA\",\n        \"postal_code\": \"90210\",\n        \"country_code\": null\n      },\n      \"fingerprint\": \"7ea7f07c8abf97e87b97907497915e6494624869158ccd423eda998279c17ea8\",\n      \"avs_postal_match\": \"no\",\n      \"avs_result\": \"Street address and postal code do not match.\"\n    }\n  ],\n  \"links\": {\n    \"cards.card_holds\": \"/cards/{cards.id}/card_holds\",\n    \"cards.customer\": \"/customers/{cards.customer}\",\n    \"cards.debits\": \"/cards/{cards.id}/debits\"\n  }\n}"
+-
+    request:
+        method: GET
+        url: 'https://api.balancedpayments.com/customers/CU4nZJ4UuX33SrSUeTtw3pZj/cards?limit=1&offset=0'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: ''
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '0'
+    response:
+        status: 200
+        headers:
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:43:23 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM91eaecd8cc7f11e39cf202b12035401b
+            X-Balanced-Host: bapi-integration-prod-8u30f7-10-3-4-8
+            X-Balanced-Marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            X-Balanced-Merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            X-Balanced-Revision: '1.1'
+            X-Balanced-Software-Build: 1.0.132
+            Content-Length: '1470'
+            Connection: keep-alive
+        body: "{\n  \"cards\": [\n    {\n      \"cvv_match\": null,\n      \"links\": {\n        \"customer\": \"CU4nZJ4UuX33SrSUeTtw3pZj\"\n      },\n      \"name\": \"khalkhalash\",\n      \"expiration_year\": 2016,\n      \"avs_street_match\": \"yes\",\n      \"is_verified\": true,\n      \"created_at\": \"2014-04-25T13:43:19.616037Z\",\n      \"cvv_result\": null,\n      \"brand\": \"Visa\",\n      \"number\": \"xxxxxxxxxxxx4113\",\n      \"updated_at\": \"2014-04-25T13:43:22.009927Z\",\n      \"id\": \"CC4nhmntxmImeP1JEjnNopXX\",\n      \"expiration_month\": 12,\n      \"cvv\": null,\n      \"meta\": {},\n      \"href\": \"/cards/CC4nhmntxmImeP1JEjnNopXX\",\n      \"address\": {\n        \"city\": \"Jollywood\",\n        \"line2\": null,\n        \"line1\": null,\n        \"state\": \"CA\",\n        \"postal_code\": \"90210\",\n        \"country_code\": null\n      },\n      \"fingerprint\": \"7ea7f07c8abf97e87b97907497915e6494624869158ccd423eda998279c17ea8\",\n      \"avs_postal_match\": \"no\",\n      \"avs_result\": \"Street address and postal code do not match.\"\n    }\n  ],\n  \"meta\": {\n    \"last\": \"/customers/CU4nZJ4UuX33SrSUeTtw3pZj/cards?limit=1&offset=0\",\n    \"next\": null,\n    \"href\": \"/customers/CU4nZJ4UuX33SrSUeTtw3pZj/cards?limit=1&offset=0\",\n    \"limit\": 1,\n    \"offset\": 0,\n    \"previous\": null,\n    \"total\": 1,\n    \"first\": \"/customers/CU4nZJ4UuX33SrSUeTtw3pZj/cards?limit=1&offset=0\"\n  },\n  \"links\": {\n    \"cards.debits\": \"/cards/{cards.id}/debits\",\n    \"cards.customer\": \"/customers/{cards.customer}\",\n    \"cards.card_holds\": \"/cards/{cards.id}/card_holds\"\n  }\n}"
+-
+    request:
+        method: POST
+        url: 'https://api.balancedpayments.com/cards/CC4nhmntxmImeP1JEjnNopXX/debits'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: application/json
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '89'
+        body: '{"amount":101,"appears_on_statement_as":null,"description":null,"meta":null,"order":null}'
+    response:
+        status: 201
+        headers:
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:43:25 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM928c7e40cc7f11e3b0f902b12035401b
+            X-Balanced-Host: bapi-integration-prod-8u30f7-10-3-4-8
+            X-Balanced-Marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            X-Balanced-Merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            X-Balanced-Revision: '1.1'
+            X-Balanced-Software-Build: 1.0.132
+            Content-Length: '998'
+            Connection: keep-alive
+        body: "{\n  \"debits\": [\n    {\n      \"status\": \"succeeded\",\n      \"description\": null,\n      \"links\": {\n        \"customer\": \"CU4nZJ4UuX33SrSUeTtw3pZj\",\n        \"source\": \"CC4nhmntxmImeP1JEjnNopXX\",\n        \"order\": null,\n        \"dispute\": null\n      },\n      \"updated_at\": \"2014-04-25T13:43:25.019303Z\",\n      \"created_at\": \"2014-04-25T13:43:24.339412Z\",\n      \"transaction_number\": \"W410-363-0035\",\n      \"failure_reason\": null,\n      \"currency\": \"USD\",\n      \"amount\": 101,\n      \"failure_reason_code\": null,\n      \"meta\": {},\n      \"href\": \"/debits/WD4sAAKY50AuYdNeUHmZmmjP\",\n      \"appears_on_statement_as\": \"BAL*example.com\",\n      \"id\": \"WD4sAAKY50AuYdNeUHmZmmjP\"\n    }\n  ],\n  \"links\": {\n    \"debits.customer\": \"/customers/{debits.customer}\",\n    \"debits.dispute\": \"/disputes/{debits.dispute}\",\n    \"debits.source\": \"/resources/{debits.source}\",\n    \"debits.order\": \"/orders/{debits.order}\",\n    \"debits.refunds\": \"/debits/{debits.id}/refunds\",\n    \"debits.events\": \"/debits/{debits.id}/events\"\n  }\n}"
+-
+    request:
+        method: POST
+        url: 'https://api.balancedpayments.com/bank_accounts'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: application/json
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '106'
+        body: '{"name":"Homer Jay","account_number":"112233a","routing_number":"121042882","type":"checking","meta":null}'
+    response:
+        status: 201
+        headers:
+            access-control-allow-headers: Content-Type
+            access-control-allow-methods: 'POST, OPTIONS'
+            access-control-allow-origin: '*'
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:43:26 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM93c2ff00cc7f11e3ba9202a1fe52a36c
+            x-balanced-host: bapi-integration-prod-8u30f7-10-3-5-201
+            x-balanced-marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            x-balanced-merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            x-balanced-revision: '1.1'
+            x-balanced-software-build: 1.0.132
+            X-Midlr-Version: '2'
+            x-newrelic-app-data: PxQFWFNXCQYTVVhWAwQDVUYdFhE1AwE2QgNWEVlbQFtcCxYxSBVbDQoZVA4IF0pcXAgEEBhTVggPbldQAQkWDEQRFgFKXVVGVkcVQQFNE1JKBQJXUVQPAglVUFQFAAdfUB0WAVBeT0ISUF0HClsABQdWWlNQUwpQBRQbQQACVEBVOQ==
+            Content-Length: '1281'
+            Connection: keep-alive
+        body: "{\n  \"bank_accounts\": [\n    {\n      \"routing_number\": \"121042882\",\n      \"bank_name\": \"WELLS FARGO BANK NA\",\n      \"account_type\": \"checking\",\n      \"name\": \"Homer Jay\",\n      \"links\": {\n        \"customer\": null,\n        \"bank_account_verification\": null\n      },\n      \"can_credit\": true,\n      \"created_at\": \"2014-04-25T13:43:26.632458Z\",\n      \"fingerprint\": \"dac6514d9dd3a1cd7ac925d5749e0308c2c65fa27c506aefb0c9b21611ff9969\",\n      \"updated_at\": \"2014-04-25T13:43:26.632460Z\",\n      \"href\": \"/bank_accounts/BA4vaIpg4xcrYbLRJzKMdV0t\",\n      \"meta\": {},\n      \"account_number\": \"xxx233a\",\n      \"address\": {\n        \"city\": null,\n        \"line2\": null,\n        \"line1\": null,\n        \"state\": null,\n        \"postal_code\": null,\n        \"country_code\": null\n      },\n      \"can_debit\": false,\n      \"id\": \"BA4vaIpg4xcrYbLRJzKMdV0t\"\n    }\n  ],\n  \"links\": {\n    \"bank_accounts.credits\": \"/bank_accounts/{bank_accounts.id}/credits\",\n    \"bank_accounts.bank_account_verifications\": \"/bank_accounts/{bank_accounts.id}/verifications\",\n    \"bank_accounts.customer\": \"/customers/{bank_accounts.customer}\",\n    \"bank_accounts.debits\": \"/bank_accounts/{bank_accounts.id}/debits\",\n    \"bank_accounts.bank_account_verification\": \"/verifications/{bank_accounts.bank_account_verification}\"\n  }\n}"
+-
+    request:
+        method: POST
+        url: 'https://api.balancedpayments.com/bank_accounts/BA4vaIpg4xcrYbLRJzKMdV0t/credits'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: application/json
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '100'
+        body: '{"amount":55,"description":"something sour","meta":null,"appears_on_statement_as":null,"order":null}'
+    response:
+        status: 201
+        headers:
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:43:28 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM94c1ec54cc7f11e3be3f02b12035401b
+            X-Balanced-Host: bapi-integration-prod-8u30f7-10-3-5-201
+            X-Balanced-Marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            X-Balanced-Merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            X-Balanced-Revision: '1.1'
+            X-Balanced-Software-Build: 1.0.132
+            Content-Length: '940'
+            Connection: keep-alive
+        body: "{\n  \"credits\": [\n    {\n      \"status\": \"succeeded\",\n      \"description\": \"something sour\",\n      \"links\": {\n        \"customer\": null,\n        \"destination\": \"BA4vaIpg4xcrYbLRJzKMdV0t\",\n        \"order\": null\n      },\n      \"updated_at\": \"2014-04-25T13:43:28.262683Z\",\n      \"created_at\": \"2014-04-25T13:43:28.018207Z\",\n      \"transaction_number\": \"CR481-847-3753\",\n      \"failure_reason\": null,\n      \"currency\": \"USD\",\n      \"amount\": 55,\n      \"failure_reason_code\": null,\n      \"meta\": {},\n      \"href\": \"/credits/CR4wJgDSa4SHOgw23NopqF3X\",\n      \"appears_on_statement_as\": \"example.com\",\n      \"id\": \"CR4wJgDSa4SHOgw23NopqF3X\"\n    }\n  ],\n  \"links\": {\n    \"credits.order\": \"/orders/{credits.order}\",\n    \"credits.customer\": \"/customers/{credits.customer}\",\n    \"credits.destination\": \"/resources/{credits.destination}\",\n    \"credits.reversals\": \"/credits/{credits.id}/reversals\",\n    \"credits.events\": \"/credits/{credits.id}/events\"\n  }\n}"
+-
+    request:
+        method: GET
+        url: 'https://api.balancedpayments.com/resources/BA4vaIpg4xcrYbLRJzKMdV0t'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: ''
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '0'
+    response:
+        status: 200
+        headers:
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:43:29 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM95cdc046cc7f11e39ae806429171ffad
+            X-Balanced-Host: bapi-integration-prod-8u30f7-10-3-4-8
+            X-Balanced-Marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            X-Balanced-Merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            X-Balanced-Revision: '1.1'
+            X-Balanced-Software-Build: 1.0.132
+            Content-Length: '1281'
+            Connection: keep-alive
+        body: "{\n  \"bank_accounts\": [\n    {\n      \"routing_number\": \"121042882\",\n      \"bank_name\": \"WELLS FARGO BANK NA\",\n      \"account_type\": \"checking\",\n      \"name\": \"Homer Jay\",\n      \"links\": {\n        \"customer\": null,\n        \"bank_account_verification\": null\n      },\n      \"can_credit\": true,\n      \"created_at\": \"2014-04-25T13:43:26.632458Z\",\n      \"fingerprint\": \"dac6514d9dd3a1cd7ac925d5749e0308c2c65fa27c506aefb0c9b21611ff9969\",\n      \"updated_at\": \"2014-04-25T13:43:26.632460Z\",\n      \"href\": \"/bank_accounts/BA4vaIpg4xcrYbLRJzKMdV0t\",\n      \"meta\": {},\n      \"account_number\": \"xxx233a\",\n      \"address\": {\n        \"city\": null,\n        \"line2\": null,\n        \"line1\": null,\n        \"state\": null,\n        \"postal_code\": null,\n        \"country_code\": null\n      },\n      \"can_debit\": false,\n      \"id\": \"BA4vaIpg4xcrYbLRJzKMdV0t\"\n    }\n  ],\n  \"links\": {\n    \"bank_accounts.credits\": \"/bank_accounts/{bank_accounts.id}/credits\",\n    \"bank_accounts.bank_account_verifications\": \"/bank_accounts/{bank_accounts.id}/verifications\",\n    \"bank_accounts.customer\": \"/customers/{bank_accounts.customer}\",\n    \"bank_accounts.debits\": \"/bank_accounts/{bank_accounts.id}/debits\",\n    \"bank_accounts.bank_account_verification\": \"/verifications/{bank_accounts.bank_account_verification}\"\n  }\n}"
+-
+    request:
+        method: GET
+        url: 'https://api.balancedpayments.com/bank_accounts/BA4vaIpg4xcrYbLRJzKMdV0t'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: ''
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '0'
+    response:
+        status: 200
+        headers:
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:43:31 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM96b9667ccc7f11e39cf202b12035401b
+            X-Balanced-Host: bapi-integration-prod-8u30f7-10-3-5-201
+            X-Balanced-Marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            X-Balanced-Merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            X-Balanced-Revision: '1.1'
+            X-Balanced-Software-Build: 1.0.132
+            Content-Length: '1281'
+            Connection: keep-alive
+        body: "{\n  \"bank_accounts\": [\n    {\n      \"routing_number\": \"121042882\",\n      \"bank_name\": \"WELLS FARGO BANK NA\",\n      \"account_type\": \"checking\",\n      \"name\": \"Homer Jay\",\n      \"links\": {\n        \"customer\": null,\n        \"bank_account_verification\": null\n      },\n      \"can_credit\": true,\n      \"created_at\": \"2014-04-25T13:43:26.632458Z\",\n      \"fingerprint\": \"dac6514d9dd3a1cd7ac925d5749e0308c2c65fa27c506aefb0c9b21611ff9969\",\n      \"updated_at\": \"2014-04-25T13:43:26.632460Z\",\n      \"href\": \"/bank_accounts/BA4vaIpg4xcrYbLRJzKMdV0t\",\n      \"meta\": {},\n      \"account_number\": \"xxx233a\",\n      \"address\": {\n        \"city\": null,\n        \"line2\": null,\n        \"line1\": null,\n        \"state\": null,\n        \"postal_code\": null,\n        \"country_code\": null\n      },\n      \"can_debit\": false,\n      \"id\": \"BA4vaIpg4xcrYbLRJzKMdV0t\"\n    }\n  ],\n  \"links\": {\n    \"bank_accounts.credits\": \"/bank_accounts/{bank_accounts.id}/credits\",\n    \"bank_accounts.bank_account_verifications\": \"/bank_accounts/{bank_accounts.id}/verifications\",\n    \"bank_accounts.customer\": \"/customers/{bank_accounts.customer}\",\n    \"bank_accounts.debits\": \"/bank_accounts/{bank_accounts.id}/debits\",\n    \"bank_accounts.bank_account_verification\": \"/verifications/{bank_accounts.bank_account_verification}\"\n  }\n}"
+-
+    request:
+        method: GET
+        url: 'https://api.balancedpayments.com/bank_accounts/BA4vaIpg4xcrYbLRJzKMdV0t/credits?offset=0'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: ''
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '0'
+    response:
+        status: 200
+        headers:
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:43:32 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM97a7be4ecc7f11e3be3f02b12035401b
+            X-Balanced-Host: bapi-integration-prod-8u30f7-10-3-5-201
+            X-Balanced-Marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            X-Balanced-Merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            X-Balanced-Revision: '1.1'
+            X-Balanced-Software-Build: 1.0.132
+            Content-Length: '1290'
+            Connection: keep-alive
+        body: "{\n  \"credits\": [\n    {\n      \"status\": \"succeeded\",\n      \"description\": \"something sour\",\n      \"links\": {\n        \"customer\": null,\n        \"destination\": \"BA4vaIpg4xcrYbLRJzKMdV0t\",\n        \"order\": null\n      },\n      \"updated_at\": \"2014-04-25T13:43:28.262683Z\",\n      \"created_at\": \"2014-04-25T13:43:28.018207Z\",\n      \"transaction_number\": \"CR481-847-3753\",\n      \"failure_reason\": null,\n      \"currency\": \"USD\",\n      \"amount\": 55,\n      \"failure_reason_code\": null,\n      \"meta\": {},\n      \"href\": \"/credits/CR4wJgDSa4SHOgw23NopqF3X\",\n      \"appears_on_statement_as\": \"example.com\",\n      \"id\": \"CR4wJgDSa4SHOgw23NopqF3X\"\n    }\n  ],\n  \"meta\": {\n    \"last\": \"/bank_accounts/BA4vaIpg4xcrYbLRJzKMdV0t/credits?limit=10&offset=0\",\n    \"next\": null,\n    \"href\": \"/bank_accounts/BA4vaIpg4xcrYbLRJzKMdV0t/credits?limit=10&offset=0\",\n    \"limit\": 10,\n    \"offset\": 0,\n    \"previous\": null,\n    \"total\": 1,\n    \"first\": \"/bank_accounts/BA4vaIpg4xcrYbLRJzKMdV0t/credits?limit=10&offset=0\"\n  },\n  \"links\": {\n    \"credits.order\": \"/orders/{credits.order}\",\n    \"credits.reversals\": \"/credits/{credits.id}/reversals\",\n    \"credits.customer\": \"/customers/{credits.customer}\",\n    \"credits.events\": \"/credits/{credits.id}/events\",\n    \"credits.destination\": \"/resources/{credits.destination}\"\n  }\n}"
