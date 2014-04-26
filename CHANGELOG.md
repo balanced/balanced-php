@@ -1,3 +1,7 @@
+## 1.1.1
+
+* Corrects malformed error messages when passing invalid URIs
+
 ## 1.1.0
 
 * Support for new Dispute resource
