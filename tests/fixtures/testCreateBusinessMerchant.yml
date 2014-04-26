@@ -1,0 +1,109 @@
+
+-
+    request:
+        method: POST
+        url: 'https://api.balancedpayments.com/bank_accounts'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: application/json
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '106'
+        body: '{"name":"Homer Jay","account_number":"112233a","routing_number":"121042882","type":"checking","meta":null}'
+    response:
+        status: 201
+        headers:
+            access-control-allow-headers: Content-Type
+            access-control-allow-methods: 'POST, OPTIONS'
+            access-control-allow-origin: '*'
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:40:58 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM3b425e70cc7f11e3a82802a1fe52a36c
+            x-balanced-host: bapi-integration-prod-8u30f7-10-3-4-8
+            x-balanced-marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            x-balanced-merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            x-balanced-revision: '1.1'
+            x-balanced-software-build: 1.0.132
+            X-Midlr-Version: '2'
+            x-newrelic-app-data: PxQFWFNXCQYTVVhWAwQDVUYdFhE1AwE2QgNWEVlbQFtcCxYxSBVbDQoZVA4IF0pcXAgEEBhTVggPbldQAQkWDEQRFgFKXVVGVkcVQQFNE1JKAQ9SXlIMCgBTUVUECABSUh0WAVBeT0ISAQ5UXA4AAgUHXAJTBQdRVhQbQQACVEBVOQ==
+            Content-Length: '1281'
+            Connection: keep-alive
+        body: "{\n  \"bank_accounts\": [\n    {\n      \"routing_number\": \"121042882\",\n      \"bank_name\": \"WELLS FARGO BANK NA\",\n      \"account_type\": \"checking\",\n      \"name\": \"Homer Jay\",\n      \"links\": {\n        \"customer\": null,\n        \"bank_account_verification\": null\n      },\n      \"can_credit\": true,\n      \"created_at\": \"2014-04-25T13:40:58.565562Z\",\n      \"fingerprint\": \"dac6514d9dd3a1cd7ac925d5749e0308c2c65fa27c506aefb0c9b21611ff9969\",\n      \"updated_at\": \"2014-04-25T13:40:58.565564Z\",\n      \"href\": \"/bank_accounts/BA1ODtuDTWQY6DOfol4HTTzT\",\n      \"meta\": {},\n      \"account_number\": \"xxx233a\",\n      \"address\": {\n        \"city\": null,\n        \"line2\": null,\n        \"line1\": null,\n        \"state\": null,\n        \"postal_code\": null,\n        \"country_code\": null\n      },\n      \"can_debit\": false,\n      \"id\": \"BA1ODtuDTWQY6DOfol4HTTzT\"\n    }\n  ],\n  \"links\": {\n    \"bank_accounts.credits\": \"/bank_accounts/{bank_accounts.id}/credits\",\n    \"bank_accounts.bank_account_verifications\": \"/bank_accounts/{bank_accounts.id}/verifications\",\n    \"bank_accounts.customer\": \"/customers/{bank_accounts.customer}\",\n    \"bank_accounts.debits\": \"/bank_accounts/{bank_accounts.id}/debits\",\n    \"bank_accounts.bank_account_verification\": \"/verifications/{bank_accounts.bank_account_verification}\"\n  }\n}"
+-
+    request:
+        method: POST
+        url: 'https://api.balancedpayments.com/customers'
+        headers:
+            Host: api.balancedpayments.com
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '0'
+    response:
+        status: 201
+        headers:
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:40:59 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM3c1e4e4ecc7f11e3937302a1fe53e539
+            x-balanced-host: bapi-integration-prod-8u30f7-10-3-4-8
+            x-balanced-marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            x-balanced-merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            x-balanced-revision: '1.1'
+            x-balanced-software-build: 1.0.132
+            X-Midlr-Version: '2'
+            x-newrelic-app-data: PxQFWFNXCQYTVVhWAwQDVUYdFhE1AwE2QgNWEVlbQFtcCxYxSBVbDQoZVA4IF0pcXAgEEBhSQhUQXltWEBVNAUIHWRZdGhgSA0kZUR9SBlpUBAZYUVcNBQNRWFoBAhtGVB0WEQNWWgFRUQFbDA4CCgNcCVQTTRMEBVpEBDs=
+            Content-Length: '1529'
+            Connection: keep-alive
+        body: "{\n  \"customers\": [\n    {\n      \"name\": null,\n      \"links\": {\n        \"source\": null,\n        \"destination\": null\n      },\n      \"updated_at\": \"2014-04-25T13:40:59.544666Z\",\n      \"created_at\": \"2014-04-25T13:40:59.315874Z\",\n      \"dob_month\": null,\n      \"id\": \"CU1PtUlxbAa6LyD7KUC4TYiN\",\n      \"phone\": null,\n      \"href\": \"/customers/CU1PtUlxbAa6LyD7KUC4TYiN\",\n      \"merchant_status\": \"no-match\",\n      \"meta\": {},\n      \"dob_year\": null,\n      \"address\": {\n        \"city\": null,\n        \"line2\": null,\n        \"line1\": null,\n        \"state\": null,\n        \"postal_code\": null,\n        \"country_code\": null\n      },\n      \"business_name\": null,\n      \"ssn_last4\": null,\n      \"email\": null,\n      \"ein\": null\n    }\n  ],\n  \"links\": {\n    \"customers.source\": \"/resources/{customers.source}\",\n    \"customers.card_holds\": \"/customers/{customers.id}/card_holds\",\n    \"customers.bank_accounts\": \"/customers/{customers.id}/bank_accounts\",\n    \"customers.debits\": \"/customers/{customers.id}/debits\",\n    \"customers.destination\": \"/resources/{customers.destination}\",\n    \"customers.external_accounts\": \"/customers/{customers.id}/external_accounts\",\n    \"customers.cards\": \"/customers/{customers.id}/cards\",\n    \"customers.transactions\": \"/customers/{customers.id}/transactions\",\n    \"customers.refunds\": \"/customers/{customers.id}/refunds\",\n    \"customers.reversals\": \"/customers/{customers.id}/reversals\",\n    \"customers.orders\": \"/customers/{customers.id}/orders\",\n    \"customers.credits\": \"/customers/{customers.id}/credits\"\n  }\n}"
+-
+    request:
+        method: GET
+        url: 'https://api.balancedpayments.com/bank_accounts/BA1ODtuDTWQY6DOfol4HTTzT'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: ''
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '0'
+    response:
+        status: 200
+        headers:
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:41:00 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM3cc45942cc7f11e38d4506429171ffad
+            X-Balanced-Host: bapi-integration-prod-8u30f7-10-3-5-201
+            X-Balanced-Marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            X-Balanced-Merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            X-Balanced-Revision: '1.1'
+            X-Balanced-Software-Build: 1.0.132
+            Content-Length: '1281'
+            Connection: keep-alive
+        body: "{\n  \"bank_accounts\": [\n    {\n      \"routing_number\": \"121042882\",\n      \"bank_name\": \"WELLS FARGO BANK NA\",\n      \"account_type\": \"checking\",\n      \"name\": \"Homer Jay\",\n      \"links\": {\n        \"customer\": null,\n        \"bank_account_verification\": null\n      },\n      \"can_credit\": true,\n      \"created_at\": \"2014-04-25T13:40:58.565562Z\",\n      \"fingerprint\": \"dac6514d9dd3a1cd7ac925d5749e0308c2c65fa27c506aefb0c9b21611ff9969\",\n      \"updated_at\": \"2014-04-25T13:40:58.565564Z\",\n      \"href\": \"/bank_accounts/BA1ODtuDTWQY6DOfol4HTTzT\",\n      \"meta\": {},\n      \"account_number\": \"xxx233a\",\n      \"address\": {\n        \"city\": null,\n        \"line2\": null,\n        \"line1\": null,\n        \"state\": null,\n        \"postal_code\": null,\n        \"country_code\": null\n      },\n      \"can_debit\": false,\n      \"id\": \"BA1ODtuDTWQY6DOfol4HTTzT\"\n    }\n  ],\n  \"links\": {\n    \"bank_accounts.credits\": \"/bank_accounts/{bank_accounts.id}/credits\",\n    \"bank_accounts.bank_account_verifications\": \"/bank_accounts/{bank_accounts.id}/verifications\",\n    \"bank_accounts.customer\": \"/customers/{bank_accounts.customer}\",\n    \"bank_accounts.debits\": \"/bank_accounts/{bank_accounts.id}/debits\",\n    \"bank_accounts.bank_account_verification\": \"/verifications/{bank_accounts.bank_account_verification}\"\n  }\n}"
+-
+    request:
+        method: PUT
+        url: 'https://api.balancedpayments.com/bank_accounts/BA1ODtuDTWQY6DOfol4HTTzT'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: application/json
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '628'
+        body: '{"routing_number":"121042882","bank_name":"WELLS FARGO BANK NA","account_type":"checking","name":"Homer Jay","links":{"customer":"\/customers\/CU1PtUlxbAa6LyD7KUC4TYiN","bank_account_verification":null},"can_credit":true,"created_at":"2014-04-25T13:40:58.565562Z","fingerprint":"dac6514d9dd3a1cd7ac925d5749e0308c2c65fa27c506aefb0c9b21611ff9969","updated_at":"2014-04-25T13:40:58.565564Z","href":"\/bank_accounts\/BA1ODtuDTWQY6DOfol4HTTzT","meta":{},"account_number":"xxx233a","address":{"city":null,"line2":null,"line1":null,"state":null,"postal_code":null,"country_code":null},"can_debit":false,"id":"BA1ODtuDTWQY6DOfol4HTTzT"}'
+    response:
+        status: 200
+        headers:
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:41:01 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM3d4632facc7f11e381e606429171ffad
+            X-Balanced-Host: bapi-integration-prod-8u30f7-10-3-4-8
+            X-Balanced-Marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            X-Balanced-Merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            X-Balanced-Revision: '1.1'
+            X-Balanced-Software-Build: 1.0.132
+            Content-Length: '1303'
+            Connection: keep-alive
+        body: "{\n  \"bank_accounts\": [\n    {\n      \"routing_number\": \"121042882\",\n      \"bank_name\": \"WELLS FARGO BANK NA\",\n      \"account_type\": \"checking\",\n      \"name\": \"Homer Jay\",\n      \"links\": {\n        \"customer\": \"CU1PtUlxbAa6LyD7KUC4TYiN\",\n        \"bank_account_verification\": null\n      },\n      \"can_credit\": true,\n      \"created_at\": \"2014-04-25T13:40:58.565562Z\",\n      \"fingerprint\": \"dac6514d9dd3a1cd7ac925d5749e0308c2c65fa27c506aefb0c9b21611ff9969\",\n      \"updated_at\": \"2014-04-25T13:41:01.253351Z\",\n      \"href\": \"/bank_accounts/BA1ODtuDTWQY6DOfol4HTTzT\",\n      \"meta\": {},\n      \"account_number\": \"xxx233a\",\n      \"address\": {\n        \"city\": null,\n        \"line2\": null,\n        \"line1\": null,\n        \"state\": null,\n        \"postal_code\": null,\n        \"country_code\": null\n      },\n      \"can_debit\": false,\n      \"id\": \"BA1ODtuDTWQY6DOfol4HTTzT\"\n    }\n  ],\n  \"links\": {\n    \"bank_accounts.credits\": \"/bank_accounts/{bank_accounts.id}/credits\",\n    \"bank_accounts.bank_account_verifications\": \"/bank_accounts/{bank_accounts.id}/verifications\",\n    \"bank_accounts.customer\": \"/customers/{bank_accounts.customer}\",\n    \"bank_accounts.debits\": \"/bank_accounts/{bank_accounts.id}/debits\",\n    \"bank_accounts.bank_account_verification\": \"/verifications/{bank_accounts.bank_account_verification}\"\n  }\n}"

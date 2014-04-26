@@ -1,0 +1,32 @@
+
+-
+    request:
+        method: POST
+        url: 'https://api.balancedpayments.com/bank_accounts'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: application/json
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '106'
+        body: '{"name":"Homer Jay","account_number":"112233a","routing_number":"121042882","type":"checking","meta":null}'
+    response:
+        status: 201
+        headers:
+            access-control-allow-headers: Content-Type
+            access-control-allow-methods: 'POST, OPTIONS'
+            access-control-allow-origin: '*'
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:42:24 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHM6e89de52cc7f11e3ac1602a1fe53e539
+            x-balanced-host: bapi-integration-prod-8u30f7-10-3-4-8
+            x-balanced-marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            x-balanced-merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            x-balanced-revision: '1.1'
+            x-balanced-software-build: 1.0.132
+            X-Midlr-Version: '2'
+            x-newrelic-app-data: PxQFWFNXCQYTVVhWAwQDVUYdFhE1AwE2QgNWEVlbQFtcCxYxSBVbDQoZVA4IF0pcXAgEEBhTVggPbldQAQkWDEQRFgFKXVVGVkcVQQFNE1JKBARUVlUABAlcUVQCAA9TUQQaE1BUW04QQAkDCV1QVgsDDQMFWQZaXVQVTUYFWV9DATw=
+            Content-Length: '1281'
+            Connection: keep-alive
+        body: "{\n  \"bank_accounts\": [\n    {\n      \"routing_number\": \"121042882\",\n      \"bank_name\": \"WELLS FARGO BANK NA\",\n      \"account_type\": \"checking\",\n      \"name\": \"Homer Jay\",\n      \"links\": {\n        \"customer\": null,\n        \"bank_account_verification\": null\n      },\n      \"can_credit\": true,\n      \"created_at\": \"2014-04-25T13:42:24.048736Z\",\n      \"fingerprint\": \"dac6514d9dd3a1cd7ac925d5749e0308c2c65fa27c506aefb0c9b21611ff9969\",\n      \"updated_at\": \"2014-04-25T13:42:24.048738Z\",\n      \"href\": \"/bank_accounts/BA3mMsWWKBBjCwNRFt5HOQKh\",\n      \"meta\": {},\n      \"account_number\": \"xxx233a\",\n      \"address\": {\n        \"city\": null,\n        \"line2\": null,\n        \"line1\": null,\n        \"state\": null,\n        \"postal_code\": null,\n        \"country_code\": null\n      },\n      \"can_debit\": false,\n      \"id\": \"BA3mMsWWKBBjCwNRFt5HOQKh\"\n    }\n  ],\n  \"links\": {\n    \"bank_accounts.credits\": \"/bank_accounts/{bank_accounts.id}/credits\",\n    \"bank_accounts.bank_account_verifications\": \"/bank_accounts/{bank_accounts.id}/verifications\",\n    \"bank_accounts.customer\": \"/customers/{bank_accounts.customer}\",\n    \"bank_accounts.debits\": \"/bank_accounts/{bank_accounts.id}/debits\",\n    \"bank_accounts.bank_account_verification\": \"/verifications/{bank_accounts.bank_account_verification}\"\n  }\n}"

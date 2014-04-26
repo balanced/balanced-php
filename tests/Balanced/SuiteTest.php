@@ -2,6 +2,10 @@
 
 namespace Balanced\Test;
 
+require __DIR__ . '/../../vendor/autoload.php';
+
+\VCR\VCR::turnOn();
+\VCR\VCR::insertCassette('setup.yml');
 \Balanced\Bootstrap::init();
 \RESTful\Bootstrap::init();
 \Httpful\Bootstrap::init();
@@ -243,6 +247,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @vcr testMarketplaceMine.yml
+     */
     function testMarketplaceMine()
     {
         $marketplace = Marketplace::mine();
@@ -251,6 +258,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Balanced\Errors\Error
+     * @vcr testAnotherMarketplace.yml
      */
     function testAnotherMarketplace()
     {
@@ -258,22 +266,34 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $marketplace->save();
     }
 
+    /**
+     * @vcr testIndexMarketplace.yml
+     */
     function testIndexMarketplace()
     {
         $marketplaces = Marketplace::query()->all();
         $this->assertEquals(count($marketplaces), 1);
     }
 
+    /**
+     * @vcr testCreateBuyer.yml
+     */
     function testCreateBuyer()
     {
         self::_createBuyer();
     }
 
+    /**
+     * @vcr testCreateCustomerWithoutEmailAddress.yml
+     */
     function testCreateCustomerWithoutEmailAddress()
     {
         self::$marketplace->createCustomer();
     }
 
+    /**
+     * @vcr testGetBuyer.yml
+     */
     function testGetBuyer()
     {
         $buyer1 = self::_createBuyer();
@@ -281,6 +301,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($buyer1->id, $buyer2->id);
     }
 
+    /**
+     * @vcr testDebitAndRefundBuyer.yml
+     */
     function testDebitAndRefundBuyer()
     {
         $buyer = self::_createBuyer();
@@ -295,6 +318,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Balanced\Errors\Error
+     * @vcr testDebitZero.yml
      */
     function testDebitZero()
     {
@@ -306,6 +330,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @vcr testMultipleRefunds.yml
+     */
     function testMultipleRefunds()
     {
         $buyer = self::_createBuyer();
@@ -351,6 +378,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected_refund_ids, $refund_ids);
     }
 
+    /**
+     * @vcr testDebitSource.yml
+     */
     function testDebitSource()
     {
         $buyer = self::_createBuyer();
@@ -378,6 +408,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($debit2->source->id, $card2->id);
     }
 
+    /**
+     * @vcr testOrder.yml
+     */
     function testOrder()
     {
         $buyer = self::_createBuyer();
@@ -389,6 +422,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($credit->order->id, $order->id);
     }
 
+    /**
+     * @vcr testOrderUpdate.yml
+     */
     function testOrderUpdate()
     {
         $merchant = self::_createPersonMerchant();
@@ -404,6 +440,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($order2->description, 'hello world');
     }
 
+    /**
+     * @vcr testCreateAndVoidHold.yml
+     */
     function testCreateAndVoidHold()
     {
         $buyer = self::_createBuyer();
@@ -413,6 +452,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($hold->voided_at);
     }
 
+    /**
+     * @vcr testCreateAndCaptureHold.yml
+     */
     function testCreateAndCaptureHold()
     {
         $buyer = self::_createBuyer();
@@ -422,11 +464,17 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($hold->debit->id, $debit->id);
     }
 
+    /**
+     * @vcr testCreatePersonMerchant.yml
+     */
     function testCreatePersonMerchant()
     {
         $merchant = self::_createPersonMerchant();
     }
 
+    /**
+     * @vcr testCreateBusinessMerchant.yml
+     */
     function testCreateBusinessMerchant()
     {
         $merchant = self::_createBusinessMerchant();
@@ -434,6 +482,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Balanced\Errors\Error
+     * @vcr testCreditRequiresNonZeroAmount.yml
      */
     function testCreditRequiresNonZeroAmount()
     {
@@ -449,6 +498,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Balanced\Errors\Error
+     * @vcr testCreditMoreThanEscrowBalanceFails.yml
      */
     function testCreditMoreThanEscrowBalanceFails()
     {
@@ -462,6 +512,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             self::$marketplace->in_escrow + 10000000000);
     }
 
+    /**
+     * @vcr testCreditDestiation.yml
+     */
     function testCreditDestiation()
     {
         $buyer = self::_createBuyer();
@@ -487,6 +540,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($credit->destination->id, $bank_account1->id);
     }
 
+    /**
+     * @vcr testAssociateCard.yml
+     */
     function testAssociateCard()
     {
         $merchant = self::_createPersonMerchant();
@@ -494,6 +550,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $card->associateToCustomer($merchant);
     }
 
+    /**
+     * @vcr testAssociateBankAccount.yml
+     */
     function testAssociateBankAccount()
     {
         $merchant = self::_createPersonMerchant();
@@ -501,6 +560,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $bank_account->associateToCustomer($merchant);
     }
 
+    /**
+     * @vcr testCardMasking.yml
+     */
     function testCardMasking()
     {
         $card = self::$marketplace->createCard(
@@ -516,6 +578,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($card->number, 'xxxxxxxxxxxx4113');
     }
 
+    /**
+     * @vcr testBankAccountMasking.yml
+     */
     function testBankAccountMasking()
     {
         $bank_account = self::$marketplace->createBankAccount(
@@ -527,6 +592,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($bank_account->account_number, 'xxx233a');
     }
 
+    /**
+     * @vcr testFilteringAndSorting.yml
+     */
     function testFilteringAndSorting()
     {
         $buyer = self::_createBuyer();
@@ -570,6 +638,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($debit_ids, array($debit2->id, $debit3->id, $debit1->id));
     }
 
+    /**
+     * @vcr testMerchantIdentityFailure.yml
+     */
     function testMerchantIdentityFailure()
     {
         // NOTE: postal_code == '99999' && region == 'EX' triggers identity failure
@@ -595,6 +666,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEquals($merchant->merchant_status, 'underwritten');
     }
 
+    /**
+     * @vcr testInternationalCard.yml
+     */
     function testInternationalCard()
     {
         $payload = array(
@@ -615,6 +689,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RESTful\Exceptions\NoResultFound
+     * @vcr testCustomerWithEmailAddressNotFound.yml
      */
     function testCustomerWithEmailAddressNotFound()
     {
@@ -623,6 +698,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             ->one();
     }
 
+    /**
+     * @vcr testDebitACard.yml
+     */
     function testDebitACard()
     {
         $buyer = self::_createBuyer();
@@ -635,6 +713,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($debit->source->href, $card->href);
     }
 
+    /**
+     * @vcr testDebitAnUnassociatedCard.yml
+     */
     function testDebitAnUnassociatedCard()
     {
         $card = self::_createCard();
@@ -642,6 +723,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($debit->source->id, $card->id);
     }
 
+    /**
+     * @vcr testCreditABankAccount.yml
+     */
     function testCreditABankAccount()
     {
         $buyer = self::_createBuyer();
@@ -653,6 +737,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($credit->destination->href, $bank_account->href);
     }
 
+    /**
+     * @vcr testQuery.yml
+     */
     function testQuery()
     {
         $buyer = self::_createBuyer();
@@ -680,6 +767,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($debit_ids, $expected_debit_ids);
     }
 
+    /**
+     * @vcr testBuyerPromoteToMerchant.yml
+     */
     function testBuyerPromoteToMerchant()
     {
         $buyer = self::_createBuyer();
@@ -697,6 +787,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($buyer->merchant_status, "underwritten");
     }
 
+    /**
+     * @vcr testCreditCustomerlessBankAccount.yml
+     */
     function testCreditCustomerlessBankAccount()
     {
         $buyer = self::_createBuyer();
@@ -709,6 +802,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($bank_account->credits->total(), 1);
     }
 
+    /**
+     * @vcr testCreditUnstoredBankAccount.yml
+     */
     function testCreditUnstoredBankAccount()
     {
         $buyer = self::_createBuyer();
@@ -729,6 +825,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($credit->destination->account_type, 'checking');
     }
 
+    /**
+     * @vcr testDeleteBankAccount.yml
+     */
     function testDeleteBankAccount()
     {
         $bank_account = self::_createBankAccount();
@@ -736,6 +835,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         return $bank_account->href;
     }
 
+    /**
+     * @vcr testGetDeletedBankAccount.yml
+     */
     function testGetDeletedBankAccount()
     {
         // getting directly at the uri should still return the item, but it shouldn't be in a page
@@ -743,6 +845,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         BankAccount::get($ba_uri);
     }
 
+    /**
+     * @vcr testGetBankAccounById.yml
+     */
     function testGetBankAccounById()
     {
         $bank_account = self::_createBankAccount();
@@ -751,6 +856,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
 
+    /**
+     * @vcr testGetDispute.yml
+     */
     function testGetDispute()
     {
         $card = self::_createCardwithDispute();
@@ -792,6 +900,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Balanced\Errors\InsufficientFunds
+     * @vcr testInsufficientFunds.yml
      */
     function testInsufficientFunds()
     {
@@ -808,6 +917,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             'something sour');
     }
 
+    /**
+     * @vcr testCreateCallback.yml
+     */
     function testCreateCallback()
     {
         $callback = self::$marketplace->createCallback(
@@ -818,6 +930,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Balanced\Errors\BankAccountVerificationFailure
+     * @vcr testBankAccountVerificationFailure.yml
      */
     function testBankAccountVerificationFailure()
     {
@@ -830,6 +943,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Balanced\Errors\BankAccountVerificationFailure
+     * @vcr testBankAccountVerificationDuplicate.yml
      */
     function testBankAccountVerificationDuplicate()
     {
@@ -840,6 +954,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $bank_account->verify();
     }
 
+    /**
+     * @vcr testBankAccountVerificationSuccess.yml
+     */
     function testBankAccountVerificationSuccess()
     {
         $bank_account = self::_createBankAccount();
@@ -859,6 +976,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(strpos($debit->source->href, 'bank_account') > 0);
     }
 
+    /**
+     * @vcr testEvents.yml
+     */
     function testEvents()
     {
         $prev_num_events = Marketplace::mine()->events->total();
@@ -875,16 +995,25 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($cur_num_events > $prev_num_events);
     }
 
+    /**
+     * @vcr testCustomerPersonCreate.yml
+     */
     function testCustomerPersonCreate()
     {
         $this->_createPersonCustomer();
     }
 
+    /**
+     * @vcr testCustomerBusinessCreate.yml
+     */
     function testCustomerBusinessCreate()
     {
         $this->_createBusinessCustomer();
     }
 
+    /**
+     * @vcr testCustomerAddCard.yml
+     */
     function testCustomerAddCard()
     {
         $customer = $this->_createPersonCustomer();
@@ -901,6 +1030,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($active_card);
     }
 
+    /**
+     * @vcr testCustomerAddBankAccount.yml
+     */
     function testCustomerAddBankAccount()
     {
         $customer = $this->_createBusinessCustomer();
@@ -917,6 +1049,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($active_bank_account);
     }
 
+    /**
+     * @vcr testCustomerCreditDebit.yml
+     */
     function testCustomerCreditDebit()
     {
         $buyer = $this->_createPersonCustomer();
@@ -945,6 +1080,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($credit->destination->id, $bank_account->id);
     }
 
+    /**
+     * @vcr testDeleteCard.yml
+     */
     function testDeleteCard()
     {
         $card = self::_createCard();
@@ -953,12 +1091,18 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * @vcr testGetDeletedCard.yml
+     */
     function testGetDeletedCard()
     {
         $card_href = $this->testDeleteCard();
         Card::get($card_href);
     }
 
+    /**
+     * @vcr testReversal.yml
+     */
     function testReversal()
     {
         $buyer = $this->_createBuyer();
@@ -975,6 +1119,9 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($reverse->amount, 1000);
     }
 
+    /**
+     * @vcr testSourceHREF.yml
+     */
     function testSourceHREF()
     {
         $customer = $this->_createPersonCustomer();

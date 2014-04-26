@@ -18,6 +18,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*",
+        "php-vcr/php-vcr": "dev-master",
+        "php-vcr/phpunit-testlistener-vcr": "1.*",
         "twig/twig": "1.*"
     },
     "autoload": {

@@ -1,0 +1,83 @@
+
+-
+    request:
+        method: POST
+        url: 'https://api.balancedpayments.com/cards'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: application/json
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '100'
+        body: '{"expiration_month":"12","expiration_year":"2020","number":"6500000000000002","security_code":"123"}'
+    response:
+        status: 201
+        headers:
+            access-control-allow-headers: Content-Type
+            access-control-allow-methods: 'POST, OPTIONS'
+            access-control-allow-origin: '*'
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:43:52 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHMa2fc4968cc7f11e3ba9202a1fe52a36c
+            x-balanced-host: bapi-integration-prod-8u30f7-10-3-4-8
+            x-balanced-marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            x-balanced-merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            x-balanced-revision: '1.1'
+            x-balanced-software-build: 1.0.132
+            X-Midlr-Version: '2'
+            x-newrelic-app-data: PxQFWFNXCQYTVVhWAwQDVUYdFhE1AwE2QgNWEVlbQFtcCxYxSBVbDQoZVA4IF0pcXAgEEBhSVhQAQhhQEAMCFlVAFEIIFBQCHVELVQJQAVNVAgBQU1YPBQFTTUIEAQ5KRBNQBVNeAlBRAQ1UXAENVAQEG00RB1IOF1Nq
+            Content-Length: '1062'
+            Connection: keep-alive
+        body: "{\n  \"cards\": [\n    {\n      \"cvv_match\": null,\n      \"links\": {\n        \"customer\": null\n      },\n      \"name\": null,\n      \"expiration_year\": 2020,\n      \"avs_street_match\": null,\n      \"is_verified\": true,\n      \"created_at\": \"2014-04-25T13:43:52.250696Z\",\n      \"cvv_result\": null,\n      \"brand\": \"Discover\",\n      \"number\": \"xxxxxxxxxxxx0002\",\n      \"updated_at\": \"2014-04-25T13:43:52.250698Z\",\n      \"id\": \"CC4XZ2Nlo52uN1J7lst0S4VT\",\n      \"expiration_month\": 12,\n      \"cvv\": null,\n      \"meta\": {},\n      \"href\": \"/cards/CC4XZ2Nlo52uN1J7lst0S4VT\",\n      \"address\": {\n        \"city\": null,\n        \"line2\": null,\n        \"line1\": null,\n        \"state\": null,\n        \"postal_code\": null,\n        \"country_code\": null\n      },\n      \"fingerprint\": \"7ebb507b0359c24ff3b5685160f307e9dabaf58df3b116d951eaf0147fc83f25\",\n      \"avs_postal_match\": null,\n      \"avs_result\": null\n    }\n  ],\n  \"links\": {\n    \"cards.card_holds\": \"/cards/{cards.id}/card_holds\",\n    \"cards.customer\": \"/customers/{cards.customer}\",\n    \"cards.debits\": \"/cards/{cards.id}/debits\"\n  }\n}"
+-
+    request:
+        method: POST
+        url: 'https://api.balancedpayments.com/cards/CC4XZ2Nlo52uN1J7lst0S4VT/debits'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: application/json
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '90'
+        body: '{"amount":5566,"appears_on_statement_as":null,"description":null,"meta":null,"order":null}'
+    response:
+        status: 201
+        headers:
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:43:53 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHMa39929f4cc7f11e3b0f902b12035401b
+            X-Balanced-Host: bapi-integration-prod-8u30f7-10-3-5-201
+            X-Balanced-Marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            X-Balanced-Merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            X-Balanced-Revision: '1.1'
+            X-Balanced-Software-Build: 1.0.132
+            Content-Length: '977'
+            Connection: keep-alive
+        body: "{\n  \"debits\": [\n    {\n      \"status\": \"succeeded\",\n      \"description\": null,\n      \"links\": {\n        \"customer\": null,\n        \"source\": \"CC4XZ2Nlo52uN1J7lst0S4VT\",\n        \"order\": null,\n        \"dispute\": null\n      },\n      \"updated_at\": \"2014-04-25T13:43:53.802266Z\",\n      \"created_at\": \"2014-04-25T13:43:53.068005Z\",\n      \"transaction_number\": \"W102-175-4204\",\n      \"failure_reason\": null,\n      \"currency\": \"USD\",\n      \"amount\": 5566,\n      \"failure_reason_code\": null,\n      \"meta\": {},\n      \"href\": \"/debits/WD4YU159zfPZsY9pKnkcF0KZ\",\n      \"appears_on_statement_as\": \"BAL*example.com\",\n      \"id\": \"WD4YU159zfPZsY9pKnkcF0KZ\"\n    }\n  ],\n  \"links\": {\n    \"debits.customer\": \"/customers/{debits.customer}\",\n    \"debits.dispute\": \"/disputes/{debits.dispute}\",\n    \"debits.source\": \"/resources/{debits.source}\",\n    \"debits.order\": \"/orders/{debits.order}\",\n    \"debits.refunds\": \"/debits/{debits.id}/refunds\",\n    \"debits.events\": \"/debits/{debits.id}/events\"\n  }\n}"
+-
+    request:
+        method: GET
+        url: 'https://api.balancedpayments.com/debits/WD4YU159zfPZsY9pKnkcF0KZ'
+        headers:
+            Host: api.balancedpayments.com
+            Content-Type: ''
+            User-Agent: balanced-php/1.0
+            Accept: 'application/vnd.balancedpayments+json; version=1.1, application/vnd.api+json'
+            Content-Length: '0'
+    response:
+        status: 200
+        headers:
+            Content-Type: application/json
+            Date: 'Fri, 25 Apr 2014 13:43:54 GMT'
+            Server: ngx_openresty/1.2.6.3
+            X-Balanced-Guru: OHMa4a9bebccc7f11e38d4506429171ffad
+            X-Balanced-Host: bapi-integration-prod-8u30f7-10-3-5-201
+            X-Balanced-Marketplace: TEST-MP6hnN89mcBZlNDXOhLIUr1f
+            X-Balanced-Merchant: TEST-MR6e0Yi3FIR8VrXL96JzvSsd
+            X-Balanced-Revision: '1.1'
+            X-Balanced-Software-Build: 1.0.132
+            Content-Length: '977'
+            Connection: keep-alive
+        body: "{\n  \"debits\": [\n    {\n      \"status\": \"succeeded\",\n      \"description\": null,\n      \"links\": {\n        \"customer\": null,\n        \"source\": \"CC4XZ2Nlo52uN1J7lst0S4VT\",\n        \"order\": null,\n        \"dispute\": null\n      },\n      \"updated_at\": \"2014-04-25T13:43:53.802266Z\",\n      \"created_at\": \"2014-04-25T13:43:53.068005Z\",\n      \"transaction_number\": \"W102-175-4204\",\n      \"failure_reason\": null,\n      \"currency\": \"USD\",\n      \"amount\": 5566,\n      \"failure_reason_code\": null,\n      \"meta\": {},\n      \"href\": \"/debits/WD4YU159zfPZsY9pKnkcF0KZ\",\n      \"appears_on_statement_as\": \"BAL*example.com\",\n      \"id\": \"WD4YU159zfPZsY9pKnkcF0KZ\"\n    }\n  ],\n  \"links\": {\n    \"debits.customer\": \"/customers/{debits.customer}\",\n    \"debits.dispute\": \"/disputes/{debits.dispute}\",\n    \"debits.source\": \"/resources/{debits.source}\",\n    \"debits.order\": \"/orders/{debits.order}\",\n    \"debits.refunds\": \"/debits/{debits.id}/refunds\",\n    \"debits.events\": \"/debits/{debits.id}/events\"\n  }\n}"
