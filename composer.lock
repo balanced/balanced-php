@@ -7,7 +7,7 @@
     "packages": [
         {
             "name": "matthewfl/restful",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matthewfl/restful.git",
