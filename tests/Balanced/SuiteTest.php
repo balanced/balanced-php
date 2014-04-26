@@ -829,7 +829,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Balanced\Errors\Error
+     * @expectedException \RESTful\Exceptions\HTTPError
      */
     function testUriWithSpaceReturnsStatusCode400()
     {
