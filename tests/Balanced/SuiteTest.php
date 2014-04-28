@@ -831,7 +831,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \RESTful\Exceptions\HTTPError
      */
-    function testUriWithSpaceReturnsStatusCode400()
+    function testUriWithSpaceReturnsStatusCode404()
     {
         try {
             $card = Card::get('fake uri');
