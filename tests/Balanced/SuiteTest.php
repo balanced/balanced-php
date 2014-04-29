@@ -829,6 +829,20 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @expectedException \RESTful\Exceptions\HTTPError
+     */
+    function testUriWithSpaceReturnsStatusCode404()
+    {
+        try {
+            $card = Card::get('fake uri');
+        } catch (Exception $e) {
+            printf("Caught exception, %s\n", $e->status_code);
+        }
+        $http_code = $e->status_code;
+        $this->assertEquals($http_code, 404);
+    }
+
+    /**
      * @expectedException \Balanced\Errors\BankAccountVerificationFailure
      */
     function testBankAccountVerificationDuplicate()
