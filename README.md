@@ -160,7 +160,7 @@ Or if you'd like to skip network calls:
 
 ## Documentation scenarios
 
-Each scenario  lives in the scenarios directory and is comprised of the following:
+Each scenario lives in the scenarios directory and is comprised of the following:
 
 - definition.php - Method definition
 - request.php - Scenario code

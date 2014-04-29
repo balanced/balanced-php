@@ -1,4 +1,4 @@
-## 1.1.1
+## 1.1.2
 
 * Corrects malformed error messages when passing invalid URIs
 
