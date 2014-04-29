@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "484212913935da84e4a8c84f1c8137e3",
+    "hash": "c183deaf339cc39fc1e6e533e5a105e5",
     "packages": [
         {
             "name": "matthewfl/restful",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matthewfl/restful.git",
-                "reference": "a54ce25140f95a87525264f7e3d803f842597217"
+                "reference": "e609dd966f6fea3fc1e330ab663243dffe7de581"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matthewfl/restful/zipball/a54ce25140f95a87525264f7e3d803f842597217",
-                "reference": "a54ce25140f95a87525264f7e3d803f842597217",
+                "url": "https://api.github.com/repos/matthewfl/restful/zipball/e609dd966f6fea3fc1e330ab663243dffe7de581",
+                "reference": "e609dd966f6fea3fc1e330ab663243dffe7de581",
                 "shasum": ""
             },
             "require": {
@@ -349,16 +349,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "3.7.34",
+            "version": "3.7.35",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "248d6ce95e6ca7f0e3135252c0b984bbe1f52f19"
+                "reference": "83f9537e46346f75ed6925441ac259453213c7cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/248d6ce95e6ca7f0e3135252c0b984bbe1f52f19",
-                "reference": "248d6ce95e6ca7f0e3135252c0b984bbe1f52f19",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/83f9537e46346f75ed6925441ac259453213c7cc",
+                "reference": "83f9537e46346f75ed6925441ac259453213c7cc",
                 "shasum": ""
             },
             "require": {
@@ -419,7 +419,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-03-28 11:04:36"
+            "time": "2014-04-21 06:25:54"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
