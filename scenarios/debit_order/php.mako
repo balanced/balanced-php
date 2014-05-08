@@ -1,4 +1,4 @@
-git%if mode == 'definition':
+%if mode == 'definition':
 Balanced\Order->debitFrom()
 
 % else:
