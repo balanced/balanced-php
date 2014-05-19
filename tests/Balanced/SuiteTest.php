@@ -78,14 +78,36 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     static function _createCardwithDispute($customer= null)
     {
         $card = self::$marketplace->cards->create(array(
-        "expiration_month" => "12",
-        "expiration_year" => "2020",
-        "number" => "6500000000000002",
-        "security_code" => "123",
+            "expiration_month" => "12",
+            "expiration_year" => "2020",
+            "number" => "6500000000000002",
+            "security_code" => "123"
         ));
         if ($customer != null) {
             $card->associateToCustomer($customer);
         }
+        return $card;
+    }
+
+    static function _createCreditableCard()
+    {
+        $card = self::$marketplace->cards->create(array(
+            "name" => "Johannes Bach",
+            "number" => "4342561111111118",
+            "expiration_month" => "05",
+            "expiration_year" => "2020"
+        ));
+        return $card;
+    }
+
+    static function _createNonCreditableCard()
+    {
+        $card = self::$marketplace->cards->create(array(
+            "name" => "Georg Telemann",
+            "number" => "4111111111111111",
+            "expiration_month" => "12",
+            "expiration_year" => "2020"
+        ));
         return $card;
     }
 
@@ -485,6 +507,105 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
             null
         );
         $this->assertEquals($credit->destination->id, $bank_account1->id);
+    }
+
+    function testCreditExistingCard()
+    {
+        $buyer = self::_createBuyer();
+        $buyer->cards->first()->debit(250000); # NOTE: build up escrow balance to credit
+        $card = self::_createCreditableCard();
+        $credit = $card->credit(
+            250000,
+            'Order #1111',
+            null,
+            null
+        );
+
+        $this->assertEquals($credit->destination->id, $card->id);
+        $this->assertEquals($credit->status, "succeeded");
+        $this->assertEquals($credit->amount, 250000);
+    }
+
+    function testCreditCardInRequest()
+    {
+        $marketplace = \Balanced\Marketplace::mine();
+        $buyer = self::_createBuyer();
+        $buyer->cards->first()->debit(250000); # NOTE: build up escrow balance to credit
+        $card = self::_createCreditableCard();
+        $credit = $marketplace->credits->create(array(
+            "amount" => 250000,
+            "destination" => array(
+                "name" => "Johannes Bach",
+                "number" => "4342561111111118",
+                "expiration_month" => "12",
+                "expiration_year" => "2020"
+            ),
+            "description" => 'Some descriptive text.'
+        ));
+        $this->assertEquals($credit->status, "succeeded");
+        $this->assertEquals($credit->amount, 250000);
+        $this->assertEquals($credit->destination->name, "Johannes Bach");
+    }
+
+    function testCreditCardCanCreditFalse()
+    {
+        $buyer = self::_createBuyer();
+        $buyer->cards->first()->debit(250000); # NOTE: build up escrow balance to credit
+        $card = self::_createNonCreditableCard();
+        try {
+            $credit = $card->credit(
+                250000,
+                'Order #1111',
+                null,
+                null
+            );
+            $this->fail('Should not be able to credit this Card');
+        }
+        catch (\Balanced\Errors\FundingInstrumentNotCreditable $e) {}
+    }
+
+    function testCreditCardLimit()
+    {
+        $buyer = self::_createBuyer();
+        $buyer->cards->first()->debit(250005); # NOTE: build up escrow balance to credit
+        $card = self::_createCreditableCard();
+
+        try {
+            $credit = $card->credit(
+                250001,
+                'Order #1111',
+                null,
+                null
+            );
+            $this->fail('Should not be able to credit > 250000');
+        }
+        catch (\Balanced\Errors\Error $e) {
+            $this->assertEquals($e->status_code, 409);
+            $this->assertEquals($e->category_code, "amount-exceeds-limit");
+        }
+    }
+
+    function testCreditCardRequireName()
+    {
+        $marketplace = \Balanced\Marketplace::mine();
+        $buyer = self::_createBuyer();
+        $buyer->cards->first()->debit(250000); # NOTE: build up escrow balance to credit
+        $card = self::_createCreditableCard();
+        try {
+            $credit = $marketplace->credits->create(array(
+                "amount" => 250000,
+                "destination" => array(
+                    "number" => "4342561111111118",
+                    "expiration_month" => "12",
+                    "expiration_year" => "2020"
+                ),
+                "description" => 'Some descriptive text.'
+            ));
+        }
+        catch (\Balanced\Errors\Error $e) {
+            $this->assertEquals($e->status_code, 400);
+            $this->assertEquals($e->category_code, "request");
+        }
     }
 
     function testAssociateCard()

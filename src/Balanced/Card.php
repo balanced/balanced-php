@@ -51,6 +51,26 @@ class Card extends Resource
         ));
     }
 
+    public function credit(
+        $amount,
+        $appears_on_statement_as = null,
+        $description = null,
+        $meta = null,
+        $order = null)
+    {
+        if (! isset($this->credits)) {
+            throw new \Balanced\Errors\FundingInstrumentNotCreditable();
+        }
+
+        return $this->credits->create(array(
+            'amount' => $amount,
+            'appears_on_statement_as' => $appears_on_statement_as,
+            'description' => $description,
+            'meta' => $meta,
+            'order' => $order
+        ));
+    }
+
     public function hold(
         $amount,
         $description = null,
