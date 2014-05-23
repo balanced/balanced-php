@@ -1,3 +1,7 @@
+## 1.2.0
+
+* Push to card support
+
 ## 1.1.2
 
 * Corrects malformed error messages when passing invalid URIs
