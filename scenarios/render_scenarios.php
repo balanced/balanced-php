@@ -80,6 +80,24 @@ EOT;
                 $scenario_cache = $this->scenarios_cache[$this->scenario];
                 $loader = new Twig_Loader_Filesystem(__dir__ . "/" . $this->scenario);
                 $twig = new Twig_Environment($loader);
+                $payload_to_hash = new Twig_SimpleFunction('payload_to_hash', function ($payload) {
+                    $formatted_payload = "";
+                    foreach ($payload as $k => $v)
+                        if (is_array($v)) {
+                            $formatted_payload = "  " . $formatted_payload . "'" . $k . "'" .
+                                " => array( " . "\n" ;
+                            foreach ($v as $a => $b)
+                                $formatted_payload = $formatted_payload . "     '" . $a . "'" .
+                                    " => " . "'" . $b . "'" . ', ' ;
+                            $formatted_payload = $formatted_payload . "\n" . '  ), '  ;
+                            }
+                        else {
+                            $formatted_payload = $formatted_payload . "\n" . "  '" . $k . "'" .
+                                " => " . "'" . $v . "'" . ','  ;
+                        }
+                    return $formatted_payload;
+                });
+                $twig->addFunction($payload_to_hash);
                 $template = $twig->loadTemplate('request.php');
                 return $template->render($scenario_cache);
             }
