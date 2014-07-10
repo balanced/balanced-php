@@ -16,8 +16,8 @@ The design of this library was heavily influenced by [Httpful](https://github.co
 ## Requirements
 
 - [PHP](http://www.php.net) >= 5.3 **with** [cURL](http://www.php.net/manual/en/curl.installation.php)
-- [RESTful](https://github.com/matthewfl/restful) == 1.0.0
-- [Httpful](https://github.com/nategood/httpful) >= 0.1
+- [RESTful](https://github.com/matthewfl/restful) >= 1.0.x
+- [Httpful](https://github.com/nategood/httpful) >= 0.2.x
 
 ## Issues
 
@@ -105,32 +105,11 @@ require(__DIR__ . "/balanced/bootstrap.php")
 
 ## Quickstart
 
-```bash
-curl -s http://getcomposer.org/installer | php
-
-echo '
-{
-    "require": {
-        "balanced/balanced": "1.*"
-    }
-}
-' > composer.json
-
-php composer.phar install
-
-curl https://raw.github.com/balanced/balanced-php/master/example/example.php > example.php
-
-php example.php
-
-curl https://raw.github.com/balanced/balanced-php/master/example/buyer-example.php > buyer-example.php
-
-php -S 127.0.0.1:9321 buyer-example.php
-# now open a browser and go to http://127.0.0.1:9321/ to view how to tokenize cards and add to a buyer
-```
+Refer to the [Quickstart guide](https://docs.balancedpayments.com/1.1/guides/quickstart) in the Balanced Documentation.
 
 ## Usage
 
-See https://www.balancedpayments.com/docs/overview?language=php for tutorials and documentation.
+See https://docs.balancedpayments.com/overview?language=php for guides and documentation.
 
 ## Testing
 
