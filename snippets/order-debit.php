@@ -1,6 +1,6 @@
 <?php
 $order->debitFrom(
     $card,
-    "10000"
+    10000
 );
 ?>

@@ -1,6 +1,6 @@
 <?php
 $order->creditTo(
     $bank_account,
-    "8000"
+    8000
 );
 ?>
