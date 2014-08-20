@@ -1,4 +1,4 @@
 <?php
-$credit = $order->credits->first();
+$credit = Balanced\Credit::get($credit_href);
 $credit->reversals->create();
 ?>
