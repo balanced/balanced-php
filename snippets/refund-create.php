@@ -1,6 +1,6 @@
 <?php
 // $debit_href is the stored href for the Debit
-//$order_href is the stored href for the Order
+// $order_href is the stored href for the Order
 $debit = Balanced\Debit::get($debit_href);
 $debit->refunds->create(array(
     'description' => 'Refund for Order #1111',
