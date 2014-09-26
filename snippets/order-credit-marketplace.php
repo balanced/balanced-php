@@ -1,6 +1,7 @@
 <?php
-Balanced\Marketplace::mine()->owner_customer->bank_accounts->query()->first()->credits->create(array(
-    "amount" => "2000",
-    "description" => "Credit from order escrow to marketplace bank account",
-));
+$marketplace_account = Balanced\Marketplace::mine()->owner_customer->bank_accounts->query()->first();
+$order->creditTo(
+    $marketplace_account,
+    "2000"
+);
 ?>
