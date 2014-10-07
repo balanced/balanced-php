@@ -10,7 +10,7 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-aUV295IugdhWSNx2JFckYBCSvfY2ibgq";
+Balanced\Settings::$api_key = "ak-test-19GwHG7jYR8FFKR9rBIVyiY1uXBemYVov";
 
 $marketplace = Balanced\Marketplace::mine();
 $customer = $marketplace->customers->create(array(

@@ -6,8 +6,8 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-22IOkhevjZlmRP2do6CZixkkDshTiOjTV";
+Balanced\Settings::$api_key = "ak-test-19GwHG7jYR8FFKR9rBIVyiY1uXBemYVov";
 
-$credit = Balanced\Credit::get("/credits/CR4yt4sdkTWI1t3HVS16mNAV");
+$credit = Balanced\Credit::get("/credits/CR3SotWjYad0o0D8BJ5IusER");
 
 ?>

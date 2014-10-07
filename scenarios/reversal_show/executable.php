@@ -6,8 +6,8 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-22IOkhevjZlmRP2do6CZixkkDshTiOjTV";
+Balanced\Settings::$api_key = "ak-test-19GwHG7jYR8FFKR9rBIVyiY1uXBemYVov";
 
-Balanced\Reversal::get("/reversals/RV6qrEOTouLeIJuPu4s73Ra1");
+Balanced\Reversal::get("/reversals/RV4SFRwPUB4d0wNKELBu9mms");
 
 ?>

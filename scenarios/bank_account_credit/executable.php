@@ -6,9 +6,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-22IOkhevjZlmRP2do6CZixkkDshTiOjTV";
+Balanced\Settings::$api_key = "ak-test-19GwHG7jYR8FFKR9rBIVyiY1uXBemYVov";
 
-$bank_account = Balanced\BankAccount::get("/bank_accounts/BA3Y63fK5STwlhKNMkE3Utmd");
+$bank_account = Balanced\BankAccount::get("/bank_accounts/BA3iL1FdIp8TtqE1wGrB52hi");
 $bank_account->credits->create(array(
     "amount" => "5000",
 ));
