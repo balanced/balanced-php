@@ -77,8 +77,8 @@ $ unzip httpful.zip; mv nategood-httpful* httpful; rm httpful.zip
 Download [RESTful](https://github.com/matthewfl/restful) source:
 
 ```bash
-$ curl -s -L -o restful.zip https://github.com/matthewfl/restful/zipball/master;
-$ unzip restful.zip; mv matthewfl-restful* restful; rm restful.zip
+$ curl -s -L -o restful.zip https://github.com/matthewfl/restful/archive/v1.0.3.zip;
+$ unzip restful.zip; mv restful-1.0.3* restful; rm restful.zip
 ```
 
 Download the Balanced source:
