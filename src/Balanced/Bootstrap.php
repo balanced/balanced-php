@@ -72,6 +72,8 @@ class Bootstrap
         \Balanced\Customer::init();
         \Balanced\Order::init();
         \Balanced\Dispute::init();
+        \Balanced\Account::init();
+        \Balanced\Settlement::init();
 
         self::$initialized = true;
     }
