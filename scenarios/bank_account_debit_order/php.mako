@@ -10,10 +10,10 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-YnjW61zGxEdhpzkBcohFZ2bZhjrdtbDW";
+Balanced\Settings::$api_key = "ak-test-25ZY8HQwZPuQtDecrxb671LilUya5t5G0";
 
-$order = Balanced\Order::get("/orders/OR46RV9HyvE8esnGbLPkJKW4");
-$bank_account = Balanced\BankAccount::get("/bank_accounts/BA1FYgj0UJZfgydhl3X65RKR");
+$order = Balanced\Order::get("/orders/OR5sl2RJVnbwEf45nq5eATdz");
+$bank_account = Balanced\BankAccount::get("/bank_accounts/BA17zYxBNrmg9isvicjz9Ae4");
 $order->debitFrom(
     $bank_account,
     "5000"

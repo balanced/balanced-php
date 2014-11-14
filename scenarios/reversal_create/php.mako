@@ -10,9 +10,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-YnjW61zGxEdhpzkBcohFZ2bZhjrdtbDW";
+Balanced\Settings::$api_key = "ak-test-25ZY8HQwZPuQtDecrxb671LilUya5t5G0";
 
-$credit = Balanced\Credit::get("/credits/CR4iCt4vfl53TYmDVp9g1iXr");
+$credit = Balanced\Credit::get("/credits/CR5DQV6PdifnxDMmethpLIGN");
 $credit->reversals->create();
 
 ?>

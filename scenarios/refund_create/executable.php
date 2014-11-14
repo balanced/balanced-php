@@ -6,9 +6,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-YnjW61zGxEdhpzkBcohFZ2bZhjrdtbDW";
+Balanced\Settings::$api_key = "ak-test-25ZY8HQwZPuQtDecrxb671LilUya5t5G0";
 
-$debit = Balanced\Debit::get("/debits/WD3e9960LpAaeEyGe2Y0SH6g");
+$debit = Balanced\Debit::get("/debits/WD4heQm0HfB6IpymdvsGM8dv");
 
 $debit->refunds->create(array(
     'description' => 'Refund for Order #1111',

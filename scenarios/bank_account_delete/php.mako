@@ -10,9 +10,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-YnjW61zGxEdhpzkBcohFZ2bZhjrdtbDW";
+Balanced\Settings::$api_key = "ak-test-25ZY8HQwZPuQtDecrxb671LilUya5t5G0";
 
-$bank_account = Balanced\BankAccount::get("/bank_accounts/BA1V6LoRzyncAUfMieBGiPUQ");
+$bank_account = Balanced\BankAccount::get("/bank_accounts/BA1D19WqGc3j78IAhFIkasQd");
 $bank_account->unstore();
 
 ?>
