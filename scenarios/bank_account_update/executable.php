@@ -6,9 +6,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-19GwHG7jYR8FFKR9rBIVyiY1uXBemYVov";
+Balanced\Settings::$api_key = "ak-test-YnjW61zGxEdhpzkBcohFZ2bZhjrdtbDW";
 
-$bank_account = Balanced\BankAccount::get("/bank_accounts/BA3aTW6KDCzyhsAE88XGhXHT");
+$bank_account = Balanced\BankAccount::get("/bank_accounts/BA1V6LoRzyncAUfMieBGiPUQ");
 $bank_account->meta = array(
     "facebook.user_id" => "0192837465",
     "my-own-customer-id" => "12345",

@@ -5,8 +5,7 @@
     $dir = "*/request.php";
     
     define("SCENARIO_CACHE_URL", "https://raw.githubusercontent.com/balanced/balanced-docs/master/scenario.cache");
-    
-    getScenarioCache();
+
     
     foreach(glob($dir) as $file) {
         $scenario_name = dirname($file);
@@ -22,17 +21,7 @@
         }
     }
 
-    function getScenarioCache() {
-        if (file_exists("../scenario.cache")) { unlink ("../scenario.cache"); }
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_URL, SCENARIO_CACHE_URL);
-        curl_setopt($ch, CURLOPT_SSLVERSION,3);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $result = curl_exec($ch);
-        curl_close($ch);
-        file_put_contents("../scenario.cache", $result);
-    }
+
     
     class Scenario {
         private $scenario;

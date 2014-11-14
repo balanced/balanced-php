@@ -10,9 +10,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-19GwHG7jYR8FFKR9rBIVyiY1uXBemYVov";
+Balanced\Settings::$api_key = "ak-test-YnjW61zGxEdhpzkBcohFZ2bZhjrdtbDW";
 
-$dispute = Balanced\Dispute::get("/disputes/DT4y0MGYpLyBhlrmqozXp5wc");
+$dispute = Balanced\Dispute::get("/disputes/DT3NtaxpsQ8J6NZgaDrrREXm");
 
 ?>
 %endif
