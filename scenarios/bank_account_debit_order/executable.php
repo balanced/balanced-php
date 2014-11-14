@@ -15,6 +15,4 @@ $order->debitFrom(
     "5000"
 );
 
-
-
 ?>

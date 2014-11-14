@@ -4,4 +4,3 @@ $order->debitFrom(
     $bank_account,
     "{{request.payload.amount}}"
 );
-
