@@ -10,10 +10,10 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-19GwHG7jYR8FFKR9rBIVyiY1uXBemYVov";
+Balanced\Settings::$api_key = "ak-test-25ZY8HQwZPuQtDecrxb671LilUya5t5G0";
 
-$card = Balanced\Card::get("/cards/CC3KykwD9fCcY10zNx28tJrG");
-$card->associateToCustomer("/customers/CU3hKsZgnr26YSfwWrGFehna");
+$card = Balanced\Card::get("/cards/CC3IBNr3erYpVuuZDyWNFfet");
+$card->associateToCustomer("/customers/CU40AyvBB6ny9u3oelCwyc3C");
 
 ?>
 %endif
