@@ -55,4 +55,9 @@ class Customer extends Resource
             'delivery_address' => $delivery_address,
         ));
     }
+
+    public static function payable_account()
+    {
+        return self::query()->filter(Account::$f->account_type->eq('payable'))->first();
+    }
 }

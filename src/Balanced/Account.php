@@ -6,8 +6,8 @@ use Balanced\Resource;
 use \RESTful\URISpec;
 
 /**
- * An Account is a way to pool funds from across multiple Orders
- *
+ * An Account is a funding instrument which has a stored value of funds inside
+ * the Balanced system.
  */
 class Account extends Resource
 {
@@ -19,4 +19,36 @@ class Account extends Resource
         self::$_registry->add(get_called_class());
     }
 
+    public function credit(
+            $amount,
+            $description = null,
+            $meta = null,
+            $appears_on_statement_as = null,
+            $order = null)
+    {
+        return $this->credits->create(array(
+            'amount' => $amount,
+            'description' => $description,
+            'meta' => $meta,
+            'appears_on_statement_as' => $appears_on_statement_as,
+            'order' => $order
+        ));
+
+    }
+
+    public function settle(
+        $funding_instrument,
+        $amount,
+        $appears_on_statement_as = null,
+        $description = null,
+        $meta = null)
+    {
+        return $this->settlements->create(array(
+            'funding_instrument' => $funding_instrument,
+            'amount' => $amount,
+            'appears_on_statement_as' => $appears_on_statement_as,
+            'description' => $description,
+            'meta' => $meta
+        ));
+    }
 }

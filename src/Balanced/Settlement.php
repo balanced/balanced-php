@@ -6,8 +6,8 @@ use Balanced\Resource;
 use \RESTful\URISpec;
 
 /**
- * A Settlement is the action of moving money out of an Account to a bank
- * account.
+ * A Settlement represents a transfer of funds from a sweep account to another
+ * funding instrument.
  *
  */
 class Settlement extends Resource
