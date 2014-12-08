@@ -1,1 +1,1 @@
-Balanced\Credit->reverses->create()
+Balanced\Credit->reversals->create()
