@@ -38,14 +38,12 @@ class Account extends Resource
 
     public function settle(
         $funding_instrument,
-        $amount,
         $appears_on_statement_as = null,
         $description = null,
         $meta = null)
     {
         return $this->settlements->create(array(
             'funding_instrument' => $funding_instrument,
-            'amount' => $amount,
             'appears_on_statement_as' => $appears_on_statement_as,
             'description' => $description,
             'meta' => $meta

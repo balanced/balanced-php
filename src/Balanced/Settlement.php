@@ -16,7 +16,7 @@ class Settlement extends Resource
 
     public static function init()
     {
-        self::$_uri_spec = new URISpec('settlement', 'id', '/');
+        self::$_uri_spec = new URISpec('settlements', 'id', '/');
         self::$_registry->add(get_called_class());
     }
 

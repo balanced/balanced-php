@@ -56,8 +56,8 @@ class Customer extends Resource
         ));
     }
 
-    public static function payable_account()
+    public function payableAccount()
     {
-        return self::query()->filter(Account::$f->account_type->eq('payable'))->first();
+        return $this->accounts->query()->filter(Account::$f->account_type->eq('payable'))->first();
     }
 }
