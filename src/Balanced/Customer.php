@@ -58,6 +58,6 @@ class Customer extends Resource
 
     public function payableAccount()
     {
-        return $this->accounts->query()->filter(Account::$f->account_type->eq('payable'))->first();
+        return $this->accounts->query()->filter(Account::$f->type->eq('payable'))->first();
     }
 }
