@@ -10,9 +10,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-19GwHG7jYR8FFKR9rBIVyiY1uXBemYVov";
+Balanced\Settings::$api_key = "ak-test-2wIOi20ITgc1u1Lw6UM3y5ZZjZ66M8HMf";
 
-$order = Balanced\Order::get("/orders/OR4HPd822i07q1lTitM2iKVG");
+$order = Balanced\Order::get("/orders/OR1ugPYIQ94wAaS439i25QVL");
 $order->description = 'New description for order';
 $order->meta = array(
     "anykey" => "valuegoeshere",

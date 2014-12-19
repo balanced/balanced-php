@@ -6,11 +6,13 @@
     
     define("SCENARIO_CACHE_URL", "https://raw.githubusercontent.com/balanced/balanced-docs/master/scenario.cache");
     
-    getScenarioCache();
-    
+
     foreach(glob($dir) as $file) {
         $scenario_name = dirname($file);
         $scenario_func = new Scenario($scenario_name);
+//        var_dump($scenario_name);
+//        var_dump('---------$scenario_func----------');
+//        var_dump($scenario_func);
         $rendered = $scenario_func->render();
         if ($rendered) {
             $request = $scenario_func->write_executable($rendered);
@@ -22,18 +24,7 @@
         }
     }
 
-    function getScenarioCache() {
-        if (file_exists("../scenario.cache")) { unlink ("../scenario.cache"); }
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_URL, SCENARIO_CACHE_URL);
-        curl_setopt($ch, CURLOPT_SSLVERSION,3);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $result = curl_exec($ch);
-        curl_close($ch);
-        file_put_contents("../scenario.cache", $result);
-    }
-    
+
     class Scenario {
         private $scenario;
         private $scenarios_cache;
@@ -78,6 +69,7 @@ EOT;
         public function render() {
             if (isset($this->scenarios_cache[$this->scenario])) {
                 $scenario_cache = $this->scenarios_cache[$this->scenario];
+
                 $loader = new Twig_Loader_Filesystem(__dir__ . "/" . $this->scenario);
                 $twig = new Twig_Environment($loader);
                 $payload_to_hash = new Twig_SimpleFunction('payload_to_hash', function ($payload) {

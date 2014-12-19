@@ -6,8 +6,8 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-19GwHG7jYR8FFKR9rBIVyiY1uXBemYVov";
+Balanced\Settings::$api_key = "ak-test-2wIOi20ITgc1u1Lw6UM3y5ZZjZ66M8HMf";
 
-Balanced\Customer::get("/customers/CU43vE1p0JhbgZWbd5qvP0ih");
+Balanced\Customer::get("/customers/CU6gruzuRsaAGeHQFU4YweON");
 
 ?>
