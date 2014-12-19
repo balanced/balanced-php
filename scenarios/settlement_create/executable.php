@@ -6,13 +6,13 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-2wIOi20ITgc1u1Lw6UM3y5ZZjZ66M8HMf";
+Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-$account = Balanced\Account::get("/accounts/AT43cMKrvwKEJnV5qX8wCqY0");
+$account = Balanced\Account::get("");
 $account->settlements->create(array(
     "appears_on_statement_as" => "ThingsCo",
     "description" => "Payout A",
-    "funding_instrument" => "/bank_accounts/BA4UZsYXpf2BX97v5WPaT57O",
+    "funding_instrument" => "/bank_accounts/BA3uzbngfVXy1SGg25Et7iKY",
     "meta" => "Array",
 ));
 

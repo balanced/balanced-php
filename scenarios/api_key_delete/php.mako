@@ -10,9 +10,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-2wIOi20ITgc1u1Lw6UM3y5ZZjZ66M8HMf";
+Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-$api_key = Balanced\APIKey::get("/api_keys/AK4e2JjsmVYES9oUwqRYg8hy");
+$api_key = Balanced\APIKey::get("/api_keys/AK2Phglc8FZEbSJWy3H7UeB7");
 $api_key->unstore();
 
 ?>

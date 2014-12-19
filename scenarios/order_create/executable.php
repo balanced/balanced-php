@@ -6,9 +6,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-2wIOi20ITgc1u1Lw6UM3y5ZZjZ66M8HMf";
+Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-$merchant = Balanced\Customer::get("/customers/CU6sIkS1KUtHVoPUBM1Gf72B");
+$merchant = Balanced\Customer::get("/customers/CU4CZc7Xjn8gGJXl1LyzZk7S");
 $order = $merchant->orders->create();
 
 ?>

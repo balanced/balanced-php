@@ -6,9 +6,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-2wIOi20ITgc1u1Lw6UM3y5ZZjZ66M8HMf";
+Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-$refund = Balanced\Refund::get("/refunds/RF6InibH83VMbodkun32mfyU");
+$refund = Balanced\Refund::get("/refunds/RF4NfnDkA4JBeXex8N3ZDhMA");
 $refund->description = "update this description";
 $refund->meta = array(
     "refund.reason" => "user not happy with product",

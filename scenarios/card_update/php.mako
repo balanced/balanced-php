@@ -10,9 +10,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-2wIOi20ITgc1u1Lw6UM3y5ZZjZ66M8HMf";
+Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-$card = Balanced\Card::get("/cards/CC5zxUdioIB0Dc2rjM1PK3Cw");
+$card = Balanced\Card::get("/cards/CC48j1De9eVYELLivrgDeCM8");
 $card->meta = array(
     "facebook.user_id" => "0192837465",
     "my-own-customer-id" => "12345",

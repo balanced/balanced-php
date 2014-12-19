@@ -7,7 +7,7 @@
     define("SCENARIO_CACHE_URL", "https://raw.githubusercontent.com/balanced/balanced-docs/master/scenario.cache");
     
     getScenarioCache();
-
+    
     foreach(glob($dir) as $file) {
         $scenario_name = dirname($file);
         $scenario_func = new Scenario($scenario_name);
@@ -33,7 +33,7 @@
         curl_close($ch);
         file_put_contents("../scenario.cache", $result);
     }
-
+    
     class Scenario {
         private $scenario;
         private $scenarios_cache;
