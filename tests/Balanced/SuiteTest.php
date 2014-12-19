@@ -1119,4 +1119,106 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Balanced\Card',
                                 $customer->cards->first());
     }
+
+    function testAccountCredit()
+    {
+        $buyer = self::_createBuyer();
+        $merchant = self::_createPersonMerchant();
+        $payableAccount = $merchant->payableAccount();
+        $order = $merchant->createOrder();
+        $debit = $order->debitFrom($buyer->cards->first(), 5000);
+        $this->assertEquals($payableAccount->balance, 0);
+        $credit = $payableAccount->credits->create(array(
+            "amount" => 5000,
+            "description" => "Payout for order #1111",
+            'order' => $order->href
+        ));
+        $this->assertEquals(5000, $merchant->payableAccount()->balance);
+    }
+
+    function testSettlement()
+    {
+        $buyer = self::_createBuyer();
+        $merchant = self::_createPersonMerchant();
+        $payableAccount = $merchant->payableAccount();
+        $order = $merchant->createOrder();
+        $debit = $order->debitFrom($buyer->cards->first(), 5000);
+        $this->assertEquals($payableAccount->balance, 0);
+        $credit = $payableAccount->credits->create(array(
+            "amount" => 5000,
+            "description" => "Payout for order #1111",
+            'order' => $order->href
+        ));
+        $settlement = $payableAccount->settlements->create(array(
+           "funding_instrument" => $merchant->bank_accounts->first()->href,
+           "amount" => 5000,
+           "description" => "Payout for order #1111"
+        ));
+        $this->assertEquals($merchant->payableAccount()->balance, 0);
+        $this->assertEquals($settlement->description, "Payout for order #1111");
+        $this->assertEquals($settlement->amount, 5000);
+    }
+
+    function testReverseSettledCredit()
+    {
+        $buyer = self::_createBuyer();
+        $merchant = self::_createPersonMerchant();
+        $payableAccount = $merchant->payableAccount();
+        $order = $merchant->createOrder();
+        $debit = $order->debitFrom($buyer->cards->first(), 5000);
+        $this->assertEquals($payableAccount->balance, 0);
+
+        $credit = $payableAccount->credits->create(array(
+            "amount" => 5000,
+            "description" => "Payout for order #1111",
+            'order' => $order->href
+        ));
+
+        $settlement = $payableAccount->settlements->create(array(
+            "funding_instrument" => $merchant->bank_accounts->first()->href,
+            "amount" => 5000,
+            "description" => "Payout for order #1111"
+        ));
+
+        $order_two = $merchant->createOrder();
+        $debit_two = $order_two->debitFrom($buyer->cards->first(), 5000);
+        $credit = $payableAccount->credits->create(array(
+            "amount" => 5000,
+            "description" => "Payout for order #1111",
+            'order' => $order_two->href
+        ));
+
+        $credit->reverse();
+        $this->assertEquals($merchant->payableAccount()->balance, 0);
+    }
+
+    function testReverseSettledCreditSettlementNegativeBalance()
+    {
+        $buyer = self::_createBuyer();
+        $merchant = self::_createPersonMerchant();
+        $payableAccount = $merchant->payableAccount();
+        $order = $merchant->createOrder();
+        $debit = $order->debitFrom($buyer->cards->first(), 5000);
+        $this->assertEquals($payableAccount->balance, 0);
+        $credit = $payableAccount->credits->create(array(
+            "amount" => 5000,
+            "description" => "Payout for order #1111",
+            'order' => $order->href
+        ));
+        $settlement = $payableAccount->settlements->create(array(
+            "funding_instrument" => $merchant->bank_accounts->first()->href,
+            "amount" => 5000,
+            "description" => "Payout for order #1111"
+        ));
+
+        $credit->reverse();
+        $this->assertEquals($merchant->payableAccount()->balance, -5000);
+
+        $settlement = $payableAccount->settlements->create(array(
+            "funding_instrument" => $merchant->bank_accounts->first()->href,
+            "amount" => 5000,
+            "description" => "Payout for order #1111"
+        ));
+        $this->assertEquals($merchant->payableAccount()->balance, 0);
+    }
 }
