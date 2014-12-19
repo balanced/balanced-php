@@ -10,9 +10,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-25ZY8HQwZPuQtDecrxb671LilUya5t5G0";
+Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-$reversal = Balanced\Reversal::get("/reversals/RV5Fc1aJCtoFdUKBVdErGJed");
+$reversal = Balanced\Reversal::get("/reversals/RV5q7RVGWz47dsBoZGU5OceI");
 $reversal->description = 'update this description';
 $reversal->meta = array(
     "refund.reason" => "user not happy with product",

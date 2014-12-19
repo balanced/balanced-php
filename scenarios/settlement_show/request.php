@@ -1,0 +1,1 @@
+$settlement = Balanced\Settlements::get("{{ request.uri }}");

@@ -6,9 +6,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-25ZY8HQwZPuQtDecrxb671LilUya5t5G0";
+Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-$card = Balanced\Card::get("/cards/CC3IBNr3erYpVuuZDyWNFfet");
-$card->associateToCustomer("/customers/CU40AyvBB6ny9u3oelCwyc3C");
+$card = Balanced\Card::get("/cards/CC4fWSr1PpCAh6mlDzNfr0Gs");
+$card->associateToCustomer("/customers/CU2DRnwOXfbxBlKb5CUWwWJi");
 
 ?>

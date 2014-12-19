@@ -6,8 +6,8 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-25ZY8HQwZPuQtDecrxb671LilUya5t5G0";
+Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-$refund = Balanced\Refund::get("/refunds/RF4n5AfJ8MRB55oTzVWTRoVa");
+$refund = Balanced\Refund::get("/refunds/RF4NfnDkA4JBeXex8N3ZDhMA");
 
 ?>

@@ -6,9 +6,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-25ZY8HQwZPuQtDecrxb671LilUya5t5G0";
+Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-$customer = Balanced\Customer::get("/customers/CU40AyvBB6ny9u3oelCwyc3C");
+$customer = Balanced\Customer::get("/customers/CU4CZc7Xjn8gGJXl1LyzZk7S");
 $customer->unstore();
 
 

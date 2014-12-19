@@ -6,9 +6,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-25ZY8HQwZPuQtDecrxb671LilUya5t5G0";
+Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-$bank_account = Balanced\BankAccount::get("/bank_accounts/BA2gul8YMjFWnFk0fFHXwX6g");
-$bank_account->associateToCustomer("/customers/CU2718cI8PkMdFyPjboZLZfn");
+$bank_account = Balanced\BankAccount::get("/bank_accounts/BA3uzbngfVXy1SGg25Et7iKY");
+$bank_account->associateToCustomer("/customers/CU2DRnwOXfbxBlKb5CUWwWJi");
 
 ?>

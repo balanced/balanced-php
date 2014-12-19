@@ -1,0 +1,1 @@
+$account = Balanced\Account::get("{{ request.uri }}");
