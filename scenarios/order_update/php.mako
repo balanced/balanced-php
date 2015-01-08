@@ -12,7 +12,7 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-$order = Balanced\Order::get("/orders/OR5e6wrps4tp9QarDxWa01O5");
+$order = Balanced\Order::get("/orders/OR57cG7I7627Xl7Mh3OrVNn7");
 $order->description = 'New description for order';
 $order->meta = array(
     "anykey" => "valuegoeshere",

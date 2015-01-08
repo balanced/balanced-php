@@ -8,6 +8,6 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-Balanced\Reversal::get("/reversals/RV5q7RVGWz47dsBoZGU5OceI");
+Balanced\Reversal::get("/reversals/RV5xRK6ZoaXMhboMamfdfm85");
 
 ?>

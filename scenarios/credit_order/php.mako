@@ -12,8 +12,8 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-$order = Balanced\Order::get("/orders/OR2JfBYxYlDAF3L48u9DtIEU");
-$bank_account = Balanced\BankAccount::get("/bank_accounts/BA3uzbngfVXy1SGg25Et7iKY/credits");
+$order = Balanced\Order::get("/orders/OR5e6wrps4tp9QarDxWa01O5");
+$bank_account = Balanced\BankAccount::get("/bank_accounts/BA6g0aWJb8TNd7sXXs17t0Q0/credits");
 $order->creditTo(
     $bank_account,
     "5000"

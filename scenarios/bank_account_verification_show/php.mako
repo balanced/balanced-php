@@ -12,7 +12,7 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-$verification = Balanced\BankAccountVerification::get("/verifications/BZ37ck8caI06gKMmpz70Zt6w");
+$verification = Balanced\BankAccountVerification::get("/verifications/BZ5XxtvPAMXrKcmyaN1DFqfK");
 
 ?>
 %endif
