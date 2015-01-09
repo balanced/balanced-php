@@ -1151,7 +1151,6 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         ));
         $settlement = $payableAccount->settlements->create(array(
            "funding_instrument" => $merchant->bank_accounts->first()->href,
-           "amount" => 5000,
            "description" => "Payout for order #1111"
         ));
         $this->assertEquals($merchant->payableAccount()->balance, 0);
@@ -1176,7 +1175,6 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
         $settlement = $payableAccount->settlements->create(array(
             "funding_instrument" => $merchant->bank_accounts->first()->href,
-            "amount" => 5000,
             "description" => "Payout for order #1111"
         ));
 
@@ -1207,7 +1205,6 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         ));
         $settlement = $payableAccount->settlements->create(array(
             "funding_instrument" => $merchant->bank_accounts->first()->href,
-            "amount" => 5000,
             "description" => "Payout for order #1111"
         ));
 
@@ -1216,7 +1213,6 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
 
         $settlement = $payableAccount->settlements->create(array(
             "funding_instrument" => $merchant->bank_accounts->first()->href,
-            "amount" => 5000,
             "description" => "Payout for order #1111"
         ));
         $this->assertEquals($merchant->payableAccount()->balance, 0);
