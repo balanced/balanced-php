@@ -12,7 +12,7 @@ $order = Balanced\Order::get("/orders/OR3vURGwVtqDnnkRS9fgH41G");
 $bank_account = Balanced\BankAccount::get("/bank_accounts/BA45anEaEr8g0lOhzhcE9VAN/credits");
 $order->creditTo(
     $bank_account,
-    "5000"
+    5000
 );
 
 

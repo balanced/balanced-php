@@ -16,7 +16,7 @@ $order = Balanced\Order::get("/orders/OR3vURGwVtqDnnkRS9fgH41G");
 $card = Balanced\Card::get("/cards/CC4HDcgvzIltvwv6GSjBVbji");
 $order->creditTo(
     $card,
-    "5000"
+    5000
 );
 
 ?>

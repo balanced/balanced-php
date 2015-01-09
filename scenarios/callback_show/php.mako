@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\Callback::get
+Balanced\Callback::get()
 
 % else:
 <?php

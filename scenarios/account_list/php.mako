@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\Marketplace::mine()->accounts
+Balanced\Marketplace::mine()->accounts->query()
 
 % else:
 <?php

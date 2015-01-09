@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\Card::get
+Balanced\Card::get()
 
 % else:
 <?php

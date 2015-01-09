@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\Event::get
+Balanced\Event::get()
 
 % else:
 <?php

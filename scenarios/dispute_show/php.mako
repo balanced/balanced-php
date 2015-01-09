@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\Dispute::get
+Balanced\Dispute::get()
 
 % else:
 <?php

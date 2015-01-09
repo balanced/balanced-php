@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\Refund::get
+Balanced\Refund::get()
 
 % else:
 <?php

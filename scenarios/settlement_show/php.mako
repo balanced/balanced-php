@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\Settlements::get
+Balanced\Settlements::get()
 
 % else:
 <?php

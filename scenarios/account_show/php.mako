@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\Account::get
+Balanced\Account::get()
 
 % else:
 <?php

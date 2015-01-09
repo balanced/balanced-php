@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\Debit::get
+Balanced\Debit::get()
 
 % else:
 <?php

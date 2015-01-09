@@ -1,1 +1,1 @@
-Balanced\Callback::get
+Balanced\Callback::get()

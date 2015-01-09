@@ -1,1 +1,1 @@
-Balanced\BankAccount::get
+Balanced\BankAccount::get()

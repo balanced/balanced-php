@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\BankAccountVerification::get
+Balanced\BankAccountVerification::get()
 
 % else:
 <?php
