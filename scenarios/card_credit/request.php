@@ -2,9 +2,9 @@ $card = Balanced\Card::get("{{request.card_href}}");
 $card->credits->create(array(
 {% for k, v in request.payload %}
 {% if k == "amount" %}
-"{{ k }}" => {{ v }},
+    "{{ k }}" => {{ v }},
 {% else %}
-"{{ k }}" => "{{ v }}",
+    "{{ k }}" => "{{ v }}",
 {% endif %}
 {% endfor %}
 ));
