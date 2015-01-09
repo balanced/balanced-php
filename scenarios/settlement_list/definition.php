@@ -1,1 +1,1 @@
-Balanced\Account::mine()->settlements
+Balanced\Marketplace::mine()->settlements->query()
