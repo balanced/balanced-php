@@ -12,7 +12,7 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-Balanced\Customer::get("/customers/CU4wBFaFMi043nnBgRNrgTXa");
+Balanced\Customer::get("/customers/CU3BDNwUxRmQTDTQQatYGqr3");
 
 ?>
 %endif

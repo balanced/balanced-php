@@ -12,7 +12,7 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-$account = Balanced\Account::get("");
+$account = Balanced\Account::get("/accounts/AT2E6Ju62P9AnTJwe0fL5kOI");
 $account->settlements->create(array(
     "appears_on_statement_as" => "ThingsCo",
     "description" => "Payout A",

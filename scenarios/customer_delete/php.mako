@@ -12,7 +12,7 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-$customer = Balanced\Customer::get("/customers/CU4CZc7Xjn8gGJXl1LyzZk7S");
+$customer = Balanced\Customer::get("/customers/CU3MjqyarSxE66kggE8MMtGB");
 $customer->unstore();
 
 

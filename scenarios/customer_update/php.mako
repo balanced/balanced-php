@@ -12,7 +12,7 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-$customer = Balanced\Customer::get("/customers/CU4wBFaFMi043nnBgRNrgTXa");
+$customer = Balanced\Customer::get("/customers/CU3BDNwUxRmQTDTQQatYGqr3");
 $cusotmer->email = 'email@newdomain.com';
 $customer->meta = array(
     "shipping-preference" => "ground",

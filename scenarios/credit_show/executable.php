@@ -8,6 +8,6 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-$credit = Balanced\Credit::get("/credits/CR4ooRjxfFr0h6ubhNyETByJ");
+$credit = Balanced\Credit::get("/credits/CR5pb9ux8RYVNTwcJ3jdVF84");
 
 ?>

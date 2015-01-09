@@ -8,7 +8,7 @@ Balanced\Bootstrap::init();
 
 Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
 
-$payable_account = Balanced\Account::get("");
+$payable_account = Balanced\Account::get("/accounts/AT2E6Ju62P9AnTJwe0fL5kOI");
 $payable_account->credits->create(array(
     "amount" => "1000",
     "appears_on_statement_as" => "ThingsCo",
