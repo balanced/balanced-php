@@ -6,9 +6,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
+Balanced\Settings::$api_key = "ak-test-2eKlj1ZDfAcZSARMf3NMhBHywDej0avSY";
 
-$debit = Balanced\Debit::get("/debits/WD4QE0i532v0eWQ6mCWCASc5");
+$debit = Balanced\Debit::get("/debits/WD5SwXr9jcCfCmmjTH5MCMFD");
 $dispute = $debit->dispute;
 
 ?>

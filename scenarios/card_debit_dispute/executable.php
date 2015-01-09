@@ -6,9 +6,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
+Balanced\Settings::$api_key = "ak-test-2eKlj1ZDfAcZSARMf3NMhBHywDej0avSY";
 
-$card = Balanced\Card::get("/cards/CC4PUCBUQfNqecW8QDsjnOfz");
+$card = Balanced\Card::get("/cards/CC5RRvpnZIg0PWdSphR8xxPa");
 $card->debits->create(array(
     "amount" => "5000",
     "appears_on_statement_as" => "Statement text",

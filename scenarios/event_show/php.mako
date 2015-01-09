@@ -10,9 +10,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
+Balanced\Settings::$api_key = "ak-test-2eKlj1ZDfAcZSARMf3NMhBHywDej0avSY";
 
-$event = Balanced\Event::get("/events/EV96e2da0887f411e4a02d020fe4ae3568");
+$event = Balanced\Event::get("/events/EVc7cbc12497ae11e48e4606debca797bb");
 
 ?>
 %endif

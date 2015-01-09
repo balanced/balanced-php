@@ -10,9 +10,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
+Balanced\Settings::$api_key = "ak-test-2eKlj1ZDfAcZSARMf3NMhBHywDej0avSY";
 
-$customer = Balanced\Customer::get("/customers/CU4CZc7Xjn8gGJXl1LyzZk7S");
+$customer = Balanced\Customer::get("/customers/CU3o1ZAd8Gtxz6ZTIFK9YmsM");
 $accounts = customer->accounts->query()->all();
 
 ?>
