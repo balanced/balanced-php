@@ -6,9 +6,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
+Balanced\Settings::$api_key = "ak-test-2eKlj1ZDfAcZSARMf3NMhBHywDej0avSY";
 
-$credit = Balanced\Credit::get("/credits/CR5pb9ux8RYVNTwcJ3jdVF84");
+$credit = Balanced\Credit::get("/credits/CR4RdgCoOqYhr4sjPdcDjf3T");
 $credit->description = 'New description for credit';
 $credit->meta = array(
     "anykey" => "valuegoeshere",

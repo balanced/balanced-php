@@ -1,1 +1,1 @@
-Balanced\Debit::get
+Balanced\Debit::get()

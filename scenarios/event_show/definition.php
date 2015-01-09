@@ -1,1 +1,1 @@
-Balanced\Event::get
+Balanced\Event::get()

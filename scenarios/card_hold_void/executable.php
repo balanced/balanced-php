@@ -6,9 +6,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
+Balanced\Settings::$api_key = "ak-test-2eKlj1ZDfAcZSARMf3NMhBHywDej0avSY";
 
-$hold = Balanced\CardHold::get("/card_holds/HL2LGQraRykRR3IhnNGqdSNi");
+$hold = Balanced\CardHold::get("/card_holds/HL4u4T2877PfgYwnbhD2XweV");
 $hold->void();
 
 ?>

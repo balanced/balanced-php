@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\Settlements::get
+Balanced\Settlements::get()
 
 % else:
 <?php
@@ -10,9 +10,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
+Balanced\Settings::$api_key = "ak-test-2eKlj1ZDfAcZSARMf3NMhBHywDej0avSY";
 
-$settlement = Balanced\Settlements::get("/settlements/ST5xMBEiT3t2Stt2ia4Svl2d");
+$settlement = Balanced\Settlements::get("/settlements/ST6HmBuLJSEa82oUwId1AShW");
 
 ?>
 %endif

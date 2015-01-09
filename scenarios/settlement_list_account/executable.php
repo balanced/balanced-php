@@ -6,9 +6,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
+Balanced\Settings::$api_key = "ak-test-2eKlj1ZDfAcZSARMf3NMhBHywDej0avSY";
 
-$account = Balanced\Account::get("/accounts/AT2E6Ju62P9AnTJwe0fL5kOI");
+$account = Balanced\Account::get("/accounts/AT3ogJE07IErLJYR510QO6sM");
 $settlements = $account->settlements->query()->all();
 
 ?>

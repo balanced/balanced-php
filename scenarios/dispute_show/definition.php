@@ -1,1 +1,1 @@
-Balanced\Dispute::get
+Balanced\Dispute::get()

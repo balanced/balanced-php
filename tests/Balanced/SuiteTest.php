@@ -721,7 +721,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
         $payload = array(
             'number' => '4111111111111111',
             'expiration_month' => 12,
-            'expiration_year' => 2014,
+            'expiration_year' => 2099,
             'name' => 'Johnny Fresh',
             'address' => array(
                 'postal_code' => '4020054',
@@ -804,14 +804,10 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
     function testBuyerPromoteToMerchant()
     {
         $buyer = self::_createBuyer();
-        $buyer->name = 'William James';
-        $buyer->ssn_last4 = '1234';
-        $buyer->dob_month = '10';
-        $buyer->dob_year = '1988';
-        $buyer->address->line1 = '167 West 74th Street';
-        $buyer->address->postal_code = '10023';
-        $buyer->address->country_code = 'USA';
-        $buyer->phone_number = '+16505551234';
+        $buyer->name = 'Henry Ford';
+        $buyer->dob_month = '07';
+        $buyer->dob_year = '1985';
+        $buyer->address->postal_code = '48120';
 
         $buyer->save();
 
@@ -916,7 +912,7 @@ class SuiteTest extends \PHPUnit_Framework_TestCase
      */
     function testInsufficientFunds()
     {
-        $marketplace = Marketplace::get(self::$marketplace->href);
+        $marketplace = Marketplace::mine();
         $amount = $marketplace->in_escrow + 100;
         $credit = Credit::bankAccount(
             $amount,

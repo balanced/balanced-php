@@ -1,1 +1,1 @@
-Balanced\Refund::get
+Balanced\Refund::get()

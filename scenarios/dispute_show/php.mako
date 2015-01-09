@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\Dispute::get
+Balanced\Dispute::get()
 
 % else:
 <?php
@@ -10,9 +10,9 @@ Httpful\Bootstrap::init();
 RESTful\Bootstrap::init();
 Balanced\Bootstrap::init();
 
-Balanced\Settings::$api_key = "ak-test-1xLFE6RLC1W3P4ePiQDI4UVpRwtKcdfqL";
+Balanced\Settings::$api_key = "ak-test-2eKlj1ZDfAcZSARMf3NMhBHywDej0avSY";
 
-$dispute = Balanced\Dispute::get("/disputes/DT4WXjGGzPSsqYuPfWaKHDsf");
+$dispute = Balanced\Dispute::get("/disputes/DT64FIXm5agnVqfCMHZVe8dR");
 
 ?>
 %endif
