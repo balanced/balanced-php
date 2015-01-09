@@ -1,2 +1,2 @@
 $marketplace = Balanced\Marketplace::mine();
-$accounts = $marketplace->accounts->query()->all();
+$settlements = $marketplace->settlements->query()->all();

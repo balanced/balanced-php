@@ -1,5 +1,5 @@
 %if mode == 'definition':
-Balanced\Account::mine()->settlements
+Balanced\Marketplace::mine()->settlements->query()
 
 % else:
 <?php
@@ -13,7 +13,7 @@ Balanced\Bootstrap::init();
 Balanced\Settings::$api_key = "ak-test-2eKlj1ZDfAcZSARMf3NMhBHywDej0avSY";
 
 $marketplace = Balanced\Marketplace::mine();
-$accounts = $marketplace->accounts->query()->all();
+$settlements = $marketplace->settlements->query()->all();
 
 ?>
 %endif
