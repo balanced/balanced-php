@@ -2,8 +2,6 @@
 .buildpath
 composer.phar
 vendor
-*~
-*#
 # phar
 *.phar
 .DS_Store
